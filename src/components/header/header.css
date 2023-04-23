@@ -3,6 +3,7 @@
     color:white;
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .headerContainer{
@@ -33,16 +34,72 @@
 }
 
 .headerBtn{
-    background-color: #fff;
+    background-color: whitesmoke;
     color: black;
     font-weight: 500;
     border: none;
-    padding: 10px;
+    padding: 10px 0px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 17px;
     border-radius: 5px;
+    width: 160px;
+}
+
+.headerBtn2{
+    background-color:rgb(7, 122, 236);
+    color: white;
+    font-weight: 500;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.headerBtn2:hover{
+    background-color:rgb(4, 109, 213);
 }
 
 .headerBtn:hover{
-    background-color: whitesmoke;
+    background-color: white;
+}
+
+.headerSearch{
+    height: 30px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    border-radius: 25px;
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    max-width: 1024px;
+}
+
+.headerIcon{
+    color:rgb(158, 156, 156);
+}
+
+.headerSearchItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headerSearchInput{
+    border: none;
+    outline: none;
+}
+
+.headerSearchItem{
+    color:rgb(158, 156, 156);
+    cursor: pointer;
+}
+
+.date{
+    position: absolute;
+    top:50px;
 }

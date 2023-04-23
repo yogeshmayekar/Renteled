@@ -1,7 +1,7 @@
 .navbar{
     height:50px;
     background: rgb(7,45,92);
-    background: linear-gradient(90deg, rgba(7,45,92,1) 29%, rgba(37,168,193,1) 76%, rgba(89,194,213,1) 77%, rgba(63,191,207,1) 64%);
+    background: linear-gradient(90deg, rgba(7,45,92,1) 32%, rgba(37,168,193,1) 76%, rgba(89,194,213,1) 77%, rgba(63,191,207,1) 64%);
     display: flex;
     justify-content: center;
 }
