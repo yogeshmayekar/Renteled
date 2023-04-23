@@ -1,0 +1,48 @@
+.header{
+    background-color: rgb(7,45,92);
+    color:white;
+    display: flex;
+    justify-content: center;
+}
+
+.headerContainer{
+    width:100%;
+    max-width:1024px;
+    margin: 20px 0px 100px 0px;
+}
+
+.headerList{
+    display:flex;
+    gap: 50px;
+}
+
+.headerListItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headerListItem.active{
+    border: 1px solid white;
+    padding: 10px;
+    border-radius:20px;
+}
+
+.headerDesc{
+    margin: 20px 0px;
+}
+
+.headerBtn{
+    background-color: #fff;
+    color: black;
+    font-weight: 500;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.headerBtn:hover{
+    background-color: whitesmoke;
+}
