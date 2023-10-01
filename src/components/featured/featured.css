@@ -1,0 +1,36 @@
+.featuredContainer{
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    gap: 25px;
+    z-index: 1;
+}
+
+.featuredImg{
+    width: 100%;
+    object-fit: cover;
+    height: inherit;
+}
+
+.featuredItems{
+    position: relative;
+    color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    height: 250px;
+}
+
+.featuredTitle{
+    position: absolute;
+    bottom: 15px;
+    left: 20px;
+}
+
+.featuredTitle h1{
+    margin: 5px 0;
+}
+
+.featuredTitle h2{
+    margin: 10px 0;
+}

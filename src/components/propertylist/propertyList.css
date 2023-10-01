@@ -1,0 +1,34 @@
+.propertlist{
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+
+}
+
+.properyItems{
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    flex: 1;
+}
+
+.propertyImage{
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.propertTitles{
+    background-color: #d3cdcd;
+}
+
+.propertTitles>h1{
+    font-size: 18px;
+}
+
+.propertTitles>h2{
+    font-size: 14px;
+    font-weight: 300;
+}

@@ -1,9 +1,11 @@
 import React from 'react'
+import Navbar from '../../components/navbar/Navbar';
+import Header from '../../components/header/Header';
+
 function List(){
     return(
         <>
-        <h1>LIST Page</h1>
-    
+        <div><Navbar/><Header/></div>
         </>
     )
 }
