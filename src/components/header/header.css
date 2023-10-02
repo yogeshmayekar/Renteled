@@ -8,7 +8,7 @@
 
 .headerContainer{
     width:100%;
-    max-width:1024px;
+    max-width:1200px;
     margin: 20px 0px 100px 0px;
 }
 
@@ -36,33 +36,37 @@
 .headerBtn{
     background-color: whitesmoke;
     color: black;
-    font-weight: 500;
+    font-weight: 600;
     border: none;
     padding: 10px 0px;
     cursor: pointer;
-    font-size: 17px;
+    font-size: 15px;
     border-radius: 5px;
     width: 160px;
 }
 
 .headerBtn2{
-    background-color:rgb(7, 122, 236);
-    color: white;
+    background-color:rgb(4, 109, 213);
+    color: rgb(255, 255, 255);
     font-weight: 500;
     border: none;
     padding: 8px;
     cursor: pointer;
     font-size: 17px;
     border-radius: 5px;
-    width: 100px;
+    width: 120px;
 }
 
 .headerBtn2:hover{
-    background-color:rgb(4, 109, 213);
+    background-color:rgb(7, 122, 236);
+    transform: scale(1.06);
+    transition: all .1s ease-in-out ;
 }
 
 .headerBtn:hover{
-    background-color: white;
+    background-color: rgb(247, 244, 244);
+    transform: scale(1.06);
+    transition: all .1s ease-in-out ;
 }
 
 .headerSearch{
@@ -72,11 +76,12 @@
     align-items: center;
     justify-content: space-around;
     padding: 10px;
-    border-radius: 25px;
     position: absolute;
     bottom: 25px;
+    border-radius: 2px;
     width: 100%;
-    max-width: 1024px;
+    max-width: 1180px;
+    border: 2px solid rgb(7, 233, 154);
 }
 
 .headerIcon{

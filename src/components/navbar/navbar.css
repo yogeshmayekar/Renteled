@@ -1,14 +1,13 @@
 .navbar{
-    height:50px;
-    background: rgb(7,45,92);
-    background: linear-gradient(90deg, rgba(7,45,92,1) 32%, rgba(37,168,193,1) 76%, rgba(89,194,213,1) 77%, rgba(63,191,207,1) 64%);
+    height:60px;
+    background-color: rgb(7,45,92);
     display: flex;
     justify-content: center;
 }
 
 .navContainer{
    width: 100%;
-   max-width:1024px;
+   max-width:1280px;
    color: white;
    display: flex;
    align-items: center;
@@ -24,11 +23,17 @@
     margin-left: 20px;
     border: none;
     padding: 5px;
-    width: 100px;
+    width: 120px;
     border-radius: 5px;
-    height: 30px;
+    height: 33px;
     cursor: pointer;
-    color: white;
-    font-weight: 500;
-    background-color: #2d3e64;
+    color: rgb(34, 33, 33);
+    font-weight: 600;
+    background-color: whitesmoke;
+}
+
+.navButton:hover{
+    background-color: rgb(247, 244, 244);
+    transform: scale(1.06);
+    transition: all .1s ease-in ;
 }

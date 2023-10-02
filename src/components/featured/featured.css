@@ -1,10 +1,11 @@
 .featuredContainer{
     width: 100%;
-    max-width: 1024px;
-    display: flex;
-    justify-content: space-between;
+    max-width: 1280px;
+    /* display: flex; */
+    /* justify-content: space-between; */
     gap: 25px;
     z-index: 1;
+    margin-top: 20px;
 }
 
 .featuredImg{
@@ -18,7 +19,7 @@
     color: white;
     border-radius: 10px;
     overflow: hidden;
-    height: 250px;
+    height: 350px;
 }
 
 .featuredTitle{
@@ -28,9 +29,9 @@
 }
 
 .featuredTitle h1{
-    margin: 5px 0;
+    margin: 0;
 }
 
 .featuredTitle h2{
-    margin: 10px 0;
+    margin: 5px 0;
 }
