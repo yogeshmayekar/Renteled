@@ -106,7 +106,7 @@
 
 .date{
     position: absolute;
-    top:50px;
+    top:45px;
     z-index: 9;
 }
 
@@ -119,6 +119,7 @@
     box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
     -webkit-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
     -moz-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+    z-index: 10;
 }
 
 .optionsItem{
