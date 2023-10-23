@@ -67,7 +67,7 @@ function Header(){
              </div>
              <h1 className="headerTitle">Looking for a discounts? Get it now</h1>
              <p className="headerDesc">Get rewared for  your room booking - unlock instant savings of 10% or more with a free Renteled account</p>
-             <button className="headerBtn">Sign in / Register</button>
+             <button className="headerBtn">Admin Login</button>
              <div className="headerSearch">
                 <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />

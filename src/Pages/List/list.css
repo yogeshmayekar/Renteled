@@ -88,7 +88,7 @@
   
   .listSearch>button{
     padding: 10px;
-    background-color: rgb(4, 109, 213);
+    background-color:#1AB64F;
     color: white;
     border: none;
     width: 100%;
@@ -97,7 +97,7 @@
     cursor: pointer;
     border-radius: 8px;
     &:hover{
-      background-color: rgb(7, 122, 236);
+      background-color: #13943e;
     }
   }
   
