@@ -8,14 +8,24 @@ function Navbar(){
         e.preventDefault();
     }
 
+    const handleSignIn = (e)=>{
+        navigate("/user/Sign-in");
+        e.preventDefault();
+      }
+      
+      const handleRegister = (e)=>{
+        navigate("/user/Sign-Up");
+        e.preventDefault();
+      }
+
     return(
         <>
         <div className="navbar">
         <div className="navContainer">
            <span className="logo" onClick={takeMeToHomePage}>RENTELED</span> 
            <div className="items">
-            <button className="navButton">Register</button>
-            <button className="navButton">Login</button>
+            <button className="navButton" onClick={handleRegister}>Sign Up</button>
+            <button className="navButton" onClick={handleSignIn}>Sign In</button>
            </div>
         </div>
         </div>

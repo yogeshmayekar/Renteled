@@ -39,6 +39,20 @@ function Header(){
     e.preventDefault()
   }
 
+  const handleSignIn = (e)=>{
+    navigate("/user/Sign-in");
+    e.preventDefault();
+  }
+  
+  const handleRegister = (e)=>{
+    navigate("/user/Sign-Up");
+    e.preventDefault();
+  }
+  const handleAdminLogin = (e)=>{
+    navigate("/user/admin-register");
+    e.preventDefault();
+  }
+
     return(
         <>
         <div className="header">
@@ -67,7 +81,7 @@ function Header(){
              </div>
              <h1 className="headerTitle">Looking for a discounts? Get it now</h1>
              <p className="headerDesc">Get rewared for  your room booking - unlock instant savings of 10% or more with a free Renteled account</p>
-             <button className="headerBtn">Admin Login</button>
+             <button className="headerBtn" onClick={handleAdminLogin}>Admin Login</button>
              <div className="headerSearch">
                 <div className="headerSearchItem">
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
