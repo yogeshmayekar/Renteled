@@ -40,7 +40,7 @@ const SearchItem = () => {
         <div className="siDetailTexts">
           <span className="siPrice">$112</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          <button className="siCheckButton">BOOK NOW</button>
+          <button className="siCheckButton">Check availibility</button>
         </div>
       </div>
     </div>
