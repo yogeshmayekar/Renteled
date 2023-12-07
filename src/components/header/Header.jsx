@@ -87,7 +87,7 @@ function Header(){
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input type="text" placeholder='Where are you going?' className="headerSearchInput" onChange={e=> setDestination(e.target.value)} />
                 </div>
-                <div className="headerSearchItem" onMouseLeave={()=>{setOpenDate(!openDate)}}>
+                <div className="headerSearchItem" onMouseLeave={()=>{setOpenDate(false)}}>
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
                 <span onClick={()=>{setOpenDate(!openDate)}}  className="headerSearchText">{`${format(date[0].startDate, "MM/dd/yyyy")} to ${format(date[0].endDate, "MM/dd/yyyy")}`}</span>
                 {openDate && <DateRange
@@ -98,7 +98,7 @@ function Header(){
                 className='date' 
                 />}
                 </div>
-                <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(!openOptions)}>
+                <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(false)}>
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
                 <span className="headerSearchText" onClick={()=>setOpenOptions(!openOptions)}>{`${options.adult} adult- ${options.children} children- ${options.room} room`}</span>
                 {openOptions && <div className="options">

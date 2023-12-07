@@ -106,6 +106,7 @@ height: 100px;
 .headerSearchItem{
     color:rgb(158, 156, 156);
     cursor: pointer;
+    padding: 10px;
 }
 
 .date{
