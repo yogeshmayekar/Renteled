@@ -14,7 +14,7 @@ const Slider2 = ()=>{
         <div className="splider-container">
         <Splide aria-label="My Favorite Images" className="image42"  options={ {
         gap   : '1.5rem',
-        perPage:2,
+        perPage:3,
       } }>
             <SplideSlide>
                 <img src={image1} alt="" className="image43" />

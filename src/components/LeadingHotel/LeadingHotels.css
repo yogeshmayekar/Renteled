@@ -15,7 +15,7 @@
 .leftConn{
     background-image: url("../../Assets/map2.png");
     width: 100%;
-    height: 60vh;
+    height: 70vh;
 }
 
 .floatTitle1{
@@ -84,3 +84,19 @@
         cursor: pointer;
        }
 }
+
+.floatImg6{
+    display: inline-block;
+    position: relative;
+    z-index: 99999;
+    left: 68%;
+    top: 42%;
+    &:hover{
+        cursor: pointer;
+       }
+}
+
+.firstItem2{
+    border-left: 1px solid #979797;
+}
+

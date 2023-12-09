@@ -15,7 +15,7 @@ function Featured(){
           type: "loop", 
           gap: "1rem",
           autoplay: true,
-          interval: 5000,
+          interval: 3000,
           pauseOnHover: false,
           resetProgress: false,
           perPage: 1,
