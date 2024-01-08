@@ -25,7 +25,25 @@ const BookCard = ()=>{
 
                     <div className='dottedLines'></div>
 
-                    
+                    <div className='totalPrice'>
+                        <div className='finalPrice'>
+                            <span>Total price</span>
+                            <span>₹1620</span>
+                        </div>
+                            <p>Including taxes & fees</p>
+                    </div>
+
+                    <div className='continueToBook'>
+                        <button>Continue to Book</button>
+                    </div>
+
+                    <div className='policyBook'>
+                        <p>Cancellation Policy</p>
+                        <p>Follow safety measures advised at the hotel</p>
+                        <p>By proceeding, you agree to our Guest Policies.</p>
+                    </div>
+
+
                 </div>
             </div>
         
