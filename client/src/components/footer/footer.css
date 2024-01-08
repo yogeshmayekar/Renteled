@@ -1,0 +1,46 @@
+.footerwrapper{
+  width: 100%;
+  margin: 0;
+  background-color: rgb(2, 18, 36);
+  color: white;
+}
+
+.footerContainer{
+    font-size: 17px;
+    width: 100%;
+    margin: 0;
+  }
+  
+  .footerLists{
+    width: 95%;
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+  }
+  
+  .footerList{
+    list-style: none;
+    padding: 0;
+  }
+  
+  .footerListItem{
+    margin-bottom: 10px;
+    color: #003580;
+    cursor: pointer;
+  }
+
+  .fListItem{
+    padding: 6px 10px;
+    cursor: pointer;
+  }
+
+  .fListItem:hover{
+    color: #87aee4;
+  }
+
+
+  .copyRight{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }

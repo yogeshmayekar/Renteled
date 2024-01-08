@@ -1,0 +1,42 @@
+.navbar{
+    height:60px;
+    background-color: rgb(7,45,92);
+    display: flex;
+    justify-content: center;
+}
+
+.navContainer{
+   width: 100%;
+   max-width:1208px;
+   color: white;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+}
+
+.logo{
+    font-weight: 600;
+    cursor: pointer;
+    color: #d1f4f4;
+    font-size: 20px;
+
+}
+
+.navButton{
+    margin-left: 20px;
+    border: none;
+    padding: 5px;
+    width: 120px;
+    border-radius: 5px;
+    height: 33px;
+    cursor: pointer;
+    color: rgb(34, 33, 33);
+    font-weight: 600;
+    background-color: whitesmoke;
+}
+
+.navButton:hover{
+    background-color: rgb(247, 244, 244);
+    transform: scale(1.06);
+    transition: all .1s ease-in ;
+}

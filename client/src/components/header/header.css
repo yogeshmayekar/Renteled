@@ -1,0 +1,152 @@
+.header{
+    background-color: rgb(7,45,92);
+    color:white;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+
+#bgcImage{
+height: 100px;
+}
+.headerContainer{
+    width:100%;
+    max-width:1200px;
+    margin: 20px 0px 100px 0px;
+}
+
+.headerList{
+    display:flex;
+    gap: 50px;
+}
+
+.headerListItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headerListItem.active{
+    border: 1px solid white;
+    padding: 10px;
+    border-radius:20px;
+}
+
+.headerDesc{
+    margin: 20px 0px;
+}
+
+.headerBtn{
+    background-color: whitesmoke;
+    color: black;
+    font-weight: 600;
+    border: none;
+    padding: 10px 0px;
+    cursor: pointer;
+    font-size: 15px;
+    border-radius: 5px;
+    width: 160px;
+}
+
+.headerBtn2{
+    background-color:rgb(4, 109, 213);
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    font-size: 17px;
+    border-radius: 5px;
+    width: 120px;
+}
+
+.headerBtn2:hover{
+    background-color:rgb(7, 122, 236);
+    transform: scale(1.06);
+    transition: all .1s ease-in-out ;
+}
+
+.headerBtn:hover{
+    background-color: rgb(247, 244, 244);
+    transform: scale(1.06);
+    transition: all .1s ease-in-out ;
+}
+
+.headerSearch{
+    height: 30px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 10px;
+    position: absolute;
+    bottom: 25px;
+    border-radius: 2px;
+    width: 100%;
+    max-width: 1180px;
+    border: 2px solid rgb(7, 233, 154);
+}
+
+.headerIcon{
+    color:rgb(158, 156, 156);
+}
+
+.headerSearchItem{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.headerSearchInput{
+    border: none;
+    outline: none;
+}
+
+.headerSearchItem{
+    color:rgb(158, 156, 156);
+    cursor: pointer;
+    padding: 10px;
+}
+
+.date{
+    position: absolute;
+    top:45px;
+    z-index: 9;
+}
+
+.options{
+    position:absolute;
+    top:48px;
+    background-color: #fff;
+    color:grey;
+    border-radius: 5px;
+    box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+    -webkit-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+    -moz-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+    z-index: 10;
+}
+
+.optionsItem{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px;
+    color: black;
+}
+
+.optionCounter{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 12px;
+}
+
+.optionCounterBtn{
+    width:30px;
+    height: 30px;
+    cursor: pointer;
+    border: 1px solid black ;
+    color: rgb(0, 0, 0);
+    background-color: gainsboro;
+}
