@@ -1,0 +1,17 @@
+.signInContainer{
+    background-color: rgb(246, 247, 247);
+    width: 35%;
+    height: fit-content;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 12px;
+}
+
+.closeButton{
+    color:#8f8181;
+    display: inline-block;
+    margin:5px;
+    cursor: pointer;
+}
