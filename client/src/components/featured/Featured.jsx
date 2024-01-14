@@ -6,11 +6,20 @@ import mumbai from '../../Assets/mumbai33.webp';
 import '@splidejs/react-splide/css';
 import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide';
 import './featured.css';
+import useFetch from "../../hooks/useFetch.jsx";
 
 function Featured(){
+    const { data, loading, error } =  useFetch(
+        "/hotels/countByCity?cities=berlin,madrid,london"
+      );
+    //   console.log(data)
     return(
         <div className="featuredContainer">
-            <Splide hasTrack={false}
+            {loading ? (
+        "Loading please wait"
+      ) : (
+        <>
+         <Splide hasTrack={false}
         options={{
           type: "loop", 
           gap: "1rem",
@@ -32,7 +41,7 @@ function Featured(){
                 <img src={jaipur} alt="jaipur" className="featuredImg" />
                 <div className="featuredTitle">
                     <h1>Jaipur</h1>
-                    <h2>543 Properties</h2>
+                    <h2>{data[0]} Properties</h2>
                 </div>
             </div>
                     </SplideSlide>
@@ -41,7 +50,7 @@ function Featured(){
                 <img src={goa} alt="Goa" className="featuredImg" />
                 <div className="featuredTitle">
                     <h1>Goa</h1>
-                    <h2>064 Properties</h2>
+                    <h2>{data[1]} Properties</h2>
                 </div>
             </div>
                     </SplideSlide>
@@ -50,7 +59,7 @@ function Featured(){
                 <img src={bangalore} alt="Bangalore" className="featuredImg" />
                 <div className="featuredTitle">
                     <h1>Bangalore</h1>
-                    <h2>316 Properties</h2>
+                    <h2>{data[2]} Properties</h2>
                 </div>
             </div>
                     </SplideSlide>
@@ -58,12 +67,13 @@ function Featured(){
                 <img src={mumbai} alt="Bangalore" className="featuredImg" />
                 <div className="featuredTitle">
                     <h1>Mumbai</h1>
-                    <h2>528 Properties</h2>
+                    <h2>{data[3]} Properties</h2>
                 </div>
             </div>
                 </SplideTrack>
             </Splide>
-            
+        </>
+      )}     
         </div>
     )
 }

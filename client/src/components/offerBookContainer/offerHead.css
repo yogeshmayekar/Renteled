@@ -1,0 +1,32 @@
+.offerHead{
+    display: flex;
+    padding: 10px 25px;
+    padding-bottom: 5px;
+    border-radius: 10px 10px 0 0 ;
+    gap:20px;
+    background: rgb(26, 23, 84);
+    background: linear-gradient(90deg, rgb(42, 39, 106) 0%, rgb(11, 11, 137) 33%, rgba(0,212,255,1) 100%);
+}
+
+.loginCon1{
+    display: flex; 
+    gap: 12px;
+    font-weight: 600;
+    color: rgb(247, 246, 246);
+    font-size: 13px;
+}
+
+.logoIcon{
+    padding-top: 5px;
+    
+}
+
+.loginButtonCard>button{
+height:30px;
+width: 60px;
+font-weight: 600;
+cursor: pointer;
+border: none;
+outline: none;
+border-radius: 3px;
+}

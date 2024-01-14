@@ -1,31 +1,24 @@
 import React from "react";
 import "./searchItem.css";
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-const SearchItem = () => {
-  const navigate = useNavigate()
-
-  // function to navigate page list to hotel page 
-  const clickMeHotel =(e)=>{
-    navigate("/hotels/1")
-    e.preventDefault()
-  }
+const SearchItem = (props) => {
 
   return (
-    <div className="searchItem" onClick={clickMeHotel}>
+    <div className="searchItem" >
       <img
-        src="../Assets/room1.jpg"
+        src={props.item.photos[0]}
         alt=""
         className="siImg"
       />
       <div className="siDesc">
-        <h1 className="siTitle">Tower Street Apartments</h1>
-        <span className="siDistance">500m from center</span>
+        <h1 className="siTitle">{props.item.name}</h1>
+        <span className="siDistance">{props.item.distance}</span>
         <span className="siSubtitle">
           Studio Apartment with Air conditioning
         </span>
         <span className="siFeatures">
-          Entire studio • 1 bathroom • 21m² 1 full bed
+        {props.item.desc}
         </span>
         <span className="siCancelOp">Free cancellation </span>
         <span className="siCancelOpSubtitle">
@@ -38,9 +31,11 @@ const SearchItem = () => {
           <button>8.9  <span style={{paddingBottom:"10px"}}> &#9733;</span></button>
         </div>
         <div className="siDetailTexts">
-          <span className="siPrice">$112</span>
+          <span className="siPrice">{props.item.cheapestPrice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          <button className="siCheckButton">Check availibility</button>
+          <Link to={`/hotels/${props.item._id}`}>
+            <button className="siCheckButton">Check availibility</button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,49 +1,32 @@
 import "./propertyList.css";
+import useFetch from '../../hooks/useFetch.jsx';
 import hotels from "../../Assets/hotels.jpg";
 import appartments from "../../Assets/appartments.jpg";
 import resort from "../../Assets/resort.jpg";
 import villas from "../../Assets/villas.jpg";
-import cabins from "../../Assets/cabins.jpg"
+import cabins from "../../Assets/cabins.jpg";
 
 const PropertyList = ()=>{
+    const { data, loading, error } =  useFetch("/hotels/countByType");
+
+      const imagesUrl = [hotels, appartments, resort, villas, cabins]
     return (
         <>
         <div className="propertlist">
-            <div className="properyItems">
-                <img src={hotels} alt="" className="propertyImage" />
-                <div className="propertTitles">
-                    <h1>Hotels</h1>
-                    <h2>173 hotels</h2>
-                </div>
-            </div>
-            <div className="properyItems">
-                <img src={appartments} alt="" className="propertyImage" />
-                <div className="propertTitles">
-                    <h1>Apartments</h1>
-                    <h2>173 hotels</h2>
-                </div>
-            </div>
-            <div className="properyItems">
-                <img src={resort} alt="" className="propertyImage" />
-                <div className="propertTitles">
-                    <h1>Resorts</h1>
-                    <h2>173 hotels</h2>
-                </div>
-            </div>
-            <div className="properyItems">
-                <img src={villas} alt="" className="propertyImage" />
-                <div className="propertTitles">
-                    <h1>Villas</h1>
-                    <h2>173 hotels</h2>
-                </div>
-            </div>
-            <div className="properyItems">
-                <img src={cabins} alt="" className="propertyImage" />
-                <div className="propertTitles">
-                    <h1>Cabins</h1>
-                    <h2>173 hotels</h2>
-                </div>
-            </div>
+        {loading ? (
+        "loading"
+      ) : ( <>
+        { data && imagesUrl.map((img, i)=>(
+               <div className="properyItems" key={i}>
+               <img src={img} alt="" className="propertyImage" />
+               <div className="propertTitles">
+                   <h1>{data[i]?.type}</h1>
+                   <h2>{data[i]?.count} {data[i]?.type}</h2>
+               </div>
+           </div> 
+            ))}
+      </>
+        )}
         </div>
         </>
     )

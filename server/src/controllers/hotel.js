@@ -18,17 +18,12 @@ export const createHotel = async(req, res, next)=>{
         description:Joi.string().required(),
         cheapestPrice:Joi.string().required(),
         name:{type: String, require:true},
-        rating:
-    
-
-  
-    rating:{type:Number, min:0, max:5},
-    rooms:{typeof:[String]},
-
-    featured: {type: Boolean, default: false},
+        rating:{type:Number, min:0, max:5},
+        rooms:{typeof:[String]},
+        featured: {type: Boolean, default: false},
     })
 
-    const {error} = registerSchema.validate(req.body);
+    const {error} = hotelSchema.validate(req.body);
 
     if (error){
         return next(error)

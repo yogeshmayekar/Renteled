@@ -26,8 +26,12 @@ function Navbar(){
         <div className="navContainer">
            <span className="logo" onClick={takeMeToHomePage}>RENTELED</span> 
            <div className="items">
-           <button className="navButton" onClick={handleRegister}>Sign Up</button> 
-           <button className="navButton" onClick={handleSignIn}>Sign In</button>
+           {
+            <>
+            <button className="navButton" onClick={handleRegister}>Sign Up</button> 
+            <button className="navButton" onClick={handleSignIn}>Sign In</button>
+            </>
+            }
           </div>           
         </div>
         </div>

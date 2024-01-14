@@ -29,6 +29,7 @@
     font-size: 18px;
     margin: 0;
     margin-left: 3px;
+    text-transform: capitalize;
 }
 
 .propertTitles>h2{

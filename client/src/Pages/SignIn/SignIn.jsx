@@ -6,13 +6,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 // import FormControl from '@mui/material/FormControl';
+import Avatar from '@mui/material/Avatar';
 import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Checkbox from '@mui/material/Checkbox';
+import FormControl from '@mui/material/FormControl';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
@@ -71,15 +74,18 @@ const SignIn = ()=>{
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 5.5,
+            marginTop: 2,
+            marginBotom:1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          
-          <Typography component="h1" variant="h5">
-            Welcome Back!
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5" sx={{textAlign:'center'}}>
+            Sign In with <br></br> <strong> Renteled.com</strong>
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
             <TextField
@@ -105,7 +111,7 @@ const SignIn = ()=>{
             />
             <VisibilityIcon className="visible" />
             </span> */}
-             {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined"> */}
+             <FormControl sx={{ mt: 1 }} variant="outlined" fullWidth>
           <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
           <OutlinedInput
             fullWidth
@@ -125,7 +131,7 @@ const SignIn = ()=>{
             }
             label="Password"
           />
-        {/* </FormControl> */}
+        </FormControl>
             
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -139,7 +145,7 @@ const SignIn = ()=>{
             >
               Sign In
             </Button>
-            <Grid container>
+            <Grid container sx={{mb:5}} >
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Forgot password?

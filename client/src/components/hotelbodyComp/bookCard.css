@@ -1,5 +1,132 @@
 .bookCardContainer{
-    width: 25%;
-    margin:2% 5%;
-    margin-left: 2.5%;
+    width: 28%;
+    margin:3% 0%;
+    margin-left: 2%;
+    height: fit-content;
+}
+
+.bookWrap{
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    background-color: #fffdfd;
+}
+
+.priceWrapper{
+   padding:5% 7%;
+}
+
+.priceWrapper> .price{
+    font-weight: bold;
+    font-size: 25px;
+    color: #302c2c;
+}
+
+.priceWrapper>.markupPrice{
+    margin:0 10px;
+    color: #6a6969;
+}
+.priceWrapper>.discontOffer{
+    font-weight: bold;
+    color: rgb(75, 75, 185);
+}
+
+.priceWrapper>.taxAndFees{
+    margin:5px 0;
+    font-size: 14px;
+    color:#7c7373 ;
+}
+
+.roomDetails{
+    margin:0 7%;
+}
+
+.roomDetails>.dateDetails, .roomDetails>.roomDeta, .roomDetails>.classic{
+    padding :20px 15px;
+    margin:15px 0;
+    box-shadow: rgba(64, 63, 63, 0.2) 0px 2px 8px 0px;
+    color:#726b6b;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.roomDetails>.dateDetails, .roomDetails>.roomDeta{
+    cursor: pointer;
+}
+
+.dottedLines{
+    margin: 30px;
+    border-bottom: 1px dashed rgb(158, 151, 151);
+}
+
+.taxesAndFees, .hotelsFees{
+    margin: 0 7%;
+    display: flex;
+    justify-content: space-between;
+    padding:8px 5px ;
+    font-size: 18px;
+}
+
+.continueToBook{
+    display: flex;
+    justify-content: center;
+}
+
+.continueToBook>button{
+    width: 200px;
+    height: 7vh;
+    font-size: 18px;
+    margin:3% 7%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #0071C2;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    border-radius: 2px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    &:hover{
+        background-color: #1173b9; 
+    }
+}
+
+
+.totalPrice{
+    margin: 0 7%;
+    padding:8px 5px;
+}
+
+.totalPrice>.finalPrice{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+}
+
+.totalPrice>p{
+    margin: 0;
+    padding: 2px;
+    font-size: 13px;
+    color:#7c7373;
+}
+
+.policyBook{
+    margin:2% 7%;
+    padding-bottom: 5%;
+}
+
+.policyBook>p{
+    margin: 0;
+    padding:3px 0;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.policyBook>.cancelPolicy, .policyBook>p{
+    color: rgb(219, 91, 36);
+    cursor: pointer;
+}
+
+#lastSpan{
+    color:rgb(150, 140, 140);
 }
