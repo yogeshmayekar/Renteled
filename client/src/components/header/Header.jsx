@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {useState, useContext} from 'react';
+import {useState, useContext } from 'react';
 import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
@@ -16,24 +16,31 @@ function Header(){
     const [dates, setDates] = useState([
     {
       startDate: new Date(),
-      endDate: new Date(),
+      endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
       key: 'selection'
     }
   ]);
-  const [openOptions, setOpenOptions] = useState(true);
-  const [options, setOptions] = useState({
-    adult:1,
-    room:1
+  const [openOptions, setOpenOptions] = useState(false);
+  const [options, setOptions] = useState({adult:1});
+  const [guestCount, setGuestCount] = useState({
+    "Room 1": 1,
   });
+
+  
  
   const navigate = useNavigate();
 
-  const handleOption=(name, operation)=>{
-    setOptions(prev=>{return {
-      ...prev, [name]: operation === "i" ? options[name]+1 : options[name]-1,
-    }})
+  const getSum = () => {
+    const sum = Object.values(guestCount).reduce((acc, value) => acc + value, 0);
+    return sum
+  };
 
-  }
+  // const handleOption=(name, operation)=>{
+  //   setOptions(prev=>{return {
+  //     ...prev, [name]: operation === "i" ? options[name]+1 : options[name]-1,
+  //   }})
+
+  // }
 
   const { dispatch } = useContext(SearchBarContext);
 
@@ -43,38 +50,51 @@ function Header(){
     e.preventDefault()
   }
 
-  // const handleSignIn = (e)=>{
-  //   navigate("/user/Sign-in");
-  //   e.preventDefault();
-  // }
-  
-  // const handleRegister = (e)=>{
-  //   navigate("/user/Sign-Up");
-  //   e.preventDefault();
-  // }
+
   const handleAdminLogin = (e)=>{
     navigate("/user/admin-register");
     e.preventDefault();
   }
 
-  // var [maxGuestsCount, setmaxGuestsCount] = useState(3);
-  // const handleRoomClick=()=>{
-  //   handleOption("room", "i");
-  //   if(options.adult >= options.room){
-  //     setmaxGuestsCount(maxGuestsCount+3);
-  //   }
-    
-  // }
+    const addNewRoom = ()=>{
+      const newRoomName = `Room ${Object.keys(guestCount).length + 1}`;
+      setGuestCount((prevGuestCount) => ({
+        ...prevGuestCount,
+        [newRoomName]: 1,
+      }));
+    }
 
-  // const removeRoomClick=()=>{
-  //   handleOption("room", "d");
-  //   setmaxGuestsCount(maxGuestsCount-3);
-  //   setOptions((prev)=>({
-  //     ...prev,
-  //     adult: Number(options.adult) - 3
-  //   }));
-  // }
+    const removeRoom=()=>{
+      const keys = Object.keys(guestCount);
 
+      if (keys.length >= 2) {
+      const lastKey = keys[keys.length - 1];
+
+      const updatedObject = { ...guestCount };
+      delete updatedObject[lastKey];
+
+      setGuestCount(updatedObject);
+    }
+  }
+
+    const addGuest=(roomNo, guests)=>{
+      if(guests<=2){
+        setGuestCount((prevGuestCount) => ({
+          ...prevGuestCount,
+          [roomNo]: prevGuestCount[roomNo] + 1,
+        }));
+      }
+      
+    }
+
+    const removeGuest =(roomNo, guests)=>{
+      if(guests>=2){
+        setGuestCount((prevGuestCount) => ({
+          ...prevGuestCount,
+          [roomNo]: prevGuestCount[roomNo] - 1,
+        }));
+      }
+    }
 
     return(
         <>
@@ -110,7 +130,7 @@ function Header(){
                 <FontAwesomeIcon icon={faBed} className="headerIcon" />
                 <input type="text" placeholder='Where are you going?' className="headerSearchInput" onChange={e=> setDestination(e.target.value)} />
                 </div>
-                <div className="headerSearchItem" onMouseLeave={()=>{setOpenDate(false)}}>
+                <div className="headerSearchItem" onMouseLeave={()=>{setOpenDate(false)}} onMouseEnter={()=>setOpenDate(true)}>
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
                 <span onClick={()=>{setOpenDate(!openDate)}}  className="headerSearchText">{`${format(dates[0].startDate, "dd/MM/yyyy")} to ${format(dates[0].endDate, "dd/MM/yyyy")}`}</span>
                 {openDate && <DateRange
@@ -121,51 +141,41 @@ function Header(){
                 className='date' 
                 />}
                 </div>
-                <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(false)}>
+                <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(false)} onMouseEnter={()=>setOpenOptions(true)}>
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}>{`${ options.adult } adult- ${options.room}  room`}</span>
+                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}>{`${ getSum() } Guests - ${Object.keys(guestCount).length}  Room`}</span>
                 {openOptions && <div className="options">
                   <div className="optionHeading"> 
                     <div>Rooms</div>
                     <div>Guests</div>
                   </div>
 
-                  <div className="optionsItem">
-                    <span className="optionText">Room 1</span>
-                    <div className="optionCounter">
-                      <button className='optionCounterBtn' disabled={options.adult <=1} onClick={()=>handleOption("adult", "d")}>-</button>
-                      <span className="optionCounterNum" >{options.adult}</span>
-                      <button className='optionCounterBtn' disabled={options.adult >= 3} onClick={()=>handleOption("adult", "i")}>+</button>
-                    </div>
+                 {/* {roomCount.map((items, i)=>(               
+                 <div className="optionsItem" key={i}>
+                  <span className="optionText">Room {items.roomNo}</span>
+                  <div className="optionCounter">
+                    <button className='optionCounterBtn' disabled={options.adult <=1} onClick={removeGuest}>-</button>
+                    <span className="optionCounterNum" >{guestCount.guestNo}</span>
+                    <button className='optionCounterBtn' disabled={options.adult >= 3} onClick={addGuest}>+</button>
                   </div>
-                          
-                  <div className="optionsItem">
-                    <span className="optionText">Room 1</span>
-                    <div className="optionCounter">
-                      <button className='optionCounterBtn' disabled={options.adult <=1} onClick={()=>handleOption("adult", "d")}>-</button>
-                      <span className="optionCounterNum" >{options.adult}</span>
-                      <button className='optionCounterBtn' disabled={options.adult >= 3} onClick={()=>handleOption("adult", "i")}>+</button>
-                    </div>
+                </div>))} */}
+                 {Object.entries(guestCount).map(([roomNo, guests]) => (               
+                 <div className="optionsItem" key={roomNo}>
+                  <span className="optionText">{roomNo}</span>
+                  <div className="optionCounter">
+                    <button className='optionCounterBtn'  onClick={()=>removeGuest(roomNo, guests)}>-</button>              
+                    <span className="optionCounterNum" >{guests}</span>
+                    <button className='optionCounterBtn'  onClick={()=>addGuest(roomNo, guests)} >+</button>
                   </div>
-                  
-                  <div className="optionsItem">
-                    <span className="optionText">Room 1</span>
-                    <div className="optionCounter">
-                      <button className='optionCounterBtn' disabled={options.adult <=1} onClick={()=>handleOption("adult", "d")}>-</button>
-                      <span className="optionCounterNum" >{options.adult}</span>
-                      <button className='optionCounterBtn' disabled={options.adult >= 3} onClick={()=>handleOption("adult", "i")}>+</button>
-                    </div>
+                </div>))}
+                <div className="addHotelContainer" >
+                  <div className="deleteHotel" onClick={removeRoom} style={{ color: Object.keys(guestCount).length>=2 ? 'rgb(52, 40, 40)' : 'inherit' }} >
+                    Delete Room
                   </div>
-
-                  <div className="addHotelContainer">
-                    <div className="deleteHotel">
-                      Delete Room
-                    </div>
-                    <div className="addHotel">
-                      Add Room
-                    </div>
-
+                  <div className="addHotel" onClick={addNewRoom} >
+                    Add Room
                   </div>
+                </div> 
                 </div>}
                 </div>
                 <div className="headerSearchItem">
