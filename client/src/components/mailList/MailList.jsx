@@ -1,7 +1,15 @@
 import React from "react";
 import "./mailList.css";
+import { useNavigate } from 'react-router-dom';
 
 const MailList = ()=>{
+    const navigate = useNavigate();
+
+    const handleAdminLogin = (e)=>{
+        navigate("/user/admin-register");
+        e.preventDefault();
+    }
+    
     return(
         <>
         <div className="mailContainer">
@@ -11,6 +19,7 @@ const MailList = ()=>{
                 <input type="text" placeholder="Your Email" />
                 <button>Subscribe</button>
             </div>
+            <button className="headerBtn" onClick={handleAdminLogin}>Admin Login</button>
         </div>
         </>
     )

@@ -113,6 +113,10 @@ height: 100px;
     position: absolute;
     top:45px;
     z-index: 9;
+    box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
+    -webkit-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
+    -moz-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
+    border-radius: 6px
 }
 
 .options{
@@ -190,5 +194,48 @@ height: 100px;
 .addHotel{
     color: rgb(52, 40, 40);
 }
+
+.cityLists{
+    width: 30%;
+    background-color: #ffffff;
+    max-height: 40vh;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    z-index: 99999;
+    padding: 0;
+    padding: 0;
+    border: none;
+    border-radius: 5px;
+    overflow-y: scroll;
+    box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
+    -webkit-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
+    -moz-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
+    border: none;
+}
+
+.cityLists::-webkit-scrollbar {
+    display: none;
+}
+
+.cityLists>li:hover{
+    background-color: #f3f1f1;
+}
+
+.cityLists> li{
+    list-style: none;
+    padding:10px 10px;
+    margin: 0 5px;
+}
+
+.itemDetails{
+    font-size: 18px;
+    text-transform: capitalize;
+    padding-left: 6px;
+    padding-bottom: 5px;
+    color: #484040;
+}
+
+
 
 

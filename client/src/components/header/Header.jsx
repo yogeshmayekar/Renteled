@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {useState, useContext } from 'react';
+import {useState, useContext, useEffect } from 'react';
 import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
@@ -8,13 +8,13 @@ import './header.css';
 import { format }from "date-fns";
 import { useNavigate } from 'react-router-dom';
 import { SearchBarContext } from '../../context/searchBarContext';
-
+import { IoLocationOutline } from "react-icons/io5";
+import indianCities from '../../cities.json';
 
 function Header(){
     const [openDate, setOpenDate] = useState(false);
     const [destination, setDestination] = useState("");
-    const [dates, setDates] = useState([
-    {
+    const [dates, setDates] = useState([{
       startDate: new Date(),
       endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
       key: 'selection'
@@ -25,9 +25,9 @@ function Header(){
   const [guestCount, setGuestCount] = useState({
     "Room 1": 1,
   });
+  const [openCity, setOpenCity] = useState(false);
+  const [citiesDataLoading, setCitiesDataLoading]=useState(null);
 
-  
- 
   const navigate = useNavigate();
 
   const getSum = () => {
@@ -35,12 +35,17 @@ function Header(){
     return sum
   };
 
-  // const handleOption=(name, operation)=>{
-  //   setOptions(prev=>{return {
-  //     ...prev, [name]: operation === "i" ? options[name]+1 : options[name]-1,
-  //   }})
+  const customTheme={
+    rdrMonth :{
+      width: "300px"
+    }
+  }
 
-  // }
+  
+  useEffect(()=>{
+    setCitiesDataLoading(indianCities);
+  },[])
+  
 
   const { dispatch } = useContext(SearchBarContext);
 
@@ -50,19 +55,13 @@ function Header(){
     e.preventDefault()
   }
 
-
-  const handleAdminLogin = (e)=>{
-    navigate("/user/admin-register");
-    e.preventDefault();
-  }
-
-    const addNewRoom = ()=>{
-      const newRoomName = `Room ${Object.keys(guestCount).length + 1}`;
+  const addNewRoom = ()=>{
+    const newRoomName = `Room ${Object.keys(guestCount).length + 1}`;
       setGuestCount((prevGuestCount) => ({
         ...prevGuestCount,
         [newRoomName]: 1,
       }));
-    }
+  }
 
     const removeRoom=()=>{
       const keys = Object.keys(guestCount);
@@ -96,6 +95,12 @@ function Header(){
       }
     }
 
+    const handlePlaceInputChange = (e)=>{
+      setDestination(e.target.value)
+    }
+
+
+
     return(
         <>
         <div className="header">
@@ -124,11 +129,22 @@ function Header(){
              </div>
              <h1 className="headerTitle">Looking for a discounts? Get it now</h1>
              <p className="headerDesc">Get rewared for  your room booking - unlock instant savings of 10% or more with a free Renteled account</p>
-             <button className="headerBtn" onClick={handleAdminLogin}>Admin Login</button>
              <div className="headerSearch">
                 <div className="headerSearchItem">
-                <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                <input type="text" placeholder='Where are you going?' className="headerSearchInput" onChange={e=> setDestination(e.target.value)} />
+                    <FontAwesomeIcon icon={faBed} className="headerIcon" />
+                    <input type="text" placeholder='Where are you going?' className="headerSearchInput"  onChange={handlePlaceInputChange} onInput={()=>setOpenCity(true)} value={destination} />
+                {openCity && citiesDataLoading &&  
+                  <ul className="cityLists" >
+                    {citiesDataLoading.filter((item)=>{
+                      const searchTerm = destination.toLowerCase();
+                      const fullAdress = item.name.toLowerCase();
+                      return fullAdress.startsWith(searchTerm);
+                    }).map((item, i)=>(
+                      <li key={i} onClick={()=>setDestination(`${item.name}, ${item.state}, India`)} ><IoLocationOutline /><span className='itemDetails'>{`${item.name}, ${item.state}, India`}</span></li>
+                    ))}                   
+                  </ul>
+                
+                }
                 </div>
                 <div className="headerSearchItem" onMouseLeave={()=>{setOpenDate(false)}} onMouseEnter={()=>setOpenDate(true)}>
                 <FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
@@ -138,7 +154,8 @@ function Header(){
                 onChange={item => setDates([item.selection])}
                 moveRangeOnFirstSelection={false}
                 ranges={dates}
-                className='date' 
+                className='date'
+                theme={customTheme} 
                 />}
                 </div>
                 <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(false)} onMouseEnter={()=>setOpenOptions(true)}>
@@ -150,15 +167,6 @@ function Header(){
                     <div>Guests</div>
                   </div>
 
-                 {/* {roomCount.map((items, i)=>(               
-                 <div className="optionsItem" key={i}>
-                  <span className="optionText">Room {items.roomNo}</span>
-                  <div className="optionCounter">
-                    <button className='optionCounterBtn' disabled={options.adult <=1} onClick={removeGuest}>-</button>
-                    <span className="optionCounterNum" >{guestCount.guestNo}</span>
-                    <button className='optionCounterBtn' disabled={options.adult >= 3} onClick={addGuest}>+</button>
-                  </div>
-                </div>))} */}
                  {Object.entries(guestCount).map(([roomNo, guests]) => (               
                  <div className="optionsItem" key={roomNo}>
                   <span className="optionText">{roomNo}</span>
