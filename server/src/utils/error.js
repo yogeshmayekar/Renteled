@@ -13,7 +13,7 @@ class CustomErrorHandler extends Error {    //extended the javaScript inbild err
         return new CustomErrorHandler(500, message);
     }
 
-    static incorerctCredentials(message="Incorrect Username or Password"){
+    static incorerctCredentials(message="Incorrect email or Password"){
         return new CustomErrorHandler(401, message);
     }
     

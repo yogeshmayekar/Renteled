@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@300&display=swap');
+
 .header{
     background-color: rgb(7,45,92);
     color:white;
@@ -35,6 +37,7 @@ height: 100px;
 
 .headerDesc{
     margin: 20px 0px;
+    font-family: 'Lexend Deca', sans-serif;
 }
 
 .headerBtn{
@@ -50,7 +53,7 @@ height: 100px;
 }
 
 .headerBtn2{
-    background-color:rgb(4, 109, 213);
+    background-color:rgb(7, 122, 236);
     color: rgb(255, 255, 255);
     font-weight: 500;
     border: none;
@@ -59,12 +62,7 @@ height: 100px;
     font-size: 17px;
     border-radius: 5px;
     width: 120px;
-}
-
-.headerBtn2:hover{
-    background-color:rgb(7, 122, 236);
     transform: scale(1.06);
-    transition: all .1s ease-in-out ;
 }
 
 .headerBtn:hover{
@@ -235,6 +233,11 @@ height: 100px;
     padding-bottom: 5px;
     color: #484040;
 }
+
+.headerTitle{
+    font-family: 'Lexend Deca', sans-serif;
+}
+
 
 
 

@@ -1,11 +1,13 @@
 import React from 'react';
 import './loader.css';
-import ClipLoader from 'react-spinners';
+import CircularProgress from '@mui/material-next/CircularProgress';
 
 const Loader = ()=>{
     return(
         <>
-    <ClipLoader color="#4b7ee0" />  
+        <div className='LoaderComm'>
+           <CircularProgress color="primary" variant="indeterminate" sx={{color:"blue"}} /> 
+        </div>
         </>
     )
 }

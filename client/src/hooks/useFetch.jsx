@@ -29,7 +29,7 @@ const reFetch = async () => {
       setError(err);
     }
     setLoading(false);
-  };
+};
 
   return { data, loading, error, reFetch };
 };

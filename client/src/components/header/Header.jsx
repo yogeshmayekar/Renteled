@@ -50,9 +50,13 @@ function Header(){
   const { dispatch } = useContext(SearchBarContext);
 
   const handleSearch = (e)=>{
-    dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options }});
-    navigate("/hotels", {state:{destination, dates, options}});
-    e.preventDefault()
+    if(!destination){
+      alert("Destination is required");
+    }else{
+      dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options }});
+      navigate("/hotels", {state:{destination, dates, options}});
+      e.preventDefault();
+    }
   }
 
   const addNewRoom = ()=>{
@@ -96,7 +100,7 @@ function Header(){
     }
 
     const handlePlaceInputChange = (e)=>{
-      setDestination(e.target.value)
+      setDestination(e.target.value);
     }
 
 
@@ -132,9 +136,9 @@ function Header(){
              <div className="headerSearch">
                 <div className="headerSearchItem">
                     <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                    <input type="text" placeholder='Where are you going?' className="headerSearchInput"  onChange={handlePlaceInputChange} onInput={()=>setOpenCity(true)} value={destination} />
+                    <input type="text" name='searchInput' placeholder='Where are you going?' className="headerSearchInput"  onChange={handlePlaceInputChange} onInput={()=>setOpenCity(true)} value={destination} />
                 {openCity && citiesDataLoading &&  
-                  <ul className="cityLists" >
+                  <ul className="cityLists" onMouseLeave={()=>setOpenCity(false)}>
                     {citiesDataLoading.filter((item)=>{
                       const searchTerm = destination.toLowerCase();
                       const fullAdress = item.name.toLowerCase();
@@ -156,11 +160,12 @@ function Header(){
                 ranges={dates}
                 className='date'
                 theme={customTheme} 
+                minDate={new Date()}
                 />}
                 </div>
                 <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(false)} onMouseEnter={()=>setOpenOptions(true)}>
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}>{`${ getSum() } Guests - ${Object.keys(guestCount).length}  Room`}</span>
+                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}><span className='sp1'>{ getSum() }</span> Guests - <span className='sp1'>{Object.keys(guestCount).length}</span> Room </span>
                 {openOptions && <div className="options">
                   <div className="optionHeading"> 
                     <div>Rooms</div>

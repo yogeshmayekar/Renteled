@@ -45,15 +45,17 @@ const List=()=>{
                             <label>Check-in Date</label>
                             <span onClick={() => setOpenDate(!openDate)}>{`${format(
                                 dates[0].startDate,
-                                "MM/dd/yyyy"
-                            )} to ${format(dates[0].endDate, "MM/dd/yyyy")}`}</span>
-                            {openDate && (
+                                "dd/MM/yyyy"
+                            )} `}</span>
+                            <label>Check-out Date</label>
+                            <span onClick={() => setOpenDate(!openDate)}>{`${format(dates[0].endDate, "dd/MM/yyyy")}`}</span>
+                            {/* {openDate && (
                                 <DateRange
                                 onChange={(item) => setDates([item.selection])}
                                 minDate={new Date()}
                                 ranges={dates}
                                 />
-                            )}
+                            )} */}
                         </div>
                         <div className="lsItem">
                             <label>Options</label>
@@ -79,15 +81,7 @@ const List=()=>{
                                         placeholder={options.adult}
                                     />
                                 </div>
-                                <div className="lsOptionItem">
-                                    <span className="lsOptionText">Children</span>
-                                    <input
-                                        type="number"
-                                        min={0}
-                                        className="lsOptionInput"
-                                        placeholder={options.children}
-                                    />
-                                </div>
+                               
                                 <div className="lsOptionItem">
                                     <span className="lsOptionText">Room</span>
                                     <input

@@ -18,8 +18,6 @@ function Hotel(){
         </div>
         <MailList/>
         <Footer/>
-
-
         </>
     )
 }

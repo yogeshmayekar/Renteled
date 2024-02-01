@@ -1,0 +1,8 @@
+.edit1, .edit2{
+    cursor: pointer;
+}
+
+.leftContainer, .rightContainer{
+    margin: 50px;
+    background-color: rgb(67, 58, 58);
+}

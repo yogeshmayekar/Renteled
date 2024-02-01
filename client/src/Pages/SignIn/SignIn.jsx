@@ -1,5 +1,5 @@
 import './signIn.css';
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -24,27 +24,46 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from '../../context/authContext';
 
 
 const defaultTheme = createTheme();
 
 const SignIn = ()=>{
+  const loginContext = useContext(AuthContext);
   const [showPassword, setShowPassword] = React.useState(false);
-  const navigate =useNavigate()
+  const navigate =useNavigate();
+  const [credentials, setCredentials] = useState({
+    email: undefined,
+    password : undefined,
+  });
 
-    const handleSubmit = (event) => {
+
+  const { loading, error, dispatch } = useContext(AuthContext);
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-          email: data.get('email'),
-          password: data.get('password'),
-        });
+        dispatch({ type: "LOGIN_START" });
+        // console.log(credentials);
+        try {
+          const res = await axios.post("http://localhost:9090/api/auth/login", credentials);
+          dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+          loginContext.setIsLogin(true);
+          navigate("/");
+        } catch (err) {
+          dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+        }
       };
 
-      const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
+  };
+
+  const handleChange = (e) => {
+    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const submitClose = (e)=>{
@@ -54,19 +73,6 @@ const SignIn = ()=>{
     
     return(
         <>
-            {/* <div className="signInContainer">
-                <Grid item xs={8} className="right-container">
-                    <h2>Welcome Back!</h2>
-                    <form>
-                        <label>Username</label>
-                        <input placeholder='Enter Username'></input>
-                        <label>Password</label>
-                        <input placeholder='Enter Password'></input>
-                        <button>Login</button>
-                    </form>
-                    <p>Forgot your password?<a>Click Here</a></p>
-                 </Grid>
-            </div>     */}
             <div className="signInContainer">
             <CloseIcon className="closeButton" onClick={submitClose} />
             <ThemeProvider theme={defaultTheme}>
@@ -96,26 +102,14 @@ const SignIn = ()=>{
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={handleChange}
               autoFocus
             />
-            {/* <span className='passwordContainer'>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <VisibilityIcon className="visible" />
-            </span> */}
              <FormControl sx={{ mt: 1 }} variant="outlined" fullWidth>
-          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <InputLabel htmlFor="password">Password</InputLabel>
           <OutlinedInput
             fullWidth
-            id="outlined-adornment-password"
+            id="password"
             type={showPassword ? 'text' : 'password'}
             endAdornment={
               <InputAdornment position="end">
@@ -130,8 +124,9 @@ const SignIn = ()=>{
               </InputAdornment>
             }
             label="Password"
+            onChange={handleChange}
           />
-        </FormControl>
+             </FormControl>
             
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
@@ -139,12 +134,14 @@ const SignIn = ()=>{
             />
             <Button
               type="submit"
+              disabled={loading}
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
               Sign In
             </Button>
+            {error && <span>{error.message}</span>}
             <Grid container sx={{mb:5}} >
               <Grid item xs>
                 <Link href="#" variant="body2">

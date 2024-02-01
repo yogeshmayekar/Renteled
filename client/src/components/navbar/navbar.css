@@ -40,3 +40,7 @@
     transform: scale(1.06);
     transition: all .1s ease-in ;
 }
+
+.profilrPic{
+    cursor: pointer;
+}

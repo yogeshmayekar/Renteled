@@ -12,7 +12,7 @@ export const register = async(req, res, next)=>{
         //1.1 validation
     
         const registerSchema = Joi.object({
-            username:Joi.string().min(3).max(30).required(),
+            fullName:Joi.string().min(3).max(30).required(),
             email:Joi.string().email().required(),
             password:Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required(),
             repeat_password:Joi.ref('password')
@@ -41,7 +41,7 @@ export const register = async(req, res, next)=>{
 
         //1.4 prepare the model
         const newUser = new User({
-            username:req.body.username,
+            fullName:req.body.fullName,
             email:req.body.email,
             password:hashedPassword
         })
@@ -58,7 +58,7 @@ export const register = async(req, res, next)=>{
 //2. login controller 
 export const login = async(req, res, next)=>{
     try{
-        const user = await User.findOne({username:req.body.username})
+        const user = await User.findOne({email:req.body.email})
         if(!user) return next(CustomErrorHandler.incorerctCredentials())
 
         //compare the password
