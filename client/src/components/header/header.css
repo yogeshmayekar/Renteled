@@ -99,12 +99,16 @@ height: 100px;
 .headerSearchInput{
     border: none;
     outline: none;
+    color: rgb(82, 68, 68);
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .headerSearchItem{
-    color:rgb(158, 156, 156);
     cursor: pointer;
     padding: 10px;
+    color: rgb(82, 68, 68);
+    font-weight: 600;
 }
 
 .date{
@@ -121,7 +125,7 @@ height: 100px;
     position:absolute;
     top:44px;
     background-color: #fff;
-    color:grey;
+    color: rgb(82, 68, 68);
     border-radius: 5px;
     box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
     -webkit-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);

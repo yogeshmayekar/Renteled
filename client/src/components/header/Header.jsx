@@ -136,7 +136,7 @@ function Header(){
              <div className="headerSearch">
                 <div className="headerSearchItem">
                     <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                    <input type="text" name='searchInput' placeholder='Where are you going?' className="headerSearchInput"  onChange={handlePlaceInputChange} onInput={()=>setOpenCity(true)} value={destination} />
+                    <input type="text" name='searchInput' placeholder='Where are you going?' className="headerSearchInput"  onChange={handlePlaceInputChange} onInput={()=>setOpenCity(true)} value={destination} autocomplete="off" onClick={()=>setOpenCity(true)} />
                 {openCity && citiesDataLoading &&  
                   <ul className="cityLists" onMouseLeave={()=>setOpenCity(false)}>
                     {citiesDataLoading.filter((item)=>{

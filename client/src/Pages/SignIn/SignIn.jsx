@@ -50,7 +50,7 @@ const SignIn = ()=>{
           const res = await axios.post("http://localhost:9090/api/auth/login", credentials);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
           loginContext.setIsLogin(true);
-          navigate("/");
+          navigate(-1);
         } catch (err) {
           dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
         }
@@ -67,7 +67,7 @@ const SignIn = ()=>{
   };
 
   const submitClose = (e)=>{
-    navigate("/")
+    navigate(-1)
     e.preventDefault();
   }
     

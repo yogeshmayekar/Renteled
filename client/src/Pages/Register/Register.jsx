@@ -21,7 +21,7 @@ const defaultTheme = createTheme();
 const Register = () =>{
     const navigate = useNavigate();
     const submitClose = (e)=>{
-        navigate("/")
+        navigate(-1);
         e.preventDefault();
     }
 
