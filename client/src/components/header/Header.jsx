@@ -8,6 +8,7 @@ import './header.css';
 import { format }from "date-fns";
 import { useNavigate } from 'react-router-dom';
 import { SearchBarContext } from '../../context/searchBarContext';
+import { ErrorContext } from '../../context/errorContext';
 import { IoLocationOutline } from "react-icons/io5";
 import indianCities from '../../cities.json';
 
@@ -48,10 +49,13 @@ function Header(){
   
 
   const { dispatch } = useContext(SearchBarContext);
+  const { setHasError, dispatch22 } = useContext(ErrorContext);
+  // console.log(dispatch22);
 
   const handleSearch = (e)=>{
     if(!destination){
-      alert("Destination is required");
+      setHasError(true);
+      dispatch22({ errorMessage:"Destination is required, Please tell us where are you going?" });
     }else{
       dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options }});
       navigate("/hotels", {state:{destination, dates, options}});
@@ -136,15 +140,24 @@ function Header(){
              <div className="headerSearch">
                 <div className="headerSearchItem">
                     <FontAwesomeIcon icon={faBed} className="headerIcon" />
-                    <input type="text" name='searchInput' placeholder='Where are you going?' className="headerSearchInput"  onChange={handlePlaceInputChange} onInput={()=>setOpenCity(true)} value={destination} autocomplete="off" onClick={()=>setOpenCity(true)} />
+                    <input 
+                    type="text" 
+                    name='searchInput' 
+                    placeholder='Where are you going?' 
+                    className="headerSearchInput"  
+                    onChange={handlePlaceInputChange} 
+                    onInput={()=>setOpenCity(true)} 
+                    value={destination} 
+                    autocomplete="off" 
+                    onClick={()=>setOpenCity(true)} />
                 {openCity && citiesDataLoading &&  
-                  <ul className="cityLists" onMouseLeave={()=>setOpenCity(false)}>
+                  <ul className="cityLists" onMouseLeave={()=>setOpenCity(false)}> 
                     {citiesDataLoading.filter((item)=>{
                       const searchTerm = destination.toLowerCase();
                       const fullAdress = item.name.toLowerCase();
                       return fullAdress.startsWith(searchTerm);
                     }).map((item, i)=>(
-                      <li key={i} onClick={()=>setDestination(`${item.name}, ${item.state}, India`)} ><IoLocationOutline /><span className='itemDetails'>{`${item.name}, ${item.state}, India`}</span></li>
+                      <li key={i} onClick={()=>setDestination(`${item.name}, ${item.state}`)} ><IoLocationOutline /><span className='itemDetails'>{`${item.name}, ${item.state}`}</span></li>
                     ))}                   
                   </ul>
                 

@@ -17,6 +17,10 @@ class CustomErrorHandler extends Error {    //extended the javaScript inbild err
         return new CustomErrorHandler(401, message);
     }
     
+    static incorerctUser(message="User not found"){
+        return new CustomErrorHandler(401, message);
+    }
+    
     static incorerctPassword(message="Incorrect Password"){
         return new CustomErrorHandler(401, message);
     }

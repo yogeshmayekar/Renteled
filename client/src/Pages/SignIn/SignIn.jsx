@@ -11,50 +11,54 @@ import InputLabel from '@mui/material/InputLabel';
 import InputAdornment from '@mui/material/InputAdornment';
 import Checkbox from '@mui/material/Checkbox';
 import FormControl from '@mui/material/FormControl';
-import Link from '@mui/material/Link';
+// import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CloseIcon from '@mui/icons-material/Close';
 import OutlinedInput from '@mui/material/OutlinedInput';
 // import VisibilityIcon from '@mui/icons-material/Visibility';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/authContext';
 
 
-const defaultTheme = createTheme();
+// const defaultTheme = createTheme();
 
 const SignIn = ()=>{
-  const loginContext = useContext(AuthContext);
   const [showPassword, setShowPassword] = React.useState(false);
   const navigate =useNavigate();
   const [credentials, setCredentials] = useState({
     email: undefined,
     password : undefined,
+    rememberMe : false,
   });
 
-
   const { loading, error, dispatch } = useContext(AuthContext);
+  // console.log("context error is ", error)
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         dispatch({ type: "LOGIN_START" });
         // console.log(credentials);
         try {
-          const res = await axios.post("http://localhost:9090/api/auth/login", credentials);
+          const res = await axios.post("http://localhost:9090/api/auth/login", credentials, {
+            credentials: "include",
+          });
+          console.log("response is", res);
+          // localStorage.setItem('access_token', res.data.token);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-          loginContext.setIsLogin(true);
-          navigate(-1);
+          navigate("/");
         } catch (err) {
+          // console.log("err223",err.response.data)
           dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
         }
-      };
+      }; 
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -66,8 +70,16 @@ const SignIn = ()=>{
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
+  const handleCheckedChange = (e)=>{
+    setCredentials((prev) => ({...prev,
+      rememberMe:e.target.checked,
+    }));
+    // console.log(credentials);
+
+  }
+
   const submitClose = (e)=>{
-    navigate(-1)
+    navigate("/");
     e.preventDefault();
   }
     
@@ -75,25 +87,26 @@ const SignIn = ()=>{
         <>
             <div className="signInContainer">
             <CloseIcon className="closeButton" onClick={submitClose} />
-            <ThemeProvider theme={defaultTheme}>
-      <Container component="main" maxWidth="xs">
+            {/* <ThemeProvider theme={defaultTheme}> */}
+        <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 2,
+            marginTop: 1,
             marginBotom:1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+          <Avatar sx={{ m: 0, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5" sx={{textAlign:'center'}}>
             Sign In with <br></br> <strong> Renteled.com</strong>
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 2 }}>
+          {error && <p className='error__message'>{error.message}</p>}
+          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
@@ -104,6 +117,7 @@ const SignIn = ()=>{
               autoComplete="email"
               onChange={handleChange}
               autoFocus
+              autocomplete="off"
             />
              <FormControl sx={{ mt: 1 }} variant="outlined" fullWidth>
           <InputLabel htmlFor="password">Password</InputLabel>
@@ -129,7 +143,7 @@ const SignIn = ()=>{
              </FormControl>
             
             <FormControlLabel
-              control={<Checkbox value="remember" color="primary" />}
+              control={<Checkbox value="remember" color="primary" onChange={handleCheckedChange} />}
               label="Remember me"
             />
             <Button
@@ -141,15 +155,14 @@ const SignIn = ()=>{
             >
               Sign In
             </Button>
-            {error && <span>{error.message}</span>}
-            <Grid container sx={{mb:5}} >
+            <Grid container sx={{mb:3, mt:2, gap:'20px' }} >
               <Grid item xs>
-                <Link href="#" variant="body2">
+                <Link to="#" variant="body2">
                   Forgot password?
                 </Link>
               </Grid>
-              <Grid item>
-                <Link href="#" variant="body2">
+              <Grid item xs>
+                <Link to="/user/Sign-Up" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -157,7 +170,7 @@ const SignIn = ()=>{
           </Box>
         </Box>
       </Container>
-    </ThemeProvider>
+    {/* </ThemeProvider> */}
 
     </div>  
         </>

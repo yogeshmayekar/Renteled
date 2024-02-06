@@ -35,5 +35,9 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
 
+.email__input{
+    color:black;
+    font-weight: 600;
 }

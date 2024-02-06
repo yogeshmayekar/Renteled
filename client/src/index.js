@@ -5,13 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { SearchContextProvider } from './context/searchBarContext.jsx';
 import { AuthContextProvider } from './context/authContext.jsx';
+import { ErrorContextProvider } from './context/errorContext.jsx';
+import { RegisterContextProvider } from './context/registerContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <SearchContextProvider>
-        <App />
+        <ErrorContextProvider>
+          <RegisterContextProvider>
+            <App />
+          </RegisterContextProvider>
+        </ErrorContextProvider>
       </SearchContextProvider>
     </AuthContextProvider>
   </React.StrictMode>

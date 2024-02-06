@@ -1,5 +1,5 @@
 import './navbar.css';
-import React, { useState, useContext } from 'react'
+import React, { useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import { AuthContext } from '../../context/authContext';
@@ -35,7 +35,7 @@ function Navbar(){
         <div className="navContainer">
            <span className="logo" onClick={takeMeToHomePage}>RENTELED</span> 
            <div className="items">
-           {loginContext.isLogIn ? 
+           {loginContext.user ? 
            <div className="profilrPic" >
             <Avatar alt="YM" src="../../Assets/profile.JPG" onClick={handleProfile} />
            </div> :

@@ -34,11 +34,122 @@
 }
 
 .name__container{
-    margin: 0 4%;
-    min-height: 100vh;
+    margin: auto;
+    max-width:1280px;
+    margin-bottom: 30px;
 }
 
 .back__icon{
     padding:12px 0 0 15px;
     cursor: pointer;
+}
+
+.chield__container{
+    margin: 20px 0;
+}
+
+.chield__Edit>label{
+    font-size: 18px;
+    color: rgb(2, 2, 2);
+    padding: 5px;
+    font-weight: 600;
+    gap: 10px;
+}
+
+.chield__Edit>p{
+    padding:2px 5px;
+    color: rgb(2, 2, 2);
+}
+
+.logout__button{
+    height: 36px;
+    width: 130px;
+    margin-top: 30px;
+    margin-right: 20px;
+    padding:5px;
+    font-weight: 500;
+    font-size: 16px;
+    background-color: #F65656;
+    color: white;
+    border:none;
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.getotp_btn, .update__button, .updatePassword__button{
+    width: 90px;
+    cursor: pointer;
+    height: 35px;
+    background-color: #074a77;
+    color: white;
+    border:none;
+    outline: none;
+    border-radius: 4px;
+}
+
+.verifyOtp_btn{
+    width: 90px;
+    cursor: pointer;
+    height: 40px;
+    background-color: #074a77;
+    color: white;
+    border:none;
+    outline: none;
+    border-radius: 4px; 
+}
+
+
+.update__button, .updatePassword__button{
+    height: 40px;
+}
+
+.doted__password{
+    font-size: 20px;
+    font-family: 900;
+    color: rgb(174, 155, 155);
+    padding-left: 10px;
+    margin-left: 5px;
+}
+
+.updatePassword__button{
+    margin-left: 5px;
+    margin-top: 15px;
+    font-weight: 500;
+    font-style: 20px;
+}
+
+.forgot__password, .Resend__code{
+    display: inline-block;
+    font-style: 20px;
+    font-weight: 600;
+    color: #212149;
+    cursor: pointer;
+    margin:10px 5px;
+    margin-top: 20px;
+    background-color: rgb(246, 239, 239);
+}
+
+
+.password__cri{
+    margin-left: 6px;
+}
+
+.otp_message{
+    font-size: 13px;
+    color:#181717;
+    width: 370px;
+    margin-left: 6px;
+}
+
+.update__button{
+    margin-left: 5px;
+}
+
+.otp_input{
+    height: 35px;
+    width: 35px;
+    margin: 5px;
+    text-align: center;
+
 }

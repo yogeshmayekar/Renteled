@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Header from '../../components/header/Header';
 import Navbar from '../../components/navbar/Navbar';
 import PropertyList from '../../components/propertylist/PropertyList';
@@ -10,9 +10,21 @@ import Footer from '../../components/footer/Footer';
 import LeadingHotels from '../../components/LeadingHotel/LeadingHotel';
 import banner from '../../Assets/banner22.avif';
 import Loader from '../../components/loader/Loader';
+import Error from '../../components/error/Error';
+import { ErrorContext } from '../../context/errorContext';
 
 function Home(){
     const [isLoading, setLoading] = useState(true);
+    const contextError = useContext(ErrorContext);
+    // console.log(contextError);
+
+    useEffect(()=>{
+        if (contextError.hasError){
+            document.body.style.overflow = 'hidden';
+        }else{
+            document.body.style.overflow = 'auto';
+        }
+    },[contextError.hasError])
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -20,8 +32,10 @@ function Home(){
         },1500)
     },[])
     return(
-        isLoading ? <Loader/> :
-            <>
+        isLoading ? ( <Loader/> ) :
+        (<>
+        {contextError.hasError ? <Error/> : null}
+        <div className={`wrapper ${contextError.hasError ? 'disable__overlay' : ''}`}>
         <Navbar/>
         <Header/>
         <div className="containerHome">
@@ -31,13 +45,15 @@ function Home(){
         <h1 className="reviewTitle">Hotel reviews</h1>
         <ReviewList/>
         <div className="banner22" >
-            <img src={banner} alt="" />
+            < img src={banner} alt="" />
         </div>
         <LeadingHotels/>
         <MailList/>
         <Footer/>
         </div>
+        </div>
         </>
+        )
     )
 }
 

@@ -126,6 +126,7 @@ height: 100px;
     top:44px;
     background-color: #fff;
     color: rgb(82, 68, 68);
+    font-weight: 600;
     border-radius: 5px;
     box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
     -webkit-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
@@ -139,8 +140,8 @@ height: 100px;
     justify-content: space-between;
     align-items: center;
     margin: 15px 20px;
-    color: rgb(45, 37, 37);
-    font-weight: 500;
+    color: rgb(82, 68, 68);
+    font-weight: 600;
 }
 
 .optionCounter{
@@ -185,8 +186,8 @@ height: 100px;
     align-items: center;
     justify-content: space-between;
     margin: 20px 20px;
-    font-weight: 500;
     gap: 10px;
+    font-weight: 500;
 }
 
 .deleteHotel{
@@ -194,7 +195,8 @@ height: 100px;
 }
 
 .addHotel{
-    color: rgb(52, 40, 40);
+    color: rgb(82, 68, 68);
+    font-weight: 600;
 }
 
 .cityLists{
@@ -241,8 +243,5 @@ height: 100px;
 .headerTitle{
     font-family: 'Lexend Deca', sans-serif;
 }
-
-
-
 
 
