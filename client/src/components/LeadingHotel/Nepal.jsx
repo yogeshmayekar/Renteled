@@ -3,6 +3,7 @@ import "./LeadingHotels.css";
 import Popover from '@mui/material/Popover';
 import Typography from '@mui/material/Typography';
 import C3 from "../../Assets/c3.avif";
+import Grid from "@mui/material/Grid";
 
 const Nepal= ()=>{
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -18,8 +19,6 @@ const Nepal= ()=>{
     const open = Boolean(anchorEl);
     return(
         <>
-
-<div className='floatImg3'>
                     <Typography
                         aria-owns={open ? 'mouse-over-popover' : undefined}
                         aria-haspopup="true"
@@ -48,7 +47,6 @@ const Nepal= ()=>{
       >
         <Typography sx={{ p: 1 }}>Nepal</Typography>
                     </Popover>
-                    </div>
         </>
     )
 }

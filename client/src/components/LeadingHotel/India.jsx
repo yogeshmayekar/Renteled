@@ -18,8 +18,6 @@ const India = ()=>{
     const open = Boolean(anchorEl);
     return(
         <>
-
-<div className='floatImg4'>
                     <Typography
                         aria-owns={open ? 'mouse-over-popover' : undefined}
                         aria-haspopup="true"
@@ -48,7 +46,6 @@ const India = ()=>{
       >
         <Typography sx={{ p: 1 }}>India</Typography>
                     </Popover>
-                    </div>
         </>
     )
 }

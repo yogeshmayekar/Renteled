@@ -13,12 +13,14 @@
   
   .listSearch {
     flex: 1;
-    background-color: #f2f2f2;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
     position: sticky;
     top: 10px;
     height: max-content;
+    margin-bottom: 30px;
+    box-shadow: rgba(0, 0, 0, 0.70) 0px 1px 4px;
   }
   
   .lsTitle{
@@ -87,7 +89,7 @@
   
   .listSearch>button{
     padding: 10px;
-    background-color:#1AB64F;
+    background-color:rgb(12, 107, 202);
     color: white;
     border: none;
     width: 100%;
@@ -96,7 +98,7 @@
     cursor: pointer;
     border-radius: 8px;
     &:hover{
-      background-color: #13943e;
+      background-color:rgb(12, 115, 219);
     }
   }
   

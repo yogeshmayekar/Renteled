@@ -15,17 +15,17 @@ function Navbar(){
     }
 
     const handleSignIn = (e)=>{
-        navigate("/user/Sign-in");
+        navigate("/user/signin/with_diffrent/account");
         e.preventDefault();
       }
       
       const handleRegister = (e)=>{
-        navigate("/user/Sign-Up");
+        navigate("/user/signup/with_diffrent/account");
         e.preventDefault();
       }
 
       const handleProfile =(e)=>{
-        navigate("/user/accont-details");
+        navigate("/user/accont_details");
         e.preventDefault();
       }
 

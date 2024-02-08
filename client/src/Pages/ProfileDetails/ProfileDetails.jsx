@@ -1,4 +1,4 @@
-import React, { useState, useContext, useRef, useEffect } from 'react';
+import React, { useState, useContext} from 'react';
 import './profileDetails.css';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
@@ -9,23 +9,20 @@ import { TiPencil } from "react-icons/ti";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import OtpInput from '../../components/otpInput/OtpInput';
+import ResendOtp from '../../components/resendOtp/ResendOtp';
 
 const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
     const[editPassword, setEditPassword]= useState(false);
-    const[phoneNumber, setPhoneNumber]= useState("")
+    const[phoneNumber, setPhoneNumber]= useState("");
+    const[numberErrorMessage, setNumberErrorMessage]=useState("")
     const[getOtp, setGetOtp]= useState(false);
-    const[otp, setOtp]= useState(new Array(5).fill(""));
     const[isForgotPassword, setIsForgotPassword]= useState(false);
     const navigate = useNavigate();
-    const inputRef = useRef([]);
     const { dispatch } = useContext(AuthContext);
 
-    useEffect(()=>{
-        if(inputRef.current[0]){
-            inputRef.current[0].focus(); 
-        }
-    },[])
+
 
     const handleEditButton =(e)=>{
         setEditProfile(!editProfile);
@@ -39,10 +36,19 @@ const ProfileDetails= ()=>{
     const handleGetOtp =(e)=>{
         //phoneNumber Validation
         const regex = /[^0-9]/g;
-        if(phoneNumber.length<10 || regex.test(phoneNumber)){
-            alert('invalid phone number');
-            return;
+        if(!getOtp){
+            if(phoneNumber.length<10 ){
+                setNumberErrorMessage('Phone number must contains 10 digits.');
+                return;
+            }else if(regex.test(phoneNumber)){
+                setNumberErrorMessage('Invalid phone number.');
+                return;
+            }else if(phoneNumber.length>10 ){
+                setNumberErrorMessage('Phone number canot be more than 10 digits.');
+                return;
+            }
         }
+        
 
         //call Api 
 
@@ -60,40 +66,16 @@ const ProfileDetails= ()=>{
         e.preventDefault();
     }
 
-    const handleverifyOtpChnage=(index, e)=>{
-        const value = e.target.value;
-        if(isNaN(value)) return;
-        
-        const newOtp=[...otp];
-        newOtp[index] = value.substring(value.length -1);
-
-        setOtp(newOtp);
-
-        // triger function automatically when we enters otp
-        const combinedOtp = newOtp.join("");
-        console.log(combinedOtp.length)
-        if(combinedOtp.length===5){
-            handleVerifyOtp(combinedOtp);
-        
-        }
-
-        //move to upcomming field if current inpu is field
-         
-        if(value && index < 5-1 && inputRef.current[index+1] ){
-            inputRef.current[index+1].focus();
-        }
+    const onOtpSubmit = (otp)=>{
+        console.log(otp);
     }
 
-    const handleVerifyOtp=(otp4)=>{
-        
-        console.log('otp is ',otp4)
+    const onforgotOtpSubmit=(otp)=>{
+        console.log(otp);
     }
 
-    const handleKeyDown = (index, e)=>{
-        if(e.key==='Backspace' && !otp[index] && index>0 && inputRef.current[index-1] ){
-            inputRef.current[index-1].focus();
-        }
-    }
+
+    
 
     const handleLogOut=(e)=>{
         dispatch({type: "LOGOUT"});
@@ -134,24 +116,13 @@ const ProfileDetails= ()=>{
                         <p><TextField hiddenLabel id="filled-hidden-label" type='text' value={phoneNumber} onChange={handlePhoneNumberChange} defaultValue=""  size="small" sx={{height:'20px', width:'280px', mb:2}} /></p>
                         <button className='getotp_btn'onClick={handleGetOtp} >Get OTP</button>
                         </div>
-                        
+                        {numberErrorMessage && <div className='password__cri'>{numberErrorMessage}</div>}
                         {getOtp && <>
                         <div style={{display:'flex', alignItems:'center', gap:'15px'}} >
-                        <p>{otp.map((value, index)=>{
-                         return <input key={index} 
-                                id="filled-hidden" 
-                                type='text' 
-                                value={value} 
-                                onClick={()=>handleVerifyOtp(index)} 
-                                onChange={(e)=>handleverifyOtpChnage(index, e)} 
-                                onKeyDown={(e)=>handleKeyDown(index, e)} 
-                                ref={(input)=>(inputRef.current[index]=input)}
-                                className='otp_input'
-                                />
-                        })
-                        }</p>
-                        <button className='verifyOtp_btn'>Verify</button>
+                        <OtpInput length={5} onOtpSubmit={onOtpSubmit} />
+                        <button className='verifyOtp_btn' >Verify OTP</button>
                         </div>
+                        <ResendOtp time={30} />
                         <div className='otp_message' >We have sent a OTP to your phone. You can enter the OTP above to get verify</div>
                         </>}
                         </> 
@@ -171,13 +142,16 @@ const ProfileDetails= ()=>{
                         {isForgotPassword ? <>
                             <div className="chield__Edit">
                             <label>Enter OTP</label>
-                            <p><TextField hiddenLabel id="current__password" defaultValue="" size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> 
+                            <div style={{display:'flex', alignItems:'center', gap:'15px'}} >
+                                <OtpInput length={5} onOtpSubmit={onforgotOtpSubmit} />
+                                <button className='verifyOtp_btn' >Verify OTP</button>
+                            </div>
                             <label>New Password</label>
                             <p><TextField hiddenLabel id="new__password" defaultValue="" type='password'  size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
                             <div className='password__cri'>Password should have atleast 6 characters.</div>
                             <button className="updatePassword__button" >Update</button> 
                             </div>
-                            <div className='Resend__code' >Resend Code</div>
+                            <ResendOtp time={59} />
                             <div className='otp_message' >We have sent a one time password (OTP) to <strong>yogesh.mayekar09@gmail.com</strong>. You can enter the OTP above to set your new password.</div>
                         </>  :
                         <>

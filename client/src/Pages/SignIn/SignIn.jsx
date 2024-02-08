@@ -84,7 +84,7 @@ const SignIn = ()=>{
   }
     
     return(
-        <>
+        <div className="maincon2">
             <div className="signInContainer">
             <CloseIcon className="closeButton" onClick={submitClose} />
             {/* <ThemeProvider theme={defaultTheme}> */}
@@ -162,7 +162,7 @@ const SignIn = ()=>{
                 </Link>
               </Grid>
               <Grid item xs>
-                <Link to="/user/Sign-Up" variant="body2">
+                <Link to="/user/signup/with_diffrent/account" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -173,7 +173,7 @@ const SignIn = ()=>{
     {/* </ThemeProvider> */}
 
     </div>  
-        </>
+        </div>
     )
 }
 

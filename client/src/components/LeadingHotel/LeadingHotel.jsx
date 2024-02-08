@@ -16,17 +16,25 @@ const LeadingHotels =  ()=>{
         <div className='leadingBoardContainer'>
         <Grid container spacing={0} className='itemConn'>
             {/* left side container  */}
-            <Grid item xs={6}>
-                <Item className='leftConn'>
-                    {/* <img src={map2}></img>   */}
+            <Grid item xs={6} className='leftConn'>
+                <div className='china__con'>
                     <China/>
+                </div>
+                <div className='malaysia__con'>
                     <Malaysia/>
+                </div>
+                <div className='nepal__con'>
                     <Nepal/>
+                </div>
+                <div className='indian__con'>
                     <India/>
+                </div>
+                <div className='uae__con'>
                     <UAE/>
+                </div>
+                <div className='Indonesia__con'>
                     <Indonesia/>
-
-                </Item>
+                </div>      
              </Grid>
 
              {/* right side container  */}

@@ -76,6 +76,13 @@ class CustomErrorHandler extends Error {    //extended the javaScript inbild err
     static unableToDeleteUser(message="unable to delete user"){
         return new CustomErrorHandler(500, message);
     }
+
+    static unableToSubscribe(message="unable to subscribe now"){
+        return new CustomErrorHandler(400, message);
+    }
+    static alreadySubscrubed(message="Email Id already subscribed"){
+        return new CustomErrorHandler(400, message);
+    }
 }   
 
 export default CustomErrorHandler;

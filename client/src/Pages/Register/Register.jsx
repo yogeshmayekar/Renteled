@@ -88,9 +88,9 @@ const Register = () =>{
         }
       };
     return(
-        <>
+        <div className="maincon">
         
-            <div className="signInContainer">
+            <div className="registerContainer">
                 <CloseIcon className="closeButton" onClick={submitClose} />
                 {/* <ThemeProvider theme={defaultTheme}> */}
       <Container component="main" maxWidth="xs" sx={{marginBottom:2}}>
@@ -203,7 +203,7 @@ const Register = () =>{
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item sx={{mb:0.5}} >
-                <Link to="/user/Sign-in" variant="body2">
+                <Link to="/user/Sign_in" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -215,7 +215,7 @@ const Register = () =>{
 
             </div>
             
-        </>
+        </div>
       
     )
 }

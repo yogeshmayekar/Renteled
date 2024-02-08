@@ -30,7 +30,7 @@ export const register = async(req, res, next)=>{
 
         //1.2 check user is in the database already
         try{
-            const Exist = await User.exists({email:req.body.email});//it will returen true or false
+            const Exist = await User.exists({email:req.body.email});//it will return true or false
             // console.log("is exists?",Exist);
             if(Exist) {
                 return res.status(400).json(CustomErrorHandler.alreadyExist("Email Id is already Exist"));
@@ -60,7 +60,7 @@ export const register = async(req, res, next)=>{
         if(DEBUG_MODE){
             console.log(err);
         }
-        return res.status(400).json(CustomErrorHandler.unableToCreateUser("someting went wrong while sign up, please try after some time."))
+        return res.status(400).json(CustomErrorHandler.unableToCreateUser("try after some time."))
     }
 }
 

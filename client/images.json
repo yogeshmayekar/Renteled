@@ -1,0 +1,38 @@
+[
+    {
+        "id": "1",
+        "imgUrl":"./src/Assets/c1.avif",
+        "imgAlt":"china",
+        "country":"China"
+    },
+    {   
+        "id": "2",
+        "imgUrl":"../../Assets/c2.avif",
+        "imgAlt":"mlaysia",
+        "country":"Mlaysia"
+    },
+    {  
+        "id": "3",
+        "imgUrl":"../../Assets/c3.avif",
+        "imgAlt":"nepal",
+        "country":"Nepal"
+    },
+    {
+        "id": "4",
+        "imgUrl":"../../Assets/c4.avif",
+        "imgAlt":"india",
+        "country":"India"
+    },
+    {
+        "id": "5",
+        "imgUrl":"../../Assets/c5.avif",
+        "imgAlt":"UAE",
+        "country":"UAE"
+    },
+    {
+        "id": "6",
+        "imgUrl":"../../Assets/c6.avif",
+        "imgAlt":"indonesia",
+        "country":"Indonesia"
+    }
+]

@@ -7,6 +7,8 @@ import SignIn from './Pages/SignIn/SignIn';
 import Register from './Pages/Register/Register';
 import AdminLogin from './Pages/AdminLogin/AdminLogin';
 import ProfileDetails from './Pages/ProfileDetails/ProfileDetails';
+import RegisterBegin from './Pages/Register/RegisterBegin';
+import SignupBegains from './Pages/SignIn/SigninBegains';
 
 
 function App() {
@@ -17,10 +19,12 @@ function App() {
             <Route path="/" exact element={<Home/>}/>
             <Route path="/hotels" element={<List/>}/>
             <Route path="/hotels/:id" element={<Hotel/>}/>
-            <Route path="/user/Sign-Up" element={<Register/>}/>
-            <Route path="/user/Sign-in" element={<SignIn/>}/>
-            <Route path="/user/admin-register" element={<AdminLogin/>} />
-            <Route path="/user/accont-details" element={<ProfileDetails/>} />
+            <Route path="/user/signup/with_diffrent/account" element={<RegisterBegin/>}/>
+            <Route path="/user/signin/with_diffrent/account" element={<SignupBegains/>}/>
+            <Route path="/user/Sign_Up" element={<Register/>}/>
+            <Route path="/user/Sign_in" element={<SignIn/>}/>
+            <Route path="/user/admin_register" element={<AdminLogin/>} />
+            <Route path="/user/accont_details" element={<ProfileDetails/>} />
         </Routes>
     </BrowserRouter>
     </>

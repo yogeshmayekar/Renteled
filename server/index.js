@@ -8,6 +8,7 @@ import userRoute from './src/routes/users.js';
 import hotelsRoute from './src/routes/hotels.js';
 import cookieParser from "cookie-parser";
 import roomsRoute from './src/routes/rooms.js';
+import emailRoute from './src/routes/email.js';
 const app = express();
 
 
@@ -37,6 +38,7 @@ app.use("/api/auth", authRoute); //authentication api middleware
 app.use("/api/users", userRoute); //users api middleware   
 app.use("/api/hotels", hotelsRoute); //hotels api middleware 
 app.use("/api/rooms", roomsRoute); //rooms api middleware 
+app.use("/api/email", emailRoute); //email api
 
 
 app.listen(PORT, ()=>{
