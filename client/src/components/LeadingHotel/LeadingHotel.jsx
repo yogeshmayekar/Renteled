@@ -14,7 +14,7 @@ const LeadingHotels =  ()=>{
     return(
         <>
         <div className='leadingBoardContainer'>
-        <Grid container spacing={0} className='itemConn'>
+        <Grid container spacing={0} className='itemConn' sx={{maxHeight:'fit-content'}} >
             {/* left side container  */}
             <Grid item xs={6} className='leftConn'>
                 <div className='china__con'>

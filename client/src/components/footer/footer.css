@@ -3,6 +3,7 @@
   margin: 0;
   background-color: rgb(2, 18, 36);
   color: white;
+  max-width: 1208px;
 }
 
 .footerContainer{
