@@ -13,6 +13,7 @@ import Indonesia from './Indonesia';
 const LeadingHotels =  ()=>{
     return(
         <>
+        <div className='leadingwrapper'>
         <div className='leadingBoardContainer'>
         <Grid container spacing={0} className='itemConn' sx={{maxHeight:'fit-content'}} >
             {/* left side container  */}
@@ -92,6 +93,7 @@ const LeadingHotels =  ()=>{
                 </Item>
             </Grid>
         </Grid>
+        </div>
         </div>
         </>
     )

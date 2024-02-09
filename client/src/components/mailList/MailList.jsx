@@ -18,6 +18,7 @@ const MailList = ()=>{
     
     return(
         <>
+        <div className="mailWrapper">
         <div className="mailContainer">
             <h1 className="mailTitle">Save time, save money!</h1>
             <span className="mailDiisc">Sign up and we'll send the best deals to you</span>
@@ -26,6 +27,7 @@ const MailList = ()=>{
                 <button onClick={handleSubscribe} >Subscribe</button>
             </div>
             <button className="headerBtn" onClick={handleAdminLogin}>Admin Login</button>
+        </div>
         </div>
         </>
     )

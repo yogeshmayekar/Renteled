@@ -4,7 +4,13 @@
     margin: none;
     margin-top: 30px;
     max-width: 1208px;
+}
 
+.leadingwrapper{
+    background-color: #F3F5F7;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .itemConn{

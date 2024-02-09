@@ -135,8 +135,10 @@ function Header(){
                 <span>Airport taxis</span>
                 </div>
              </div>
+             <div>
              <h1 className="headerTitle">Looking for a discounts? Get it now</h1>
              <p className="headerDesc">Get rewared for  your room booking - unlock instant savings of 10% or more with a free Renteled account</p>
+             </div>  
              <div className="headerSearch">
                 <div className="headerSearchItem">
                     <FontAwesomeIcon icon={faBed} className="headerIcon" />
