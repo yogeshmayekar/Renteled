@@ -15,7 +15,7 @@ function Featured(){
     //   console.log(data)
     return(
         <div className="featuredContainer">
-            {loading ? (
+            {loading || error  ? (
         "Loading please wait"
       ) : (
         <>

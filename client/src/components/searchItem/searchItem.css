@@ -111,7 +111,7 @@
     cursor: pointer;
     border-radius: 2px;
     width: 170px;
-    height: 7vh;
+    height: 2.5rem;
     &:hover{
         background-color: #1173b9; 
     }

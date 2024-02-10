@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import CloseIcon from '@mui/icons-material/Close';
 import Typography from '@mui/material/Typography';
 import googleImage from '../../Assets/googleIcon.png';
 import facebookImage from '../../Assets/facebookIcon.png';
+import ActionButton from '../../components/actionButton/ActionButton';
 
 const RegisterBegin =()=>{
     const navigate = useNavigate()
@@ -11,14 +11,12 @@ const RegisterBegin =()=>{
         navigate("/user/Sign_Up")
     }
 
-    const submitCloseBtn=()=>{
-       navigate(-1); 
-    }
+
     return(
         
         <div className="maincon">
             <div className="registerContainer2">
-                <CloseIcon className="closeButton" onClick={submitCloseBtn} />
+                <ActionButton/>
                 <Typography component="h2" variant="h5" sx={{textAlign:'center', mt:1}}>
                      Sign up 
                 </Typography>

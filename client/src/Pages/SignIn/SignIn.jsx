@@ -26,6 +26,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../../context/authContext';
+import ActionButton from "../../components/actionButton/ActionButton";
 
 
 // const defaultTheme = createTheme();
@@ -78,15 +79,11 @@ const SignIn = ()=>{
 
   }
 
-  const submitClose = (e)=>{
-    navigate("/");
-    e.preventDefault();
-  }
     
     return(
-        <div className="maincon2">
+        <div className="maincon">
             <div className="signInContainer">
-            <CloseIcon className="closeButton" onClick={submitClose} />
+            <ActionButton fontSize={2.1} />
             {/* <ThemeProvider theme={defaultTheme}> */}
         <Container component="main" maxWidth="xs">
         <CssBaseline />

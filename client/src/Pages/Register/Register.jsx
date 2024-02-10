@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./register.css";
 import { useNavigate, Link } from 'react-router-dom';
-import CloseIcon from '@mui/icons-material/Close';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -21,6 +20,7 @@ import Container from '@mui/material/Container';
 // import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from 'axios';
 import { RegisterContext } from '../../context/registerContext';
+import ActionButton from '../../components/actionButton/ActionButton';
 
 // const defaultTheme = createTheme();
 
@@ -41,11 +41,6 @@ const Register = () =>{
       isAdmin:false,
     });
     const navigate = useNavigate();
-
-    const submitClose = (e)=>{
-        navigate("/");
-        e.preventDefault();
-    }
 
     const handleChange = (e) => {
       setUserData((prev) => ({ ...prev, [e.target.id]: e.target.value }));
@@ -89,9 +84,8 @@ const Register = () =>{
       };
     return(
         <div className="maincon">
-        
             <div className="registerContainer">
-                <CloseIcon className="closeButton" onClick={submitClose} />
+              <ActionButton fontSize={2.2} />
                 {/* <ThemeProvider theme={defaultTheme}> */}
       <Container component="main" maxWidth="xs" sx={{marginBottom:2}}>
         <CssBaseline />
@@ -121,7 +115,7 @@ const Register = () =>{
                   label="First Name"
                   autoFocus
                   onChange={handleChange}
-                  helperText={isFirstNameEmpty ? 'Please enter your first name' : ''}
+                  helperText={isFirstNameEmpty ? 'Enter your first name' : ''}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -133,7 +127,7 @@ const Register = () =>{
                   name="lastName"
                   autoComplete="family-name"
                   onChange={handleChange}
-                  helperText={isLastNameEmpty ? 'Please enter your last name ' : ''}
+                  helperText={isLastNameEmpty ? 'Enter your last name ' : ''}
                 />
               </Grid>
               <Grid item xs={12}>

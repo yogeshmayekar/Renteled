@@ -22,18 +22,18 @@ function Header(){
     }
   ]);
   const [openOptions, setOpenOptions] = useState(false);
-  const [options, setOptions] = useState({adult:1});
-  const [guestCount, setGuestCount] = useState({
-    "Room 1": 1,
+  const [options, setOptions] = useState({
+    "Room 1": 1, 
   });
   const [openCity, setOpenCity] = useState(false);
   const [citiesDataLoading, setCitiesDataLoading]=useState(null);
 
   const navigate = useNavigate();
+  // console.log(destination)
 
   const getSum = () => {
-    const sum = Object.values(guestCount).reduce((acc, value) => acc + value, 0);
-    return sum
+    const sum = Object.values(options).reduce((acc, value) => acc + value, 0);
+    return sum;
   };
 
   const customTheme={
@@ -48,7 +48,7 @@ function Header(){
   },[])
   
 
-  const { dispatch } = useContext(SearchBarContext);
+  const { dispatch44 } = useContext(SearchBarContext);
   const { setHasError, dispatch22 } = useContext(ErrorContext);
   // console.log(dispatch22);
 
@@ -57,36 +57,36 @@ function Header(){
       setHasError(true);
       dispatch22({ errorMessage:"Destination is required, Please tell us where are you going?" });
     }else{
-      dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options }});
-      navigate("/hotels", {state:{destination, dates, options}});
+      dispatch44({ type: "NEW_SEARCH", payload: { destination, dates, options }});
+      navigate("/hotels");
       e.preventDefault();
     }
   }
 
   const addNewRoom = ()=>{
-    const newRoomName = `Room ${Object.keys(guestCount).length + 1}`;
-      setGuestCount((prevGuestCount) => ({
+    const newRoomName = `Room ${Object.keys(options).length + 1}`;
+      setOptions((prevGuestCount) => ({
         ...prevGuestCount,
         [newRoomName]: 1,
       }));
   }
 
     const removeRoom=()=>{
-      const keys = Object.keys(guestCount);
+      const keys = Object.keys(options);
 
       if (keys.length >= 2) {
       const lastKey = keys[keys.length - 1];
 
-      const updatedObject = { ...guestCount };
+      const updatedObject = { ...options };
       delete updatedObject[lastKey];
 
-      setGuestCount(updatedObject);
+      setOptions(updatedObject);
     }
   }
 
     const addGuest=(roomNo, guests)=>{
       if(guests<=2){
-        setGuestCount((prevGuestCount) => ({
+        setOptions((prevGuestCount) => ({
           ...prevGuestCount,
           [roomNo]: prevGuestCount[roomNo] + 1,
         }));
@@ -96,7 +96,7 @@ function Header(){
 
     const removeGuest =(roomNo, guests)=>{
       if(guests>=2){
-        setGuestCount((prevGuestCount) => ({
+        setOptions((prevGuestCount) => ({
           ...prevGuestCount,
           [roomNo]: prevGuestCount[roomNo] - 1,
         }));
@@ -137,7 +137,7 @@ function Header(){
              </div>
              <div>
              <h1 className="headerTitle">Looking for a discounts? Get it now</h1>
-             <p className="headerDesc">Get rewared for  your room booking - unlock instant savings of 10% or more with a free Renteled account</p>
+             <p className="headerDesc">Get rewared for your room booking - unlock instant savings of 10% or more with a free Renteled account</p>
              </div>  
              <div className="headerSearch">
                 <div className="headerSearchItem">
@@ -180,24 +180,24 @@ function Header(){
                 </div>
                 <div className="headerSearchItem" onMouseLeave={()=>setOpenOptions(false)} onMouseEnter={()=>setOpenOptions(true)}>
                 <FontAwesomeIcon icon={faPerson} className="headerIcon" />
-                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}><span className='sp1'>{ getSum() }</span> Guests - <span className='sp1'>{Object.keys(guestCount).length}</span> Room </span>
+                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}><span className='sp1'>{ getSum() }</span> Guests - <span className='sp1'>{Object.keys(options).length}</span> Room </span>
                 {openOptions && <div className="options">
                   <div className="optionHeading"> 
                     <div>Rooms</div>
                     <div>Guests</div>
                   </div>
 
-                 {Object.entries(guestCount).map(([roomNo, guests]) => (               
+                 {Object.entries(options).map(([roomNo, guests]) => (               
                  <div className="optionsItem" key={roomNo}>
                   <span className="optionText">{roomNo}</span>
                   <div className="optionCounter">
                     <button className='optionCounterBtn'  onClick={()=>removeGuest(roomNo, guests)}>-</button>              
-                    <span className="optionCounterNum" >{guests}</span>
+                    <p className="optionCounterNum" >{guests}</p>
                     <button className='optionCounterBtn'  onClick={()=>addGuest(roomNo, guests)} >+</button>
                   </div>
                 </div>))}
                 <div className="addHotelContainer" >
-                  <div className="deleteHotel" onClick={removeRoom} style={{ color: Object.keys(guestCount).length>=2 ? 'rgb(52, 40, 40)' : 'inherit' }} >
+                  <div className="deleteHotel" onClick={removeRoom} style={{ color: Object.keys(options).length>=2 ? 'rgb(52, 40, 40)' : 'inherit' }} >
                     Delete Room
                   </div>
                   <div className="addHotel" onClick={addNewRoom} >

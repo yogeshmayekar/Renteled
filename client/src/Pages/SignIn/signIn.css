@@ -1,28 +1,38 @@
 .signInContainer{
     /* background-color: rgb(246, 247, 247); */
     background-color: #ffffff;
-    width: 35%;
+    width: 25rem;
     height: fit-content;
-    margin:20px 0;
+    max-height: 100vh;
     border-radius: 12px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border: 0.2px solid rgb(65, 61, 61);
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
-.maincon2{
+/* .maincon2{
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 .closeButton{
     color:#7d6969;
     display: inline-block;
     margin:5px;
+    height: 30px;
     cursor: pointer;
-    font-size: 22px;
     font-weight: 500;
+    padding: 5px;
+}
+
+.action__button{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
 }
 
 
@@ -36,7 +46,7 @@
     margin:0;
     font-weight: 600;
     color: rgb(222, 86, 41);
-    font-size: 18px;
+    font-size: 13px;
     text-align: center;
 }
 

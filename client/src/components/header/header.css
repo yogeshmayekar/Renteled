@@ -201,9 +201,9 @@ height: 100px;
 }
 
 .cityLists{
-    width: 30%;
+    width: 20rem;
     background-color: #ffffff;
-    max-height: 40vh;
+    max-height: 16rem;
     position: absolute;
     top: 35px;
     left: 35px;
@@ -244,5 +244,6 @@ height: 100px;
 .headerTitle{
     font-family: 'Lexend Deca', sans-serif;
 }
+
 
 
