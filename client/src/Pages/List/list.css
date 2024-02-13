@@ -13,7 +13,7 @@
   }
   
   .listSearch {
-    flex: 1;
+    width: 25%;
     background-color: #ffffff;
     padding: 20px;
     border-radius: 10px;
@@ -22,6 +22,10 @@
     height: max-content;
     margin-bottom: 30px;
     box-shadow: rgba(0, 0, 0, 0.70) 0px 1px 4px;
+  }
+
+  .hotels_search_container{
+    width: 75%;
   }
   
   .lsTitle{
@@ -40,7 +44,7 @@
   
   .lsItem>label{
     font-size: 18px;
-    font-weight: 500;
+    font-weight: 600;
     padding: 5px 0;
   }
   
@@ -54,12 +58,15 @@
   }
   .lsItem>span{
     height: 30px;
-    padding: 5px;
+    padding: 5px 5px 5px 8px;
     background-color: white;
     display: flex;
     align-items: center;
     border:1px solid black;
-    border-radius: 6px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    color: rgb(82, 68, 68);
   }
   
   .lsOptions{
@@ -151,17 +158,77 @@
   border: none;
   outline: none;
   color: rgb(82, 68, 68);
-  font-weight: 600;
+  font-weight: 500;
   font-size: 16px;
+}
+
+.headerSearchItem3{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 10px;
+  color: rgb(82, 68, 68);
+  font-weight: 500;
+  border: 1px solid black;
+  border-radius: 4px;
 }
 
 .date2{
   position: absolute;
   top:45%;
-  right: 0px;
   z-index: 9;
   box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
   -webkit-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
   -moz-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
-  border-radius: 6px
+  border-radius: 6px;
 }
+
+.sortby__price, .sortby__accom__type{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom:15px;
+}
+
+.sort__property{
+  font-size: 16px;
+}
+
+.sort__price__item{
+  width: 6.5rem;
+  /* height: fi; */
+  border: 1px solid black;
+  border-radius: 4px;
+  outline: none;
+  padding: 5px;
+}
+
+.sort__property{
+  margin-top: 10px;
+}
+
+.pagination__container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 30px 0px 0px 0px;
+}
+
+.options2{
+  position:absolute;
+  top: 59%;
+  width: 95%;
+  left: 10px;
+  background-color: #fff;
+  color: rgb(82, 68, 68);
+  font-weight: 600;
+  border-radius: 5px;
+  box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+  -webkit-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+  -moz-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
+  z-index: 10;
+}
+
+

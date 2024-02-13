@@ -8,7 +8,9 @@ const INITIAL_STATE = {
     key: 'selection'
   }
 ],
-  options: {},
+  options: {
+    "Room 1": 1, 
+  },
 };
 
 export const SearchBarContext = createContext(INITIAL_STATE);
@@ -25,7 +27,15 @@ const SearchReducer = (state, action) => {
         return {
           destination:action.payload.destination2,
           dates: action.payload.dates2,
-          // options: action.payload.options 
+          options: action.payload.options 
+        }
+      case "NEW_UPDATE_SEARCH_DATES":
+        return {
+          dates: action.payload.dates2,
+        }
+      case "NEW_UPDATE_SEARCH_OPTIONS":
+        return {
+          options: action.payload.options2,
         }
       case "RESET_SEARCH":
         return INITIAL_STATE;
