@@ -3,7 +3,7 @@
     left: 50%;
     transform: translateX(-50%);
     width: 80%;
-    height: 500vh;
+    height: max-content;
     border: .5px solid;
     margin-top: 15vh;
 }
@@ -13,13 +13,18 @@
     padding: 20px 0;
 }
 
-.general__booking_policy, .customer__care, .checkIn__policy, .booking__extension{
+.general__booking_policy, .customer__care,
+.checkIn__policy, .booking__extension,
+.long__stay, .thriple__ocupency, .visitor__policy,
+.chield__policy, .service__on{
     margin: 0 7%;
     padding-bottom: 20px;
     border-bottom: 1px solid rgb(191, 184, 184);
 }
 
-.customer__care, .checkIn__policy, .booking__extension{
+.customer__care, .checkIn__policy, .booking__extension,
+.long__stay, .thriple__ocupency, .visitor__policy,
+.chield__policy, .service__on{
     padding: 30px 0;
     gap: 20px;
 }
