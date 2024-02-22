@@ -80,7 +80,7 @@ class CustomErrorHandler extends Error {    //extended the javaScript inbild err
     static unableToSubscribe(message="unable to subscribe now"){
         return new CustomErrorHandler(400, message);
     }
-    static alreadySubscrubed(message="Email Id already subscribed"){
+    static alreadySubscrubed(message="Email Id already subscribed with us"){
         return new CustomErrorHandler(400, message);
     }
 }   

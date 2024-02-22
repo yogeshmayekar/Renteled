@@ -75,7 +75,7 @@ const Register = () =>{
             const res = await axios.post("http://localhost:9090/api/auth/register", userData);
             // console.log(res);
             dispatch33({ type: "REGISTER_SUCCESS", payload: res.data.details });
-            navigate("/user/Sign-in");
+            navigate("/user/Sign_in");
           }catch(err){
             // console.log("catched error is",err.response.data);
             dispatch33({ type: "REGISTER_FAILURE", payload: err.response.data });

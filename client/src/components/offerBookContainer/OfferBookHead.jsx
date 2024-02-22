@@ -6,7 +6,7 @@ import './offerHead.css';
 const OfferBookHead = ()=>{
     const navigate = useNavigate()
     const submitLogin =(e)=>{
-        navigate('/user/Sign_sin')
+        navigate('/user/Sign_in')
         e.preventDefault()
     }
     return(

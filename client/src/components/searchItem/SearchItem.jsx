@@ -1,16 +1,22 @@
 import React from "react";
 import "./searchItem.css";
 import { Link } from 'react-router-dom';
+import Slider2 from '../../components/splider/Slider2'
 
 const SearchItem = (props) => {
-
+  const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
+  const randomNumberTwo = Math.floor(Math.random() * 9000) + 1000;
   return (
     <div className="searchItem" >
-      <img
+      
+      <div className="siImg">
+      {/* <img
         src={props.item.photos[0]}
         alt=""
         className="siImg"
-      />
+      /> */}
+      <Slider2 perPages={1} width={"230px"} height={"200px"} />
+      </div>
       <div className="siDesc">
         <h1 className="siTitle">{props.item.name}</h1>
         <span className="siDistance">{props.item.distance}</span>
@@ -33,7 +39,7 @@ const SearchItem = (props) => {
         <div className="siDetailTexts">
           <span className="siPrice">{props.item.cheapestPrice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          <Link to={`/hotels/${props.item._id}`}>
+          <Link to={`/hotels/jiqv${randomNumberOne}yu3457sf${props.item._id}gctjl${randomNumberTwo}yh`} target="__blank" >
             <button className="siCheckButton">Check availibility</button>
           </Link>
         </div>

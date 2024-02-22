@@ -1,4 +1,4 @@
-import {React, useState, useEffect, useContext} from 'react';
+import {React, useState, useEffect, useContext, useRef} from 'react';
 import "./list.css";
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
@@ -14,6 +14,7 @@ import indianCities from '../../cities.json';
 
 const List=()=>{
     const [openDate, setOpenDate] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
     const [openOptions, setOpenOptions] = useState(false);
@@ -23,11 +24,73 @@ const List=()=>{
     const [destination2, setDestination2] = useState(destination);
     const [dates2, setDates2] = useState(dates);
     const [options2, setOptions2] = useState(options);
+    const searchDestinationRef = useRef(null);
+    const searchDateRef = useRef(null);
+    const searchOpenRef = useRef(null);
+    const itemsPerPage = 100;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
     // console.log(destination2);
 
     const { data, loading, reFetch } = useFetch(
-        `/hotels?city=${destination2}&min=${min || 0 }&max=${max || 999}`
+        `/hotels?search=${destination}&min=${min || 0 }&max=${max || 999}`
     );
+    // console.log(data)
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (searchDestinationRef.current && !searchDestinationRef.current.contains(event.target)) {
+            setOpenCity(false);
+          }
+        };
+        const handleDocumentClick = (event) => {
+          handleClickOutside(event);
+        };
+        document.addEventListener('mousedown', handleDocumentClick);
+        return () => {
+          document.removeEventListener('mousedown', handleDocumentClick);
+        };
+      }, [searchDestinationRef, setOpenCity, setOpenDate]);
+      
+    
+    
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (searchDateRef.current && !searchDateRef.current.contains(event.target)) {
+            setOpenDate(false);
+          }
+        };
+    
+        const handleDocumentClick = (event) => {
+          handleClickOutside(event);
+        };
+    
+        document.addEventListener('mousedown', handleDocumentClick);
+    
+        return () => {
+          document.removeEventListener('mousedown', handleDocumentClick);
+        };
+      }, [searchDateRef, setOpenDate]);
+     
+    
+      useEffect(() => {
+        const handleClickOutside = (event) => {
+          if (searchOpenRef.current && !searchOpenRef.current.contains(event.target)) {
+            setOpenOptions(false);
+          }
+        };
+    
+        const handleDocumentClick = (event) => {
+          handleClickOutside(event);
+        };
+    
+        document.addEventListener('mousedown', handleDocumentClick);
+    
+        return () => {
+          document.removeEventListener('mousedown', handleDocumentClick);
+        };
+      }, [searchOpenRef, setOpenOptions]);
 
     const customTheme={
         rdrMonth :{
@@ -117,10 +180,11 @@ const List=()=>{
                             onInput={()=>setOpenCity(true)} 
                             value={destination2} 
                             autocomplete="off" 
-                            onClick={()=>setOpenCity(true)}
+                            // onClick={()=>setOpenCity(true)} 
+
                             />
                             {openCity && citiesDataLoading &&  
-                  <ul className="cityLists2" onMouseLeave={()=>setOpenCity(false)}> 
+                  <ul className="cityLists2" ref={searchDestinationRef} > 
                     {citiesDataLoading.filter((item)=>{
                       const searchTerm = destination2.toLowerCase();
                       const fullAdress = item.name.toLowerCase();
@@ -132,7 +196,7 @@ const List=()=>{
                 
                 }
                         </div>
-                        <div className="lsItem">
+                        <div className="lsItem" ref={searchDateRef}>
                             <label>Check-in Date</label>
                             <span onClick={()=>{setOpenDate(!openDate)}}  className="headerSearchText">{`${format(dates2[0].startDate, "dd/MM/yyyy")} to ${format(dates2[0].endDate, "dd/MM/yyyy")}`}</span>
                             {openDate && <DateRange
@@ -148,9 +212,9 @@ const List=()=>{
                         </div>
                         <div className="lsItem">
                             <label>Options</label>
-                            <div className="lsOptions" style={{padding:'0'}}>
-                            <div className="headerSearchItem3" onMouseLeave={()=>setOpenOptions(false)} onMouseEnter={()=>setOpenOptions(true)}>
-                                <span className="headerSearchText2" onClick={()=>setOpenOptions(!openOptions)}><span className='sp1'>{ getSum() }</span> Guests - <span className='sp1'>{Object.keys(options2).length}</span> Room </span>
+                            <div className="lsOptions" style={{padding:'0'}}  ref={searchOpenRef} >
+                            <div className="headerSearchItem3" onClick={()=>setOpenOptions(true)} >
+                                <span className="headerSearchText2"><span className='sp1'>{ getSum() }</span> Guests - <span className='sp1'>{Object.keys(options2).length}</span> Room </span>
                                 {openOptions && 
                                 <div className="options2">
                                 <div className="optionHeading"> 
@@ -220,13 +284,13 @@ const List=()=>{
                     <div className="listResult">
                         {loading ? "Loading Hotels" :
                         <>
-                         {data.map((item)=>(
+                         {data.slice(startIndex, endIndex).map((item,i)=>(
                             <SearchItem item={item} key={item._id}/>
                          ))}
                         </>}
                     </div>
                     <div className='pagination__container'>
-                    <BasicPagination/>
+                    {data.length>itemsPerPage &&<BasicPagination data={data} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
                     </div>
                     </div>
                 </div>

@@ -171,7 +171,7 @@ function Header(){
         <div className="header">
             <div className="headerContainer">
              <div className="headerList">
-                <div className="headerListItem active">
+                <div className="headerListItem">
                 <FontAwesomeIcon icon={faBed} />
                 <span>Stays</span>
                 </div>

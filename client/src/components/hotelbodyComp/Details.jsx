@@ -1,5 +1,6 @@
 import React from 'react';
 import './details.css';
+import { useNavigate } from 'react-router-dom';
 import { CiWifiOn } from "react-icons/ci"; //wifi icon imported
 import { TbAirConditioning } from "react-icons/tb"; //AC icon imported
 import { LuMonitor } from "react-icons/lu"; //TV icon imported
@@ -8,6 +9,7 @@ import { MdFileDownloadDone } from "react-icons/md"; // house keeping done icon 
 import { PiShowerThin } from "react-icons/pi"; //shower icon imported
 
 const Details =()=>{
+    const navigate = useNavigate()
     return(
         <>
             <div className='hotelDetailsInfoContainer'>
@@ -63,7 +65,7 @@ const Details =()=>{
                         
                     </div>
                     <div className='gaustPolicy'>
-                        <button>View Guest Policy</button>
+                        <button onClick={()=>navigate("/guest-policy/")}>View Guest Policy</button>
                     </div>
                     
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import './hotel.css';
 import Navbar from '../../components/navbar/Navbar';
-import Slider2 from '../../components/splider/Slider';
+import Slider2 from '../../components/splider/Slider2';
 import MailList from '../../components/mailList/MailList';
 import Footer from '../../components/footer/Footer';
 import Details from '../../components/hotelbodyComp/Details';
@@ -11,7 +11,7 @@ function Hotel(){
     return(
         <>
         <Navbar/>
-        <Slider2/>
+        <Slider2 perPages={2} width={"100%"}/>
         <div style={{display:'flex'}}>
         <Details/>
         <BookCard/>

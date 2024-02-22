@@ -12,12 +12,13 @@
     transform: translateY(-50%);
 }
 
-/* .maincon2{
-    width: 100%;
+.maincon{
+    /* width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
-} */
+    align-items: center; */
+    overflow: hidden;
+}
 
 .closeButton{
     color:#7d6969;

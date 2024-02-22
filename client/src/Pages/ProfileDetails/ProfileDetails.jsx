@@ -91,7 +91,7 @@ const ProfileDetails= ()=>{
             <div className="name__container">
             <div style={{display:'flex', justifyContent:'space-between',alignItems:'center' }}>
             <div style={{display:'flex', marginTop:"20px"} }>
-            <KeyboardBackspaceIcon className="back__icon" style={{fontSize:"40px"}} onClick={() => navigate(-1)} />
+            <KeyboardBackspaceIcon className="back__icon" style={{fontSize:"40px", paddingTop:"10px"}} onClick={() => navigate(-1)} />
             <h2 className="user__name" >Hi, Yogesh</h2>
             </div>
             <button className="logout__button" onClick={handleLogOut} >Log out</button>

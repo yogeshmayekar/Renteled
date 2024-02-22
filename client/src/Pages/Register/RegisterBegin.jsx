@@ -13,7 +13,6 @@ const RegisterBegin =()=>{
 
 
     return(
-        
         <div className="maincon">
             <div className="registerContainer2">
                 <ActionButton/>

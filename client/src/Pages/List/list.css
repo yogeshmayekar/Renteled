@@ -116,14 +116,14 @@
   }
 
   .cityLists2{
-    width: 17.2rem;
-    max-width: 17.5rem;
+    width: 18.1rem;
+    max-width: 18.1rem;
     margin: 0;
     background-color: #ffffff;
     max-height: 16rem;
     position: absolute;
-    top: 27%;
-    /* left: 20px; */
+    top: 26%;
+    left: 15px;
     margin: 0 5px;
     z-index: 99999;
     padding: 0;
@@ -176,7 +176,7 @@
 
 .date2{
   position: absolute;
-  top:45%;
+  top:43%;
   z-index: 9;
   box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
   -webkit-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
@@ -213,7 +213,7 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  margin: 30px 0px 0px 0px;
+  margin: 30px 0px 20px 0px;
 }
 
 .options2{

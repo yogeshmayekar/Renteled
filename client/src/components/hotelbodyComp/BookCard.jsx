@@ -4,12 +4,13 @@ import OfferBookHead from '../offerBookContainer/OfferBookHead';
 import { SearchBarContext } from "../../context/searchBarContext";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
+import { AuthContext } from "../../context/authContext";
 
 const BookCard = ()=>{
     const {dates} = useContext(SearchBarContext);
     const [date, setDate] = useState(dates);
     const [openDate, setOpenDate] = useState(false);
-
+    const loginContext = useContext(AuthContext);
 
     const returnDates = (date)=>{
         return `${format(
@@ -27,7 +28,9 @@ const BookCard = ()=>{
         <>
             <div className='bookCardContainer'>
                 {/* offrt head  */}
-                <OfferBookHead/>
+                {!loginContext.user &&
+                    <OfferBookHead/>
+                }
                 <div className='bookWrap'>
 
                     <div className='priceWrapper'>

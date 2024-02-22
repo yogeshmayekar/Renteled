@@ -1,0 +1,41 @@
+.guest__policy__container{
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    height: 500vh;
+    border: .5px solid;
+    margin-top: 15vh;
+}
+
+.policy__heading{
+    margin: 0 7%;
+    padding: 20px 0;
+}
+
+.general__booking_policy, .customer__care, .checkIn__policy, .booking__extension{
+    margin: 0 7%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgb(191, 184, 184);
+}
+
+.customer__care, .checkIn__policy, .booking__extension{
+    padding: 30px 0;
+    gap: 20px;
+}
+
+.policy__heading>h1{
+    font-size: 28px;
+}
+
+.number__headlight{
+    color: rgb(2, 2, 26);
+}
+
+ol>li{
+margin-bottom: 10px;
+}
+
+.sub_list>li{
+    margin-bottom: 20px;
+}

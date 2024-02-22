@@ -25,9 +25,9 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
+import { zoomies } from 'ldrs';
 import { AuthContext } from '../../context/authContext';
 import ActionButton from "../../components/actionButton/ActionButton";
-
 
 // const defaultTheme = createTheme();
 
@@ -39,11 +39,13 @@ const SignIn = ()=>{
     password : undefined,
     rememberMe : false,
   });
-
+  zoomies.register();
   const { loading, error, dispatch } = useContext(AuthContext);
+  const [topLoader, setTopLoader]= useState(false);
   // console.log("context error is ", error)
 
     const handleSubmit = async (event) => {
+        setTopLoader(true);
         event.preventDefault();
         dispatch({ type: "LOGIN_START" });
         // console.log(credentials);
@@ -51,13 +53,15 @@ const SignIn = ()=>{
           const res = await axios.post("http://localhost:9090/api/auth/login", credentials, {
             credentials: "include",
           });
-          console.log("response is", res);
+          // console.log("response is", res);
           // localStorage.setItem('access_token', res.data.token);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
           navigate("/");
+          setTopLoader(false);
         } catch (err) {
           // console.log("err223",err.response.data)
           dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });
+          setTopLoader(false)
         }
       }; 
 
@@ -82,6 +86,15 @@ const SignIn = ()=>{
     
     return(
         <div className="maincon">
+          {topLoader && <>
+          <l-zoomies
+            size="2000"
+            stroke="4"
+            bg-opacity="0.1"
+            speed="1.2" 
+            color="rgb(12, 107, 209)" 
+          ></l-zoomies>
+          </>}
             <div className="signInContainer">
             <ActionButton fontSize={2.1} />
             {/* <ThemeProvider theme={defaultTheme}> */}

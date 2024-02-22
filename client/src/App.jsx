@@ -9,6 +9,7 @@ import AdminLogin from './Pages/AdminLogin/AdminLogin';
 import ProfileDetails from './Pages/ProfileDetails/ProfileDetails';
 import RegisterBegin from './Pages/Register/RegisterBegin';
 import SignupBegains from './Pages/SignIn/SigninBegains';
+import GuestPolicy from './Pages/GuestPolicy/GuestPolicy';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/user/Sign_in" element={<SignIn/>}/>
             <Route path="/user/admin_register" element={<AdminLogin/>} />
             <Route path="/user/accont_details" element={<ProfileDetails/>} />
+            <Route path="/guest-policy/" element={<GuestPolicy/>} />
         </Routes>
     </BrowserRouter>
     </>
