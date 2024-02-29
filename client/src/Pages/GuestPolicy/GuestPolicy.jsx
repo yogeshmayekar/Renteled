@@ -98,6 +98,74 @@ function GuestPolicy() {
                 <li>As of now, this service is available for only selected hotels in these cities: Bengaluru, Calcutta, Delhi, Gurugram, Hyderabad, and Lucknow.</li>
             </ol>
         </div>
+        <div className='codeOf__conduct'>
+            <h3>Code of Conduct:</h3>
+            <ol>
+                <li>Illegal activities are not permitted in any Renteled Hotel.</li>
+                <li>You should be aware that the Hotel may refuse service or evict you</li>
+                <ol type='a'>
+                    <li>For refusal or failure to pay for accommodation,</li>
+                    <li>If you act in a disorderly fashion as to disturb the peace of other guests,</li>
+                    <li>If you destroy, damage, deface or threaten harm to hotel property or guests,</li>
+                    <li>Any of your actions are deemed inappropriate by the Hotel.</li>
+                </ol>
+                <li>Please keep the Hotel room in a good condition and maintain hygiene and cleanliness. You may be held liable for any damage to Hotel assets (except normal wear and tear).</li>
+            </ol>
+
+        </div>
+
+        <div className='drug__alcohol' >
+            <h3>Smoking, Drugs and Alcohol</h3>
+            <ol>
+                <li>Smoking is prohibited in Renteled Townhouse. Some Hotels may prohibit smoking in their guest rooms so it is prudent to check with the Hotel Front Desk.</li>
+                <li>Anyone found using or under the influence of illegal drugs or substances classified under the <b><u><i>Narcotic Drugs and Psychotropic Substances Act, 1985</i></u></b> will be reported to the police and asked to leave the Hotel. Any evidence or suspicion of drug use at the Hotel will also be reported immediately to the police</li>
+                <li>Drinking alcohol is prohibited in all public areas including; in the Hotel’s lobby, hallways, and parking areas of Renteled Hotels. Please contact the Hotel Front Desk regarding consumption of alcoholic beverages within your room, without disturbing the discipline of the Hotel or other guests.</li>
+            </ol>
+        </div>
+
+        <div className='safety__policy'>
+            <h3>Safety and Security</h3>
+            <ol>
+                <li>For your own safety, please follow fire safety and emergency response procedures as directed by Hotel staff</li>
+                <li>Renteled/Hotel are not liable for lost, misplaced, damaged or stolen valuables or belongings.</li>
+                <li>Keeping your safety in mind, a SOS button is provided which gets activated in the Renteled app upon check-in. This SOS button can be used in case of emergency. The Screenshot of the same is provided below.</li>
+            </ol>
+        </div>
+
+        <div className='contact__policy'>
+            <h3>Contact Policies:</h3>
+            <ol>
+                <li>You may be contacted any time before your check-in date to confirm your arrival status/arrival time through calls or messages. If Renteled does not receive a response from you after multiple attempts, your booking may be put on hold or cancelled. Renteled will reinstate your booking when you contact us back or make a payment through our secure payment options, subject to availability.</li>
+                <li>As we continue to strive to improve our services, we may reach out to you for your feedback on your experience through calls or messages.</li>
+                <li>We might reach out to you for offers.</li>
+            </ol>
+        </div>
+
+        <div className='contact__policy'>
+            <h3>Beware of Fraud:</h3>
+            <ol>
+                <li>Renteled does not authorise any of its employees, consultants, third-party vendors, associates to collect payment in any other form other than payments from secure Renteled gateway and its affiliated OTA payment gateway links.</li>
+                <li>Any instances where collection of payment is attempted from any unauthorized payment gateways other than the ones mentioned above are acts of fraud. Encountering and acting on the same is solely on your own accord and discretion. Renteled will not be responsible for any loss/liability arising out of such an event.</li>
+            </ol>
+        </div>
+
+        <div className='contact__policy'>
+            <h3>Insurance</h3>
+            <ol>
+                <li>Travel Insurance provided as a part of Renteled's services shall be as per the terms and conditions of the third-party insurance company, Deco General Insurance (hereinafter “Deco”). Deco coverage shall only be applicable for check-in to Renteled Hotels, Renteled Homes, Renteled Townhouse and Collection O establishments on bookings made only via the Renteled App, website, mobile website, direct bookings and/or walk-ins. The list of Renteled establishments covered by Deco may be changed from time without any intimation to you. Renteled merely acts as a facilitator in connecting you with Deco. Please contact Deco directly for any claims or disputes. Renteled shall not be held liable in case of partial acceptance or denial of the claims by Deco and Renteled has no role or liability in claims settlement.</li>
+                <li>It is clarified that a claim raised under the relevant insurance policy would act as a bar against any endorsement in the policy which would include but not be limited to changes relating to extension/curtailment of stay period and addition/deletion of guests covered under the policy.</li>
+                <li>For any assistance related to insurance, you can write on <i><b><u>“renteledcare@deco.com”</u></b></i> </li>
+            </ol>
+        </div>
+
+        <div className='grievances'>
+            <h3>Grievances</h3>
+            <p>For any grievances:</p>
+            <p><b>Phone : </b>+91 7411805513</p>
+            <p><b>Self Help : </b>https://help.renteledrooms.com</p>
+            <p><b>Email: </b>india.grievances@renteledrooms.com</p>
+            <p><b>Grievance Officer: </b>Yogesh Mayekar</p>
+        </div>
     </div>
     </>
   )

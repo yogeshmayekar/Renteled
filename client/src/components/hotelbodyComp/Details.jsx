@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './details.css';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CiWifiOn } from "react-icons/ci"; //wifi icon imported
 import { TbAirConditioning } from "react-icons/tb"; //AC icon imported
 import { LuMonitor } from "react-icons/lu"; //TV icon imported
@@ -9,7 +9,7 @@ import { MdFileDownloadDone } from "react-icons/md"; // house keeping done icon 
 import { PiShowerThin } from "react-icons/pi"; //shower icon imported
 
 const Details =()=>{
-    const navigate = useNavigate()
+    const[showMore, setShowMore]=useState(false);
     return(
         <>
             <div className='hotelDetailsInfoContainer'>
@@ -38,7 +38,8 @@ const Details =()=>{
                         <li><span className='iconFac'><CiPower /></span><span>Power backup</span></li>
                         <li><span className='iconFac'><MdFileDownloadDone /></span><span>Daily housekeeping</span></li>
                     </ul>
-                    <button>Show More</button>
+                    {showMore ? <button onClick={()=>setShowMore(!showMore)} >Show less</button> :
+                    <button onClick={()=>setShowMore(!showMore)}>Show More</button>}
                 </div>
 
                 <div className='hotelPolicy'>
@@ -59,13 +60,13 @@ const Details =()=>{
                         <ul>
                             <li>Couples are welcome</li>
                             <li>Guests can check in using any local or outstation ID proof (PAN card not accepted).</li>
-                            <li>As a complimentary benefit, your stay is now insured by Acko.</li>
-                            <li>This hotel is serviced under the trade name of Svasthi Homes as per quality standards of OYO</li>
+                            <li>As a complimentary benefit, your stay is now insured by Deco.</li>
+                            <li>This hotel is serviced under the trade name of Svasthi Homes as per quality standards of Renteled</li>
                         </ul>
                         
                     </div>
                     <div className='gaustPolicy'>
-                        <button onClick={()=>navigate("/guest-policy/")}>View Guest Policy</button>
+                    <button><Link to="/guest-policy/" target="_blank" style={{textDecoration:"none", color:"#072D5C"}}>View Guest Policy</Link></button>
                     </div>
                     
                 </div>

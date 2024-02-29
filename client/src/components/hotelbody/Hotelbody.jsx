@@ -14,7 +14,7 @@ const Hotelbody = ()=>{
             <div className="chield-left">
                 <div className="hotelName">
                     <div className="HotelName11">
-                        <h1>OYO Corinthia Boutique Rooms Near Candolim Beach</h1>
+                        <h1>Renteled Corinthia Boutique Rooms Near Candolim Beach</h1>
                     </div>
                     <div className="HotelName12">
                         <button>4.5  &#9733;</button>
@@ -29,7 +29,7 @@ const Hotelbody = ()=>{
                     </div>
                     <div className="descBody">
                         <p>
-                        Located near Aguada Fort, Hotel OYO 85326 Corinthia Boutique Rooms is a budget hotel with standardised amenities at the best value. Located in Goa, this hotel is 18 km from Dona Paula View Point and 5 km from the Aguada Fort. Guests can enjoy amenities such as power backup, housekeeping, and room service.
+                        Located near Aguada Fort, Hotel Renteled 85326 Corinthia Boutique Rooms is a budget hotel with standardised amenities at the best value. Located in Goa, this hotel is 18 km from Dona Paula View Point and 5 km from the Aguada Fort. Guests can enjoy amenities such as power backup, housekeeping, and room service.
 
                         <br/>
 
@@ -117,7 +117,7 @@ const Hotelbody = ()=>{
                         <h2>What's nearby?</h2>
                     </div>
                     <div className="watsnameBody">
-                        <span>OYO Corinthia Boutique Rooms Near Candolim Beach</span>
+                        <span>Renteled Corinthia Boutique Rooms Near Candolim Beach</span>
                     </div>
                 </div>
             </div>

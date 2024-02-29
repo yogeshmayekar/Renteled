@@ -27,7 +27,7 @@ const SearchReducer = (state, action) => {
         return {
           destination:action.payload.destination2,
           dates: action.payload.dates2,
-          options: action.payload.options 
+          options: action.payload.options2 
         }
       case "NEW_UPDATE_SEARCH_DATES":
         return {
@@ -46,7 +46,7 @@ const SearchReducer = (state, action) => {
 
 export const SearchContextProvider = ({ children }) => {
     const [state, dispatch44] = useReducer(SearchReducer, INITIAL_STATE);
-    // console.log(state)
+    console.log(state)
   
     return (
       <SearchBarContext.Provider

@@ -145,7 +145,7 @@ const List=()=>{
 
     const handleDateChange=(item)=>{
         setDates2([item.selection])
-        dispatch44({ type: "NEW_UPDATE_SEARCH_DATES", payload: { dates2 }});
+        // dispatch44({ type: "NEW_UPDATE_SEARCH_DATES", payload: { dates2 }});
     }
 
     const handlePlaceInputChange = (e)=>{

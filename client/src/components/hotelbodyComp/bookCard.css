@@ -130,3 +130,8 @@
 #lastSpan{
     color:rgb(150, 140, 140);
 }
+
+.date3{
+    position: relative;  
+    top: 15px;
+}

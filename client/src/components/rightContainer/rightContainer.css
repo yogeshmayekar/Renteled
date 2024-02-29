@@ -1,0 +1,40 @@
+.right__Containers{
+    height: 100vh;
+    background-color: #ffffff;
+    overflow-y: auto;
+}
+
+.right__parent__container{
+    display: flex;
+    width: 50%;
+    position: fixed;
+    z-index: 999999;
+    right: 0;
+    top: 0;
+}
+
+.right_content{
+    padding: 20px 40px;
+}
+
+.right_content>p{
+    color: rgb(21, 21, 82);
+}
+
+.right_content>ul{
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+.right_content>ul>li{
+    margin-bottom: 10px;
+}
+
+.right_content>ul>li::marker{
+    color: rgb(163, 147, 147);
+}
+
+.closeRight{
+    position: relative;
+    right: 0;
+}

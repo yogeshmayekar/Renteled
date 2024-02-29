@@ -10,11 +10,6 @@ const SearchItem = (props) => {
     <div className="searchItem" >
       
       <div className="siImg">
-      {/* <img
-        src={props.item.photos[0]}
-        alt=""
-        className="siImg"
-      /> */}
       <Slider2 perPages={1} width={"230px"} height={"200px"} />
       </div>
       <div className="siDesc">
@@ -39,7 +34,7 @@ const SearchItem = (props) => {
         <div className="siDetailTexts">
           <span className="siPrice">{props.item.cheapestPrice}</span>
           <span className="siTaxOp">Includes taxes and fees</span>
-          <Link to={`/hotels/jiqv${randomNumberOne}yu3457sf${props.item._id}gctjl${randomNumberTwo}yh`} target="__blank" >
+          <Link to={`/hotels/jiqv${randomNumberOne}yu3457sf${props.item._id}gctjl${randomNumberTwo}yh`} target="_blank" >
             <button className="siCheckButton">Check availibility</button>
           </Link>
         </div>

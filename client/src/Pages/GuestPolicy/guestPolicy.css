@@ -4,8 +4,11 @@
     transform: translateX(-50%);
     width: 80%;
     height: max-content;
-    border: .5px solid;
+    border: .1px solid rgb(228, 220, 220);
     margin-top: 15vh;
+    padding-bottom: 6%;
+    text-align: justify;
+    box-shadow: rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;
 }
 
 .policy__heading{
@@ -16,7 +19,8 @@
 .general__booking_policy, .customer__care,
 .checkIn__policy, .booking__extension,
 .long__stay, .thriple__ocupency, .visitor__policy,
-.chield__policy, .service__on{
+.chield__policy, .service__on, .codeOf__conduct,
+.drug__alcohol, .safety__policy, .contact__policy, .grievances{
     margin: 0 7%;
     padding-bottom: 20px;
     border-bottom: 1px solid rgb(191, 184, 184);
@@ -24,7 +28,8 @@
 
 .customer__care, .checkIn__policy, .booking__extension,
 .long__stay, .thriple__ocupency, .visitor__policy,
-.chield__policy, .service__on{
+.chield__policy, .service__on, .codeOf__conduct,
+.drug__alcohol, .safety__policy, .contact__policy, .grievances{
     padding: 30px 0;
     gap: 20px;
 }
@@ -38,9 +43,13 @@
 }
 
 ol>li{
-margin-bottom: 10px;
+    margin-bottom: 10px;
 }
 
 .sub_list>li{
     margin-bottom: 20px;
+}
+
+.grievances>p{
+    margin:4px 0;
 }

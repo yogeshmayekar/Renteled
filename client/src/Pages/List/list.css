@@ -177,11 +177,17 @@
 .date2{
   position: absolute;
   top:43%;
-  z-index: 9;
+  /* overflow-x: scroll; */
+  width: 18.3rem;
+  z-index: 1000000000000000;
   box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
   -webkit-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
   -moz-box-shadow: 0px 3px 8px 0px rgba(0,0,0,0.54);
   border-radius: 6px;
+}
+
+.rdrMonth{
+  width: inherit;
 }
 
 .sortby__price, .sortby__accom__type{

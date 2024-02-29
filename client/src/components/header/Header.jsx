@@ -95,7 +95,7 @@ function Header(){
 
   const customTheme={
     rdrMonth :{
-      width: "300px"
+      // width: "300px"
     }
   }
 
@@ -171,7 +171,7 @@ function Header(){
         <div className="header">
             <div className="headerContainer">
              <div className="headerList">
-                <div className="headerListItem">
+                <div className="headerListItem actives">
                 <FontAwesomeIcon icon={faBed} />
                 <span>Stays</span>
                 </div>
