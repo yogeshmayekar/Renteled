@@ -18,7 +18,7 @@ function App() {
     <BrowserRouter>
         <Routes>
             <Route path="/" exact element={<Home/>}/>
-            <Route path="/hotels" element={<List/>}/>
+            <Route path="/hotels/:location/:checkin/:checkout" element={<List/>}/>
             <Route path="/hotels/:id" element={<Hotel/>}/>
             <Route path="/user/signup/with_diffrent/account" element={<RegisterBegin/>}/>
             <Route path="/user/signin/with_diffrent/account" element={<SignupBegains/>}/>

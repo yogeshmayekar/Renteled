@@ -28,6 +28,7 @@ import axios from 'axios';
 import { zoomies } from 'ldrs';
 import { AuthContext } from '../../context/authContext';
 import ActionButton from "../../components/actionButton/ActionButton";
+import Cookies from 'js-cookie';
 
 // const defaultTheme = createTheme();
 
@@ -53,7 +54,8 @@ const SignIn = ()=>{
           const res = await axios.post("http://localhost:9090/api/auth/login", credentials, {
             credentials: "include",
           });
-          // console.log("response is", res);
+          // console.log("response is", res.data.access_token);
+          Cookies.set("access_token", res.data.access_token)
           // localStorage.setItem('access_token', res.data.token);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
           navigate("/");

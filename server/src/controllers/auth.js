@@ -108,7 +108,7 @@ export const login = async(req, res, next)=>{
             httpOnly: true,
             // secure: true, // Ensure your website is served over HTTPS
             // sameSite: 'None', // avoid cross site request
-        }).status(200).json({details: otherDetails, isAdmin });
+        }).status(200).json({details: otherDetails, isAdmin, access_token:token });
 
     }catch(err){
         if(DEBUG_MODE===true){

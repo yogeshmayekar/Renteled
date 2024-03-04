@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
 import OtpInput from '../../components/otpInput/OtpInput';
 import ResendOtp from '../../components/resendOtp/ResendOtp';
+import Cookies from 'js-cookie';
 
 const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
@@ -79,7 +80,8 @@ const ProfileDetails= ()=>{
 
     const handleLogOut=(e)=>{
         dispatch({type: "LOGOUT"});
-        localStorage.clear();
+        Cookies.remove("access_token");
+        localStorage.removeItem("user");
         navigate("/");
         e.preventDefault();
     }

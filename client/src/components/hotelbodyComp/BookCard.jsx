@@ -6,6 +6,7 @@ import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import { AuthContext } from "../../context/authContext";
 import { Link } from 'react-router-dom';
+import PriceWrapper from '../priceWrapper/PriceWrapper';
 
 const BookCard = ({setSefetyMeasure})=>{
     const {destination, dates, options, dispatch44} = useContext(SearchBarContext);
@@ -59,13 +60,7 @@ const BookCard = ({setSefetyMeasure})=>{
                     <OfferBookHead/>
                 }
                 <div className='bookWrap'>
-
-                    <div className='priceWrapper'>
-                        <span className='price'>₹1122</span>
-                        <span className='markupPrice'><del>₹4717</del></span>
-                        <span className='discontOffer'>76% off</span>
-                        <p className='taxAndFees'>+ taxes & fees: ₹178</p>
-                    </div>
+                    <PriceWrapper/>
 
                     <div className='roomDetails'>
                         <div className='dateDetails' ref={searchDateRef}>

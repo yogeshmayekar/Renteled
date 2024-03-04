@@ -1,0 +1,55 @@
+.priceWrapper{
+    padding:5% 7%;
+}
+
+.smallPriceWrapper{
+    padding:1% 3%;
+    margin-right: 10px;
+    width: 200px;
+}
+
+
+.priceWrapper> .price{
+    font-weight: bold;
+    font-size: 25px;
+    color: #302c2c;
+}
+
+.smallPriceWrapper> .price{
+    font-weight: bold;
+    font-size: 20px;
+    color: #302c2c;
+}
+
+.priceWrapper>.markupPrice{
+    margin:0 10px;
+    color: #6a6969;
+}
+
+.smallPriceWrapper>.markupPrice{
+    margin:0 10px;
+    color: #6a6969;
+}
+
+.priceWrapper>.discontOffer{
+    font-weight: bold;
+    color: rgb(75, 75, 185);
+}
+
+.smallPriceWrapper>.discontOffer{
+    font-weight: bold;
+    color: rgb(75, 75, 185);
+    font-size: 16px;
+}
+
+.priceWrapper>.taxAndFees{
+    margin:5px 0;
+    font-size: 14px;
+    color:#7c7373 ;
+}
+
+.smallPriceWrapper>.taxAndFees{
+    margin:5px 0;
+    font-size: 12px;
+    color:#7c7373 ;
+}

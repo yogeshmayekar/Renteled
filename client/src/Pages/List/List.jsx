@@ -1,9 +1,10 @@
 import {React, useState, useEffect, useContext, useRef} from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import "./list.css";
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
 import MailList from '../../components/mailList/MailList';
-import { format } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { DateRange } from "react-date-range";
 import SearchItem from '../../components/searchItem/SearchItem';
 import useFetch from '../../hooks/useFetch.jsx';
@@ -13,6 +14,8 @@ import BasicPagination from '../../components/pagination/BasicPagination.jsx';
 import indianCities from '../../cities.json';
 
 const List=()=>{
+    const navigate =useNavigate();
+    const { location } = useParams();
     const [openDate, setOpenDate] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [min, setMin] = useState(undefined);
@@ -21,9 +24,9 @@ const List=()=>{
     const [openCity, setOpenCity] = useState(false);
     const [citiesDataLoading, setCitiesDataLoading]=useState(null);
     const { destination, dates, options, dispatch44 } = useContext(SearchBarContext);
-    const [destination2, setDestination2] = useState(destination);
-    const [dates2, setDates2] = useState(dates);
-    const [options2, setOptions2] = useState(options);
+    const [destination2, setDestination2] = useState(location || JSON.parse(localStorage.getItem('userDestination')) || destination);
+    const [dates2, setDates2] = useState( dates);
+    const [options2, setOptions2] = useState(JSON.parse(localStorage.getItem('userOptions')));
     const searchDestinationRef = useRef(null);
     const searchDateRef = useRef(null);
     const searchOpenRef = useRef(null);
@@ -32,12 +35,15 @@ const List=()=>{
     const endIndex = startIndex + itemsPerPage;
 
     // console.log(destination2);
+    // console.log("checkin date is", checkin)
+    // console.log("checkout date is", checkout)
 
     const { data, loading, reFetch } = useFetch(
         `/hotels?search=${destination}&min=${min || 0 }&max=${max || 999}`
     );
     // console.log(data)
 
+    
     useEffect(() => {
         const handleClickOutside = (event) => {
           if (searchDestinationRef.current && !searchDestinationRef.current.contains(event.target)) {
@@ -154,7 +160,11 @@ const List=()=>{
 
     const handleSearch =()=>{
         dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
+        localStorage.setItem('userDestination', JSON.stringify(destination2));
+        localStorage.setItem('userDates', JSON.stringify(dates2));
+        localStorage.setItem('userOptions', JSON.stringify(options2));
         reFetch()
+        navigate(`/hotels/${destination2}/${dates2[0].startDate}/${dates2[0].endDate}`);
     }
 
     useEffect(()=>{

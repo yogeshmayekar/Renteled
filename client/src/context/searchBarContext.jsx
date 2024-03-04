@@ -19,9 +19,9 @@ const SearchReducer = (state, action) => {
     switch (action.type) {
       case "NEW_SEARCH":
         return {
-          destination:action.payload.destination,
-          dates: action.payload.dates,
-          options: action.payload.options 
+          destination:action.payload.destination1,
+          dates: action.payload.dates1,
+          options: action.payload.options1
         }
       case "NEW_UPDATE_SEARCH":
         return {
