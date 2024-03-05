@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./searchItem.css";
 import { Link } from 'react-router-dom';
 import Slider2 from '../../components/splider/Slider2'
 import PriceWrapper from "../priceWrapper/PriceWrapper";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import IsSponsered from '../isSponsered/IsSponsered';
+import { SearchBarContext } from "../../context/searchBarContext";
 
 const SearchItem = (props) => {
   // const [reviewStatus, setReviewStatus]= useState("Excellent")
+  const { destination, dates } = useContext(SearchBarContext);
   const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
   const randomNumberTwo = Math.floor(Math.random() * 9000) + 1000;
 
@@ -21,7 +23,7 @@ const SearchItem = (props) => {
     }
   }
 
-
+// console.log("dateinsearchitem",props.dateData)
 
   return (
     <div className="searchItem" >
@@ -57,7 +59,7 @@ const SearchItem = (props) => {
         <div className="siDetailTexts">
           {/* <span className="siPrice">{props.item.cheapestPrice}</span> */}
           <PriceWrapper smallvarient={true} data ={props} />
-          <Link to={`/hotels/6yjiqv${randomNumberOne}76yu3457sf${props.item._id}gctjl${randomNumberTwo}yh70j${props.item.name}`} target="_blank" >
+          <Link to={`/hotels/6yjiqv${randomNumberOne}76yu3457sf${props.item._id}gctjl${randomNumberTwo}yh70j${props.item.name}/${destination}/${dates[0].startDate}/${dates[0].endDate}`} target="_blank" >
             <button className="siCheckButton">Check availibility</button>
           </Link>
         </div>

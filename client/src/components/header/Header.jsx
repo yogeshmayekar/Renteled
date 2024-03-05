@@ -16,12 +16,7 @@ function Header(){
     const { dispatch44, dates, destination, options } = useContext(SearchBarContext);
     const [openDate, setOpenDate] = useState(false);
     const [destination1, setDestination1] = useState(JSON.parse(localStorage.getItem('userDestination')) || destination || "");
-    const [dates1, setDates1] = useState( dates || [{
-      startDate: new Date(),
-      endDate: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-      key: 'selection'
-    }
-  ]);
+    const [dates1, setDates1] = useState(dates);
   const [openOptions, setOpenOptions] = useState(false);
   const [options1, setOptions1] = useState( JSON.parse(localStorage.getItem('userOptions')) || options || {
     "Room 1": 1, 

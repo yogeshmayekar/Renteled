@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 // import useFetch from '../../hooks/useFetch';
 import './hotel.css';
 import Navbar from '../../components/navbar/Navbar';
@@ -16,6 +16,10 @@ import { useLoaderData } from 'react-router-dom';
 function Hotel(){
     const [openSafeyMeasure, setSefetyMeasure]= useState(false);
     const earlyLoaderData = useLoaderData();
+    const params = useParams();
+    const { location, checkin, checkout } = params;
+
+    // console.log(earlyLoaderData.amenities)
     // const hotelID = id.slice(22, 46)
     // console.log("hotel id is",hotelID)
     
@@ -32,7 +36,7 @@ function Hotel(){
         <Slider2 perPages={2} width={"100%"}/>
         <div style={{display:'flex'}}>
         <Details earlyLoaderData={earlyLoaderData} />
-        <BookCard setSefetyMeasure={setSefetyMeasure} />
+        <BookCard setSefetyMeasure={setSefetyMeasure} earlyLoaderData={earlyLoaderData} checkIn={checkin} checkOut={checkout} destination={location} />
         </div>
         <MailList/>
         <Footer/>

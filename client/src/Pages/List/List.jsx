@@ -15,7 +15,7 @@ import indianCities from '../../cities.json';
 
 const List=()=>{
     const navigate =useNavigate();
-    const { location } = useParams();
+    const { location, checkin, checkout } = useParams();
     const [openDate, setOpenDate] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [min, setMin] = useState(undefined);
@@ -25,8 +25,13 @@ const List=()=>{
     const [citiesDataLoading, setCitiesDataLoading]=useState(null);
     const { destination, dates, options, dispatch44 } = useContext(SearchBarContext);
     const [destination2, setDestination2] = useState(location || JSON.parse(localStorage.getItem('userDestination')) || destination);
-    const [dates2, setDates2] = useState( dates);
-    const [options2, setOptions2] = useState(JSON.parse(localStorage.getItem('userOptions')));
+    const [dates2, setDates2] = useState([{
+      startDate: new Date(checkin),
+      endDate: new Date(checkout),
+      key: 'selection'
+    }
+  ] || dates);
+    const [options2, setOptions2] = useState(JSON.parse(localStorage.getItem('userOptions')) || options);
     const searchDestinationRef = useRef(null);
     const searchDateRef = useRef(null);
     const searchOpenRef = useRef(null);
@@ -295,7 +300,7 @@ const List=()=>{
                         {loading ? "Loading Hotels" :
                         <>
                          {data.slice(startIndex, endIndex).map((item,i)=>(
-                            <SearchItem item={item} key={item._id}/>
+                            <SearchItem item={item} key={item._id} dateData={dates2}/>
                          ))}
                         </>}
                     </div>

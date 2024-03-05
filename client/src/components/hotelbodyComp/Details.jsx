@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import './details.css';
 import { Link } from 'react-router-dom';
-import { CiWifiOn } from "react-icons/ci"; //wifi icon imported
 import { TbAirConditioning } from "react-icons/tb"; //AC icon imported
 import { LuMonitor } from "react-icons/lu"; //TV icon imported
-import { CiPower } from "react-icons/ci";//power backup icon imported
-import { MdFileDownloadDone } from "react-icons/md"; // house keeping done icon imported
-import { PiShowerThin } from "react-icons/pi"; //shower icon imported
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import CameraOutdoorIcon from '@mui/icons-material/CameraOutdoor';
+import CheckIcon from '@mui/icons-material/Check';
+import MoreTimeIcon from '@mui/icons-material/MoreTime';
+import PowerIcon from '@mui/icons-material/Power';
+import BathroomIcon from '@mui/icons-material/Bathroom';
+// import TvIcon from '@mui/icons-material/Tv';
+import NetworkWifi3BarIcon from '@mui/icons-material/NetworkWifi3Bar';
 
 const Details =({earlyLoaderData})=>{
     // console.log(earlyLoaderData.description)
@@ -29,19 +33,29 @@ const Details =({earlyLoaderData})=>{
                     <p>{earlyLoaderData.description}</p>
                 </div>
 
-                <div className='facility'>
+                {earlyLoaderData.amenities && <div className='facility'>
                     <h2>Amenities</h2>
                     <ul className='facilityList'>
-                        <li><span className='iconFac'><CiWifiOn /></span><span>Free Wifi</span></li>
-                        <li><span className='iconFac'><TbAirConditioning /></span> <span>AC</span></li>
-                        <li><span className='iconFac'><LuMonitor /></span><span>TV</span></li>
-                        <li><span className='iconFac'><PiShowerThin /></span><span>Geyser</span></li>
-                        <li><span className='iconFac'><CiPower /></span><span>Power backup</span></li>
-                        <li><span className='iconFac'><MdFileDownloadDone /></span><span>Daily housekeeping</span></li>
+                        {earlyLoaderData.amenities.isFreeWifi &&<li><span className='iconFac'><NetworkWifi3BarIcon /></span><span>Free Wifi</span></li>}
+                        {earlyLoaderData.amenities.isAc && <li><span className='iconFac'><TbAirConditioning style={{fontSize:'25px'}}/></span> <span>AC</span></li>}
+                        {earlyLoaderData.amenities.isTv && <li><span className='iconFac'><LuMonitor style={{fontSize:'25px'}} /></span><span>TV</span></li>}
+                        {earlyLoaderData.amenities.isGeyser && <li><span className='iconFac'><BathroomIcon /></span><span>Geyser</span></li>}
+                        {earlyLoaderData.amenities.isPowerBackup && <li><span className='iconFac'><PowerIcon/></span><span>Power backup</span></li>}
+                        {earlyLoaderData.amenities.isDailyHoueKeeping && <li><span className='iconFac'><CheckIcon /></span><span>Daily housekeeping</span></li>}
+                        {showMore &&
+                        <>
+                        {earlyLoaderData.amenities.isCardPayment && <li><span className='iconFac'><CreditCardIcon/></span><span>Card payment</span></li>}
+                        {earlyLoaderData.amenities.isCCTv && <li><span className='iconFac'><CameraOutdoorIcon/></span><span>CCTV cameras</span></li>}
+                        {earlyLoaderData.amenities.isPrivateEntrence && <li><span className='iconFac'><CheckIcon/></span><span>Private entrance</span></li>}
+                        {earlyLoaderData.amenities.isAnyTimeCheckout && <li><span className='iconFac'><MoreTimeIcon /></span><span>24/7 check-in</span></li>}
+                        {earlyLoaderData.amenities.isFireExtinguisher && <li><span className='iconFac'><CheckIcon /></span><span>Fire extinguisher</span></li>}
+                        {earlyLoaderData.amenities.isAttachedBathroom && <li><span className='iconFac'><CheckIcon /></span><span>Attached bathroom</span></li>}
+                        </>
+                        }
                     </ul>
                     {showMore ? <button onClick={()=>setShowMore(!showMore)} >Show less</button> :
                     <button onClick={()=>setShowMore(!showMore)}>Show More</button>}
-                </div>
+                </div>}
 
                 <div className='hotelPolicy'>
                     <h2>Hotel policies</h2>

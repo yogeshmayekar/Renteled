@@ -1,5 +1,5 @@
 // import { BrowserRouter, Routes, Route} from 'react-router-dom'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 import './App.css';
 import List from './Pages/List/List';
 import Hotel, { handleEarlyHotelLoader } from './Pages/Hotel/Hotel';
@@ -11,6 +11,8 @@ import ProfileDetails from './Pages/ProfileDetails/ProfileDetails';
 import RegisterBegin from './Pages/Register/RegisterBegin';
 import SignupBegains from './Pages/SignIn/SigninBegains';
 import GuestPolicy from './Pages/GuestPolicy/GuestPolicy';
+// import PageNotFound from './components/pageNotFound/PageNotFound';
+import HotelNotFound from './components/pageNotFound/HotelNotFound';
 
 const router = createBrowserRouter([
     {
@@ -22,9 +24,10 @@ const router = createBrowserRouter([
     element: <List/>
     },
     {
-    path : "/hotels/:id",
+    path : "/hotels/:id/:location/:checkin/:checkout",
     element: <Hotel/>,
-    loader: handleEarlyHotelLoader
+    loader: handleEarlyHotelLoader,
+    errorElement: <HotelNotFound/>
     },
     {
     path : "/user/signup/with_diffrent/account",
@@ -53,6 +56,10 @@ const router = createBrowserRouter([
     {
     path : "/guest-policy/",
     element: <GuestPolicy/>
+    },
+    {
+    path : "/*",
+    element: <Navigate to="/"/>,
     },
 ])
 

@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import { AuthContext } from '../../context/authContext';
 
-function Navbar(){
+function Navbar({isButtonRequired}){
     const loginContext = useContext(AuthContext);
     // console.log(loginContext.user);
     // const [openProfile, setOpenProfile] = useState(true);
