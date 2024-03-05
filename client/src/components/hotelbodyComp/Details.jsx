@@ -8,15 +8,16 @@ import { CiPower } from "react-icons/ci";//power backup icon imported
 import { MdFileDownloadDone } from "react-icons/md"; // house keeping done icon imported
 import { PiShowerThin } from "react-icons/pi"; //shower icon imported
 
-const Details =()=>{
+const Details =({earlyLoaderData})=>{
+    // console.log(earlyLoaderData.description)
     const[showMore, setShowMore]=useState(false);
     return(
         <>
             <div className='hotelDetailsInfoContainer'>
                 <div className='hotelHeadConn'>
                     <div className='nameOfHotel'>
-                        <h1>Hotel Name goes hear</h1>
-                        <p>#hotels adress goes here</p>
+                        <h1>{earlyLoaderData.name}</h1>
+                        <p>{earlyLoaderData.adress}</p>
                     </div>
                     <div className='newConn'>
                         <button>NEW</button>
@@ -25,7 +26,7 @@ const Details =()=>{
 
                 <div className='hotelDesc'>
                     <h2>Description</h2 >
-                    <p>Description goes here</p>
+                    <p>{earlyLoaderData.description}</p>
                 </div>
 
                 <div className='facility'>

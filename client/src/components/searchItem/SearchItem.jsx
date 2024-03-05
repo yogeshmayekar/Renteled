@@ -57,7 +57,7 @@ const SearchItem = (props) => {
         <div className="siDetailTexts">
           {/* <span className="siPrice">{props.item.cheapestPrice}</span> */}
           <PriceWrapper smallvarient={true} data ={props} />
-          <Link to={`/hotels/jiqv${randomNumberOne}yu3457sf${props.item._id}gctjl${randomNumberTwo}yh`} target="_blank" >
+          <Link to={`/hotels/6yjiqv${randomNumberOne}76yu3457sf${props.item._id}gctjl${randomNumberTwo}yh70j${props.item.name}`} target="_blank" >
             <button className="siCheckButton">Check availibility</button>
           </Link>
         </div>

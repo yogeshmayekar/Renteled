@@ -60,7 +60,7 @@ const BookCard = ({setSefetyMeasure})=>{
                     <OfferBookHead/>
                 }
                 <div className='bookWrap'>
-                    <PriceWrapper/>
+                    {/* <PriceWrapper smallvarient={false} data={props} /> */}
 
                     <div className='roomDetails'>
                         <div className='dateDetails' ref={searchDateRef}>

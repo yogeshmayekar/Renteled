@@ -59,7 +59,8 @@ export const deleteHotel = async(req, res, next)=>{
 // logic of the get hotel 
 export const getHotel = async(req, res, next)=>{
     try{
-        const hotel = await Hotel.findById(res.params.id)
+      // console.log(req.params.id)
+        const hotel = await Hotel.findById(req.params.id)
         res.status(200).json(hotel);
     }catch(err){
         return next(CustomErrorHandler.unableToFetchHotel("Unable to get hotel details right now, please try after some time."))
