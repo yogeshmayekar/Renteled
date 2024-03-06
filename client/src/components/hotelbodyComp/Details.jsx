@@ -11,8 +11,9 @@ import PowerIcon from '@mui/icons-material/Power';
 import BathroomIcon from '@mui/icons-material/Bathroom';
 // import TvIcon from '@mui/icons-material/Tv';
 import NetworkWifi3BarIcon from '@mui/icons-material/NetworkWifi3Bar';
+import ReviewComponent from '../reviewComponent/ReviewComponent';
 
-const Details =({earlyLoaderData})=>{
+const Details =({earlyLoaderData, setOpenAllReviews})=>{
     // console.log(earlyLoaderData.description)
     const[showMore, setShowMore]=useState(false);
     return(
@@ -57,6 +58,7 @@ const Details =({earlyLoaderData})=>{
                     <button onClick={()=>setShowMore(!showMore)}>Show More</button>}
                 </div>}
 
+                <ReviewComponent  setOpenAllReviews={setOpenAllReviews} />
                 <div className='hotelPolicy'>
                     <h2>Hotel policies</h2>
                     <div className='hotelTiming'>

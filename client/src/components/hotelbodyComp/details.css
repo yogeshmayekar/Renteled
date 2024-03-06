@@ -9,6 +9,10 @@
     justify-content: space-between;
 }
 
+.nameOfHotel{
+    max-width: 90%;
+}
+
 .hotelHeadConn>.nameOfHotel>h1{
     margin:3px 0;
 }
@@ -32,6 +36,7 @@
 
 .hotelDesc{
     margin-top: 8vh;
+    max-width: 90%;
 }
 
 .hotelDesc>h2{

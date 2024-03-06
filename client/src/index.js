@@ -7,6 +7,7 @@ import { SearchContextProvider } from './context/searchBarContext.jsx';
 import { AuthContextProvider } from './context/authContext.jsx';
 import { ErrorContextProvider } from './context/errorContext.jsx';
 import { RegisterContextProvider } from './context/registerContext.jsx';
+import { PriceContextProvider } from './context/priceContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,9 @@ root.render(
       <SearchContextProvider>
         <ErrorContextProvider>
           <RegisterContextProvider>
-            <App />
+            <PriceContextProvider>
+              <App />
+            </PriceContextProvider>
           </RegisterContextProvider>
         </ErrorContextProvider>
       </SearchContextProvider>

@@ -1,9 +1,11 @@
 import React from 'react';
-import './guestPolicy.css'
+import './guestPolicy.css';
+import Navbar2 from '../../components/navbar/Navbar2';
 
 function GuestPolicy() {
   return (
     <>
+    <Navbar2/>
     <div className='guest__policy__container'>
         <div className='policy__heading'>
             <h1>Guest Policies For RENTELED Hotels And Homes In India.</h1>

@@ -9,12 +9,14 @@ import Footer from '../../components/footer/Footer';
 import Details from '../../components/hotelbodyComp/Details';
 import BookCard from '../../components/hotelbodyComp/BookCard';
 import RightContainer from '../../components/rightContainer/RightContainer';
+import RightContainer2 from '../../components/rightContainer/RightContainer2';
 import axios from 'axios';
 import { useLoaderData } from 'react-router-dom';
 
 
 function Hotel(){
     const [openSafeyMeasure, setSefetyMeasure]= useState(false);
+    const [openAllReviews, setOpenAllReviews]= useState(false);
     const earlyLoaderData = useLoaderData();
     const params = useParams();
     const { location, checkin, checkout } = params;
@@ -30,17 +32,18 @@ function Hotel(){
     // console.log("Single hotel data is", data)
     return(
         <div className='overlay-container'>
-        <div className={openSafeyMeasure?"overlay32": ""}></div>
+        <div className={openSafeyMeasure || openAllReviews ?"overlay32": ""}></div>
         <div className="content">
         <Navbar/>
         <Slider2 perPages={2} width={"100%"}/>
         <div style={{display:'flex'}}>
-        <Details earlyLoaderData={earlyLoaderData} />
+        <Details earlyLoaderData={earlyLoaderData} setOpenAllReviews={setOpenAllReviews} />
         <BookCard setSefetyMeasure={setSefetyMeasure} earlyLoaderData={earlyLoaderData} checkIn={checkin} checkOut={checkout} destination={location} />
         </div>
         <MailList/>
         <Footer/>
         {openSafeyMeasure && <RightContainer setSefetyMeasure={setSefetyMeasure} />}
+        {openAllReviews && <RightContainer2  setSefetyMeasure={setOpenAllReviews}/>}
         </div>
         </div>
     )

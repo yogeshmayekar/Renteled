@@ -1,4 +1,4 @@
-import React, { useContext, useState,useEffect, useRef } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import './bookCard.css';
 import OfferBookHead from '../offerBookContainer/OfferBookHead';
 import { SearchBarContext } from "../../context/searchBarContext";
@@ -6,7 +6,10 @@ import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import { AuthContext } from "../../context/authContext";
 import { Link } from 'react-router-dom';
-import PriceWrapper from '../priceWrapper/PriceWrapper';
+import DoorFrontOutlinedIcon from '@mui/icons-material/DoorFrontOutlined';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import CancelationPolicy from '../cancelationPolicy/CancelationPolicy';
+// import PriceWrapper from '../priceWrapper/PriceWrapper';
 
 const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destination})=>{
     // console.log(earlyLoaderData)
@@ -21,6 +24,11 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
     ] || dates);
     const [options2, setOptions2] = useState(JSON.parse(localStorage.getItem('userOptions')) || options);
     const [openDate, setOpenDate] = useState(false);
+    const [stayNights, setStayNights] =useState(1);
+    const [totalNumberOfRooms, setTotalNumberOfRooms]=useState(1);
+    const [discountPercentage, setDiscountPercentage]= useState(1);
+    const[discountedPrice, setDiscountedPrice]= useState(1);
+    const [openCancelationPolicy, setOpenCancelationPolicy]= useState(false)
     const loginContext = useContext(AuthContext);
     const searchDateRef = useRef(null);
     const searchOpenRef = useRef(null);
@@ -37,6 +45,14 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
     //         "dd/MM/yyyy"
     //     )} to ${format(dates2[0].endDate, "dd/MM/yyyy")}`
     // }
+
+    const handleMouseEnter = () => {
+      setOpenCancelationPolicy(true);
+    };
+  
+    const handleMouseLeave = () => {
+      setOpenCancelationPolicy(false);
+    };
 
     const getSum = () => {
         const sum = Object.values(options2).reduce((acc, value) => acc + value, 0);
@@ -132,6 +148,64 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
     useEffect(()=>{
         dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
     },[dates2, options2])
+
+
+
+    // calculate the total price of the room
+    useEffect(()=>{
+      const markedPrice = Number(earlyLoaderData.actualPrice);
+      const discontedPrice = Number(earlyLoaderData.cheapestPrice);
+      const percentageDiff = ((markedPrice - discontedPrice) / markedPrice) * 100;
+       //to calculate the GST
+    const taxAmountCalculator = (discontedPrice)=>{
+      if(discontedPrice < 2500 ){
+          // console.log("12%")
+          return discontedPrice * 0.12
+      }else if( discontedPrice <= 5000){
+          // console.log("18%")
+          return discontedPrice * 0.18
+      }else{
+          // console.log("28%")
+          return discontedPrice * 0.28
+      }
+    }
+
+    setDiscountedPrice(taxAmountCalculator(discontedPrice).toFixed(0))
+
+
+      const start = new Date(dates2[0].startDate);
+      const end = new Date(dates2[0].endDate);
+      const differenceInMs = Math.abs(end - start);
+      const differenceInDays = Math.ceil(differenceInMs / (1000 * 60 * 60 * 24));
+      const numberOfRooms = Object.keys(options2).length;
+      setTotalNumberOfRooms(numberOfRooms);
+      setStayNights(differenceInDays);
+      setDiscountPercentage(Number(percentageDiff.toFixed(0)))
+    },[stayNights,dates2, options2, earlyLoaderData.actualPrice, earlyLoaderData.cheapestPrice])
+
+
+    const taxFeesIncludingDays = discountedPrice * totalNumberOfRooms * stayNights;
+    const taxFeesExcludingDays = discountedPrice * totalNumberOfRooms;
+
+    const markUpPriceIncludingDays = totalNumberOfRooms * earlyLoaderData.actualPrice * stayNights;
+    const markUpPriceExcludingDays = totalNumberOfRooms * earlyLoaderData.actualPrice;
+
+    const cheapestPriceIncludingDays = totalNumberOfRooms * earlyLoaderData.cheapestPrice * stayNights;
+    const cheapestPriceExcludingDays = totalNumberOfRooms * earlyLoaderData.cheapestPrice ;
+
+    const yourSavingPrice=(markUpPriceIncludingDays=3, cheapestPriceIncludingDays=2)=>{
+      if(markUpPriceIncludingDays>1 && cheapestPriceIncludingDays >1){
+        return markUpPriceIncludingDays - cheapestPriceIncludingDays
+      }else{
+        return totalNumberOfRooms * earlyLoaderData.actualPrice - totalNumberOfRooms * earlyLoaderData.cheapestPrice;
+      }
+    }
+
+    const totalPaybalePrice = cheapestPriceIncludingDays<1 ? cheapestPriceExcludingDays : cheapestPriceIncludingDays ;
+    const finalTax = taxFeesIncludingDays < 1 ? taxFeesExcludingDays : taxFeesIncludingDays;
+    const totalPaybalePriceIncludingTaxes =  finalTax + totalPaybalePrice;
+
+
     
     // console.log(dates)
     return(
@@ -143,6 +217,12 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                 }
                 <div className='bookWrap'>
                     {/* <PriceWrapper smallvarient={false} data={earlyLoaderData} /> */}
+                     <div className='priceWrapper'>
+                     <span className='price'>{`₹${cheapestPriceIncludingDays<1 ? cheapestPriceExcludingDays : cheapestPriceIncludingDays }`}</span>
+                     <span className='markupPrice'><del>{`₹${markUpPriceIncludingDays <1 ? markUpPriceExcludingDays : markUpPriceIncludingDays}`}</del></span> 
+                      <span className='discontOffer'>{discountPercentage}% off</span>
+                     <p className='taxAndFees'>+ taxes & fees: ₹{ taxFeesIncludingDays < 1 ? taxFeesExcludingDays : taxFeesIncludingDays}</p>
+                    </div>
 
                     <div className='roomDetails'>
                         <div className='dateDetails' ref={searchDateRef}>
@@ -184,25 +264,30 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                                 </div> 
                                 </div>}
                         </div>
-                        <div className='classic'><span>Classic</span></div>
+                        <div className='classic' style={{display:'flex', justifyContent:'space-between'}}><span style={{display:'flex', alignItems:'center'}}><DoorFrontOutlinedIcon/>Classic</span><span>{stayNights<1 ? 1 : stayNights} {stayNights>1 ? "Night Stays" : "Night Stay"} </span></div>
                     </div>
 
                     <div className='dottedLines'></div>
 
                     <div className='hotelsFees'>
                         <span>Room Price</span>
-                        <span>₹1620</span>
+                        {totalNumberOfRooms * earlyLoaderData.actualPrice * stayNights<1 ? <span>₹{totalNumberOfRooms * earlyLoaderData.actualPrice}</span> : <span>₹{totalNumberOfRooms * earlyLoaderData.actualPrice * stayNights}</span>}
                     </div>
-                    
+                                        
+                    <div className='taxesAndFees'>
+                        <span>Your savings</span>
+                        <span>₹{yourSavingPrice(markUpPriceIncludingDays,cheapestPriceIncludingDays)}</span>
+                    </div>
+
                     <div className='taxesAndFees'>
                         <span>Taxes & fees</span>
-                        <span>₹1620</span>
+                        {taxFeesIncludingDays <1 ? <span>₹{taxFeesExcludingDays}</span> : <span>₹{taxFeesIncludingDays}</span> }
                     </div>
 
                     <div className='totalPrice'>
                         <div className='finalPrice'>
                             <span>Total price</span>
-                            <span>₹1620</span>
+                            <span>₹{totalPaybalePriceIncludingTaxes}</span>
                         </div>
                             <p>Including taxes & fees</p>
                     </div>
@@ -210,9 +295,8 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                     <div className='continueToBook'>
                         <button onClick={handleContinueToBook}>Continue to Book</button>
                     </div>
-
                     <div className='policyBook'>
-                        <p className="cancelPolicy">Cancellation Policy</p>
+                        <p className="cancelPolicy" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Cancellation Policy <InfoOutlinedIcon sx={{fontSize:'18px'}}/>{openCancelationPolicy&&<CancelationPolicy />}</p>
                         <p className="cancelPolicy" onClick={()=>setSefetyMeasure(true)}>Follow safety measures advised at the hotel</p>
                         <p><span id='lastSpan'>By proceeding, you agree to our </span><Link to="/guest-policy/" target="_blank" style={{textDecoration:'none', color:'rgb(219, 91, 36)'}} >Guest Policies.</Link></p>
                     </div>

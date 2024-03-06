@@ -5,6 +5,17 @@
     background-color: rgb(7,45,92);
 }
 
+.navbar2{
+    height:55px;
+    top:0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(7,45,92);
+    position: fixed;
+    z-index: 999999999999999999;
+}
+
 .navContainer{
    width: 100%;
    background-color: rgb(7,45,92);

@@ -176,6 +176,10 @@ const List=()=>{
         setCitiesDataLoading(indianCities);
     },[])
 
+    useEffect(()=>{
+      dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
+    },[destination2,dates2, options2])
+
 
     return(
         <>
@@ -237,7 +241,7 @@ const List=()=>{
                                     <div>Guests</div>
                                 </div>
                                 {Object.entries(options2).map(([roomNo, guests]) => (               
-                                <div className="optionsItem" style={{margin:"15px 30px",width:'15rem', display:"flex", justifyContent:"space-between"}} key={roomNo}>
+                                <div className="optionsItem" style={{margin:"15px 10%",width:'80%', display:"flex", justifyContent:"space-between"}} key={roomNo}>
                                 <span className="optionText">{roomNo}</span>
                                 <div className="optionCounter">
                                     <button className='optionCounterBtn'  onClick={()=>removeGuest(roomNo, guests)}>-</button>              

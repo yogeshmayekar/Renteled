@@ -1,0 +1,70 @@
+.continueToBook{
+    height:100vh;
+    display: flex;
+    margin-top: 2vh;
+    justify-content: center;
+}
+
+.chieldway>h2{
+    cursor: pointer;
+}
+
+.continueToBook1{
+    display: flex;
+    max-width:1208px;
+    justify-content: flex-start;
+    margin: 0 auto;
+    margin-top: 15vh;
+}
+
+.chieldway{
+    display: flex;
+    align-items: center;
+
+}
+
+.continueToBook__Container{
+    width: 100%;
+   background-color: #4b6e99;
+   max-width:1208px;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 0 30px;
+}
+
+.leftToBook{
+    background-color: #ffffff;
+    width: 58%;
+    height: 100vh;
+}
+
+.rightToBook{
+    height: 100vh;
+    background-color: #000000;
+    width: 40%;
+    height: 100vh;
+}
+
+.congroMessage{
+    margin: 0 10px;
+    height: 50px;
+    border: 1px solid;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.congroMessage>p{
+    font-size: 18px;
+}
+
+.enterDetails{
+    border: 1px solid;
+}
+
+.oneWrapper{
+    display: flex;
+}
+

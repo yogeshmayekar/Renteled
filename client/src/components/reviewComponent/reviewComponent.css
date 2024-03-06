@@ -1,0 +1,55 @@
+.reviewContainer{
+    margin-top: 8vh;
+    flex-wrap: wrap;
+}
+
+.first_revire{
+    display: flex;
+    align-items: center;
+}
+
+.ratingContainer{
+    padding: 10px 2px;
+}
+
+.ratingCount{
+    padding-left: 3px;
+}
+
+.rating0f_five{
+    margin-left: 1em;
+}
+
+.reviewCon{
+    display: flex;
+    align-items: center;
+}
+
+.name__of__review{
+    margin-right: 10px;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.date__of__review{
+    font-size: 14px;
+}
+
+.reviewMessage{
+    max-width: 100%;
+}
+
+.reviewMessage>p{
+    font-size: 16px;
+    margin: 0px 0;
+}
+
+.reviewContainer>button{
+    border: none;
+    font-size: 18px;
+    font-weight: 600;
+    color: #072D5C;
+    background-color: #fff;
+    cursor: pointer;
+    margin-top: 25px;
+}

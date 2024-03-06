@@ -15,12 +15,18 @@
 }
 
 .roomDetails>.dateDetails, .roomDetails>.roomDeta, .roomDetails>.classic{
-    padding :20px 15px;
+    padding :18px 15px;
     margin:15px 0;
     box-shadow: rgba(64, 63, 63, 0.2) 0px 2px 8px 0px;
     color:#726b6b;
     font-weight: 600;
     font-size: 14px;
+}
+
+.classic{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .roomDetails>.dateDetails, .roomDetails>.roomDeta{
@@ -37,7 +43,7 @@
     display: flex;
     justify-content: space-between;
     padding:8px 5px ;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .continueToBook{
@@ -75,7 +81,7 @@
 .totalPrice>.finalPrice{
     display: flex;
     justify-content: space-between;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .totalPrice>p{
@@ -102,6 +108,11 @@
     cursor: pointer;
 }
 
+.cancelPolicy{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 #lastSpan{
     color:rgb(150, 140, 140);
 }
@@ -124,4 +135,30 @@
     -webkit-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
     -moz-box-shadow: 2px 6px 16px -7px rgba(0,0,0,0.62);
     z-index: 10;
-  }
+}
+
+.priceWrapper{
+    padding:5% 7%;
+}
+
+.priceWrapper> .price{
+    font-weight: bold;
+    font-size: 25px;
+    color: #302c2c;
+}
+
+.priceWrapper>.markupPrice{
+    margin:0 10px;
+    color: #6a6969;
+}
+
+.priceWrapper>.discontOffer{
+    font-weight: bold;
+    color: rgb(75, 75, 185);
+}
+
+.priceWrapper>.taxAndFees{
+    margin:5px 0;
+    font-size: 14px;
+    color:#7c7373 ;
+}
