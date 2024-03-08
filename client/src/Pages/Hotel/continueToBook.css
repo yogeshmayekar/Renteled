@@ -10,6 +10,7 @@
 }
 
 .continueToBook1{
+    width: 90%;
     display: flex;
     max-width:1208px;
     justify-content: flex-start;
@@ -24,8 +25,7 @@
 }
 
 .continueToBook__Container{
-    width: 100%;
-   background-color: #4b6e99;
+    width: 90%;
    max-width:1208px;
    display: flex;
    align-items: center;
@@ -34,37 +34,169 @@
 }
 
 .leftToBook{
-    background-color: #ffffff;
     width: 58%;
     height: 100vh;
 }
 
 .rightToBook{
     height: 100vh;
-    background-color: #000000;
+    /* background-color: #000000; */
     width: 40%;
-    height: 100vh;
 }
 
 .congroMessage{
-    margin: 0 10px;
-    height: 50px;
-    border: 1px solid;
+    height: 60px;
+    border: .1px solid #f3dab0;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 25px;
+    border-radius: 5px;
+    background-color: #fef6e9;
 }
 
 .congroMessage>p{
     font-size: 18px;
+    font-weight: 500;
+    color: #487392;
 }
 
-.enterDetails{
-    border: 1px solid;
+.enrty__details{
+    display: flex;
+    align-items: center;
+}
+
+.enrty__details>h2{
+    padding-left: 5px;
+    margin: 10px 0;
+}
+
+.enterDetails, .enterPayment__method{
+    padding: 20px;
+    border: .1px solid #f3dab0;
+    background-color: #fcfcfb;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.enterDetails>p{
+    margin-left: 5px;
+    font-weight: 500;
 }
 
 .oneWrapper{
     display: flex;
 }
 
+.chield__Edit2>label{
+    font-size: 18px;
+    color: rgb(2, 2, 2);
+    padding: 5px;
+    font-weight: 600;
+    gap: 10px;
+}
+
+.chield__Edit2{
+    margin-left: 20px;
+}
+
+.chield__Edit2>p{
+    padding:2px 5px;
+    color: rgb(2, 2, 2);
+}
+
+.final_continue, .pay__hotel>button, .pay__now>button, .sub_right_pay_chield>button{
+    width: 200px;
+    height: 7vh;
+    font-size: 18px;
+    margin-top: 40px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #0071C2;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    color: rgb(255, 255, 255);
+    border-radius: 2px;
+    box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+    &:hover{
+        background-color: #1173b9; 
+    }
+}
+
+.pay__hotel>button, .pay__now>button{
+    background-color: #fcfbfb;
+    color: rgb(48, 47, 47);
+    font-weight: 600;
+    border-radius: 2px;
+    height: 9vh;
+    font-size: 16px;
+    border: 2px;
+    &:hover{
+        background-color: #f9f7f7; 
+    }
+}
+
+.def>button{
+    background-color: #f9f7f7;
+    color: rgb(20, 19, 19);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.verifies_clas{
+    display: flex;
+    /* color: rgb(110, 108, 108); */
+    align-items: center;
+    margin-left: 5px;
+    color: #084a79;
+}
+
+.verifies_clas>p{
+    margin-left: 5px;
+    margin: 0px 0;
+    font-weight: 600;
+    margin-left: 5px;
+    font-size: 13px;
+}
+
+.enterPayment__method>h2{
+    margin: 0;
+}
+
+.sub__payment{
+    display: flex;
+}
+
+.sub_left_pay{
+    width: 40%;
+}
+
+.sub_right_pay{
+    width: 58%;
+    display: flex;
+    padding: 20px;
+}
+
+
+.sub_right_pay_chield>button{
+   width: 100%; 
+   margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.sub_right_pay_chield>h4{
+    margin: 10px 0;
+    position: relative;
+    left: 50%;
+    transform: translateX(-30%);
+}
+
+.sub_right_pay_chield>p{
+    margin: 0;
+    text-align: justify;
+    margin:0 2%;
+}
