@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     element: <List/>
     },
     {
-    path : "/918357/:location/:checkin/:checkout",
+    path : "/918357/:checkin/:checkout/:roomCount/:guestCount",
     element: <ContinueToBook/>
     },
     {
@@ -62,10 +62,10 @@ const router = createBrowserRouter([
     path : "/guest-policy/",
     element: <GuestPolicy/>
     },
-    {
-    path : "/*",
-    element: <Navigate to="/"/>,
-    },
+    // {
+    // path : "/*",
+    // element: <Navigate to="/"/>,
+    // },
 ])
 
 

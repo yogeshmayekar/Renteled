@@ -46,16 +46,16 @@
     font-size: 16px;
 }
 
-.continueToBook{
+.continueToBookzz{
     display: flex;
     justify-content: center;
 }
 
-.continueToBook>button{
+.continueToBookzz{
     width: 200px;
     height: 7vh;
     font-size: 18px;
-    margin:3% 7%;
+    margin:3% auto;
     display: flex;
     align-items: center;
     justify-content: center;

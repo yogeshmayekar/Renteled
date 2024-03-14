@@ -14,7 +14,7 @@ router.put("/:id",verifyAdmin, updateHotel);
 router.delete("/:id",verifyAdmin, deleteHotel);
 
 //get hotel api
-router.get("/find/:id", getHotel)
+router.get("/find/:id", getHotel);
 
 //get all hotels api
 router.get("/", getAllHotels)

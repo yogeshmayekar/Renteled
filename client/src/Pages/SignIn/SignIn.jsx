@@ -58,7 +58,7 @@ const SignIn = ()=>{
           Cookies.set("access_token", res.data.access_token)
           // localStorage.setItem('access_token', res.data.token);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-          navigate("/");
+          navigate(-2);
           setTopLoader(false);
         } catch (err) {
           // console.log("err223",err.response.data)

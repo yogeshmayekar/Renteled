@@ -102,12 +102,12 @@ const ProfileDetails= ()=>{
                 <Grid item xs={6} sx={{marginTop:"1px"}}>
                     <div className='leftContainer'>
                     <h2>Edit Profile  <span className='edit2' ><TiPencil onClick={handleEditButton} /></span></h2>
-                    <div className="chield__container" >
-                    <div className="chield__Edit" >
+                    <div className="chield__container">
+                    <div className="chield__Edit">
                         <label>Full Name</label>
                         {editProfile ? <p><TextField hiddenLabel id="filled-hidden-label-small" defaultValue="Yogesh Mayekar"  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> : <p>Yogesh Mayekar</p>}
                     </div>
-                    <div className="chield__Edit" >
+                    <div className="chield__Edit">
                         <label>Email Address</label>
                         <p>yogesh.mayekar09@gmail.com</p>
                     </div>

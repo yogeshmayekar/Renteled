@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Navbar2 from '../../components/navbar/Navbar2';
 import './continueToBook.css';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+// import useFetch from '../../hooks/useFetch';
 import LooksOneIcon from '@mui/icons-material/LooksOne';
+import { PriceContext } from '../../context/priceContext';
 import TextField from '@mui/material/TextField';
+import axios from 'axios';
+import FinalBookingCard from '../../components/finalBookingCard/FinalBookingCard';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+
 
 function ContinueToBook() {
   const [isPayNow, setIsPayNow] = useState(false);
+  const {checkin, checkout, roomCount, guestCount }= useParams()
+  const {roomPricez, yourSavingz, taxesAndFeesz, totalPricez, nightStayz, finalSellingPricez, discountPercentagez, dispatch55}= useContext(PriceContext);
 
   const handlePayNow=()=>{
     setIsPayNow(true)
@@ -18,6 +25,10 @@ function ContinueToBook() {
     setIsPayNow(false)
 
   }
+
+  // const {data , error, loading, reFetch}= useFetch(
+  //   `/918357/:/:checkout`
+  // )
   
   const navigate = useNavigate();
   return (
@@ -29,11 +40,11 @@ function ContinueToBook() {
         <h2 onClick={() => navigate(-1)}>Modify your booking</h2>
       </div>
     </div>
-    <div className='continueToBook'>
+    <div className='continueToBook2'>
     <div className='continueToBook__Container'>
         <div className="leftToBook">
           <div className='congroMessage'>
-            <p>🎉 Yay! you just saved ₹4339 on this booking!</p>
+            <p>🎉 Yay! you just saved ₹{yourSavingz} on this booking!</p>
           </div>
           <div className='enterDetails'>
             <div className='enrty__details'>
@@ -85,9 +96,21 @@ function ContinueToBook() {
           </div>
 
         </div>
-        <div className="leftToBook">
-
-        </div>
+        {/* <div className="leftToBook"> */}
+        <FinalBookingCard 
+        checkin={checkin} 
+        checkout={checkout} 
+        roomCount={roomCount} 
+        guestCount={guestCount}
+        nightStay={nightStayz}
+        roomPrice={roomPricez}
+        taxesAndFees={taxesAndFeesz}
+        totalPrice={totalPricez}
+        yourSaving={yourSavingz}
+        finalSellingPrice={finalSellingPricez}
+        discountPercentage={discountPercentagez}
+        />
+        {/* </div> */}
 
     </div>
     </div>
@@ -96,3 +119,14 @@ function ContinueToBook() {
 }
 
 export default ContinueToBook;
+
+export const handleEarlyContinueToBookLoader = async({ params }) =>{
+  // console.log(params.id);
+  const res = await axios.get(`/hotels/find/${hotelID}`);
+  // console.log(res.status)
+  if(res.status === !200){
+      throw new Response('Not Found', {status: 404})
+  }
+  // console.log(res.data)
+  return res.data
+}

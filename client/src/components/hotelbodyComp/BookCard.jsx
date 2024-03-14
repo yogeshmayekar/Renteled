@@ -5,7 +5,8 @@ import { SearchBarContext } from "../../context/searchBarContext";
 import { DateRange } from "react-date-range";
 import { format } from "date-fns";
 import { AuthContext } from "../../context/authContext";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { PriceContext } from '../../context/priceContext';
 import DoorFrontOutlinedIcon from '@mui/icons-material/DoorFrontOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CancelationPolicy from '../cancelationPolicy/CancelationPolicy';
@@ -14,6 +15,7 @@ import CancelationPolicy from '../cancelationPolicy/CancelationPolicy';
 const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destination})=>{
     // console.log(earlyLoaderData)
     const { options, dates,  dispatch44} = useContext(SearchBarContext);
+    const { dispatch55 }= useContext(PriceContext);
     const [openOptions, setOpenOptions] = useState(false);
     const destination2 = destination;
     const [dates2, setDates2] = useState([{
@@ -27,17 +29,29 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
     const [stayNights, setStayNights] =useState(1);
     const [totalNumberOfRooms, setTotalNumberOfRooms]=useState(1);
     const [discountPercentage, setDiscountPercentage]= useState(1);
-    const[discountedPrice, setDiscountedPrice]= useState(1);
+    const [discountedPrice, setDiscountedPrice]= useState(1);
+    const [disableContinue, setDisableContinue]= useState(false);
     const [openCancelationPolicy, setOpenCancelationPolicy]= useState(false)
     const loginContext = useContext(AuthContext);
     const searchDateRef = useRef(null);
     const searchOpenRef = useRef(null);
+    const navigate = useNavigate()
 
     const customTheme={
         rdrMonth :{
           width: "300px"
         }
     }
+
+
+    useEffect(()=>{
+      const detDesableHandle =()=>{
+        if(!loginContext.user){
+          setDisableContinue(true)
+        }
+      }
+      detDesableHandle()
+    },[disableContinue, loginContext])
 
     // const returnDates = (dates2)=>{
     //     return `${format(
@@ -139,12 +153,6 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
         };
       }, [searchDateRef, setOpenDate]);
 
-      const handleContinueToBook =()=>{
-        dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
-        localStorage.setItem('userDates', JSON.stringify(dates2));
-        localStorage.setItem('userOptions', JSON.stringify(options2));
-    }
-
     useEffect(()=>{
         dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
     },[dates2, options2])
@@ -201,11 +209,38 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
       }
     }
 
+    const totalSaving = yourSavingPrice(markUpPriceIncludingDays,cheapestPriceIncludingDays)
+
     const totalPaybalePrice = cheapestPriceIncludingDays<1 ? cheapestPriceExcludingDays : cheapestPriceIncludingDays ;
     const finalTax = taxFeesIncludingDays < 1 ? taxFeesExcludingDays : taxFeesIncludingDays;
     const totalPaybalePriceIncludingTaxes =  finalTax + totalPaybalePrice;
 
+    const finalDiscountedPrice = cheapestPriceIncludingDays<1 ? cheapestPriceExcludingDays : cheapestPriceIncludingDays;
+    const finalMarkup = markUpPriceIncludingDays <1 ? markUpPriceExcludingDays : markUpPriceIncludingDays;
+    const stayNightCount = stayNights<1 ? 1 : stayNights; 
+    const taxIs = taxFeesIncludingDays <1 ? taxFeesExcludingDays : taxFeesIncludingDays
 
+    const handleContinueToBook =()=>{
+      const hotelInfo = {
+        roomPrice:finalMarkup,
+        yourSaving: totalSaving,
+        taxesAndFees:taxIs, 
+        totalPrice:totalPaybalePriceIncludingTaxes, 
+        nightStay:stayNightCount,
+        finalSellingPrice:finalDiscountedPrice,
+        discountPercentage: discountPercentage,
+      }
+      if(!loginContext.user){
+        navigate("/user/Sign_in");
+      }else{
+      dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
+      localStorage.setItem('userDates', JSON.stringify(dates2));
+      localStorage.setItem('userOptions', JSON.stringify(options2));
+      localStorage.setItem('hotelInfo', JSON.stringify(hotelInfo));
+      
+      dispatch55({type:'BOOKING_STAGE_ONE', payload:hotelInfo })
+      }
+    }
     
     // console.log(dates)
     return(
@@ -218,8 +253,8 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                 <div className='bookWrap'>
                     {/* <PriceWrapper smallvarient={false} data={earlyLoaderData} /> */}
                      <div className='priceWrapper'>
-                     <span className='price'>{`₹${cheapestPriceIncludingDays<1 ? cheapestPriceExcludingDays : cheapestPriceIncludingDays }`}</span>
-                     <span className='markupPrice'><del>{`₹${markUpPriceIncludingDays <1 ? markUpPriceExcludingDays : markUpPriceIncludingDays}`}</del></span> 
+                     <span className='price'>{`₹${finalDiscountedPrice}`}</span>
+                     <span className='markupPrice'><del>{`₹${finalMarkup}`}</del></span> 
                       <span className='discontOffer'>{discountPercentage}% off</span>
                      <p className='taxAndFees'>+ taxes & fees: ₹{ taxFeesIncludingDays < 1 ? taxFeesExcludingDays : taxFeesIncludingDays}</p>
                     </div>
@@ -264,7 +299,10 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                                 </div> 
                                 </div>}
                         </div>
-                        <div className='classic' style={{display:'flex', justifyContent:'space-between'}}><span style={{display:'flex', alignItems:'center'}}><DoorFrontOutlinedIcon/>Classic</span><span>{stayNights<1 ? 1 : stayNights} {stayNights>1 ? "Night Stays" : "Night Stay"} </span></div>
+                        <div className='classic' style={{display:'flex', justifyContent:'space-between'}}>
+                          <span style={{display:'flex', alignItems:'center'}}><DoorFrontOutlinedIcon/>Classic</span>
+                          <span> {stayNights<1 ? 1 : stayNights} {stayNights>1 ? "Night Stays" : "Night Stay"} </span>
+                        </div>
                     </div>
 
                     <div className='dottedLines'></div>
@@ -276,7 +314,7 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                                         
                     <div className='taxesAndFees'>
                         <span>Your savings</span>
-                        <span>₹{yourSavingPrice(markUpPriceIncludingDays,cheapestPriceIncludingDays)}</span>
+                        <span>₹{totalSaving}</span>
                     </div>
 
                     <div className='taxesAndFees'>
@@ -291,10 +329,12 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                         </div>
                             <p>Including taxes & fees</p>
                     </div>
-
-                    <div className='continueToBook'>
-                        <button onClick={handleContinueToBook}>Continue to Book</button>
-                    </div>
+                    
+                  
+                    <Link style={{textDecoration:'none'}} to={disableContinue ? "/user/signin/with_diffrent/account": `/918357/${dates2[0].startDate}/${dates2[0].endDate}/${Object.keys(options2).length}/${getSum()}`} >
+                      <button className='continueToBookzz' onClick={handleContinueToBook} >Continue to Book</button>
+                    </Link>
+            
                     <div className='policyBook'>
                         <p className="cancelPolicy" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>Cancellation Policy <InfoOutlinedIcon sx={{fontSize:'18px'}}/>{openCancelationPolicy&&<CancelationPolicy />}</p>
                         <p className="cancelPolicy" onClick={()=>setSefetyMeasure(true)}>Follow safety measures advised at the hotel</p>
