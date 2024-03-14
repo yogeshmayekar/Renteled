@@ -13,7 +13,9 @@ import CancelationPolicy from '../cancelationPolicy/CancelationPolicy';
 // import PriceWrapper from '../priceWrapper/PriceWrapper';
 
 const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destination})=>{
-    // console.log(earlyLoaderData)
+    // console.log(earlyLoaderData._id);
+    const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
+    const randomNumberTwo = Math.floor(Math.random() * 9000) + 1000;
     const { options, dates,  dispatch44} = useContext(SearchBarContext);
     const { dispatch55 }= useContext(PriceContext);
     const [openOptions, setOpenOptions] = useState(false);
@@ -331,7 +333,7 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
                     </div>
                     
                   
-                    <Link style={{textDecoration:'none'}} to={disableContinue ? "/user/signin/with_diffrent/account": `/918357/${dates2[0].startDate}/${dates2[0].endDate}/${Object.keys(options2).length}/${getSum()}`} >
+                    <Link style={{textDecoration:'none'}} to={disableContinue ? "/user/signin/with_diffrent/account": `/918357/${dates2[0].startDate}/${dates2[0].endDate}/${Object.keys(options2).length}/${getSum()}/6yjiqv${randomNumberOne}76yu3457sf${earlyLoaderData._id}gctjl${randomNumberTwo}yh70j`} >
                       <button className='continueToBookzz' onClick={handleContinueToBook} >Continue to Book</button>
                     </Link>
             

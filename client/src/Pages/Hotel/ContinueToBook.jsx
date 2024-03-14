@@ -8,6 +8,7 @@ import LooksOneIcon from '@mui/icons-material/LooksOne';
 import { PriceContext } from '../../context/priceContext';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import { useLoaderData } from 'react-router-dom';
 import FinalBookingCard from '../../components/finalBookingCard/FinalBookingCard';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 
@@ -15,8 +16,8 @@ import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutli
 function ContinueToBook() {
   const [isPayNow, setIsPayNow] = useState(false);
   const {checkin, checkout, roomCount, guestCount }= useParams()
-  const {roomPricez, yourSavingz, taxesAndFeesz, totalPricez, nightStayz, finalSellingPricez, discountPercentagez, dispatch55}= useContext(PriceContext);
-
+  const conLoaderData = useLoaderData()
+  const {roomPricez, yourSavingz, taxesAndFeesz, totalPricez, nightStayz, finalSellingPricez, discountPercentagez}= useContext(PriceContext);
   const handlePayNow=()=>{
     setIsPayNow(true)
   }
@@ -109,6 +110,7 @@ function ContinueToBook() {
         yourSaving={yourSavingz}
         finalSellingPrice={finalSellingPricez}
         discountPercentage={discountPercentagez}
+        conLoaderData={conLoaderData}
         />
         {/* </div> */}
 
@@ -120,8 +122,10 @@ function ContinueToBook() {
 
 export default ContinueToBook;
 
-export const handleEarlyContinueToBookLoader = async({ params }) =>{
+export const handleContinueToBookLoader = async({ params }) =>{
   // console.log(params.id);
+  const id = params.id;
+  const hotelID = id.slice(22, 46);
   const res = await axios.get(`/hotels/find/${hotelID}`);
   // console.log(res.status)
   if(res.status === !200){

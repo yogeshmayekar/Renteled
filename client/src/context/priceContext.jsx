@@ -1,13 +1,15 @@
 import { createContext, useReducer } from "react";
 
+const {discountPercentage,finalSellingPrice,nightStay,roomPrice,taxesAndFees,totalPrice,yourSaving} = JSON.parse(localStorage.getItem('hotelInfo'));
+
 const INITIAL_STATE = {
-    roomPrice: null,
-    yourSaving: null,
-    taxesAndFees: null,
-    totalPrice: null,
-    nightStay: null,
-    finalSellingPrice: null,
-    discountPercentage: null
+    roomPrice:roomPrice || null,
+    yourSaving:yourSaving || null,
+    taxesAndFees:taxesAndFees || null,
+    totalPrice:totalPrice || null,
+    nightStay:nightStay || null,
+    finalSellingPrice:finalSellingPrice || null,
+    discountPercentage:discountPercentage || null
 };
 
 export const PriceContext = createContext(INITIAL_STATE);
@@ -33,7 +35,7 @@ const AuthReducer = (state, action) => {
 
 export const PriceContextProvider = ({ children }) => {
     const [state, dispatch55] = useReducer(AuthReducer, INITIAL_STATE);
-    console.log(state)
+    // console.log(state)/
       return (
         <PriceContext.Provider
           value={{

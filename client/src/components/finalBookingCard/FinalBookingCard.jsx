@@ -16,7 +16,8 @@ function FinalBookingCard({
     checkout,
     checkin,
     roomCount,
-    guestCount
+    guestCount,
+    conLoaderData
 }) {
     const checkin1 = new Date(checkin)
     const checkout1 = new Date(checkout)
@@ -25,7 +26,7 @@ function FinalBookingCard({
     <div className="rightToBook">
     <div className='hotel__details'>
         <div className='hotel__name'>
-            <h4>Collection O Moon Hotel</h4>
+            <h4>{conLoaderData.name}</h4>
             <p>{nightStay} Night</p>
         </div>
         <div className='image__hotelz'>

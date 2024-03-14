@@ -11,7 +11,7 @@ import ProfileDetails from './Pages/ProfileDetails/ProfileDetails';
 import RegisterBegin from './Pages/Register/RegisterBegin';
 import SignupBegains from './Pages/SignIn/SigninBegains';
 import GuestPolicy from './Pages/GuestPolicy/GuestPolicy';
-import ContinueToBook from './Pages/Hotel/ContinueToBook';
+import ContinueToBook, {handleContinueToBookLoader} from './Pages/Hotel/ContinueToBook';
 // import PageNotFound from './components/pageNotFound/PageNotFound';
 import HotelNotFound from './components/pageNotFound/HotelNotFound';
 
@@ -25,8 +25,9 @@ const router = createBrowserRouter([
     element: <List/>
     },
     {
-    path : "/918357/:checkin/:checkout/:roomCount/:guestCount",
-    element: <ContinueToBook/>
+    path : "/918357/:checkin/:checkout/:roomCount/:guestCount/:id",
+    element: <ContinueToBook/>,
+    loader: handleContinueToBookLoader,
     },
     {
     path : "/hotels/:id/:location/:checkin/:checkout",
