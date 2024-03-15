@@ -7,7 +7,7 @@ import Home from './Pages/Home/Home';
 import SignIn from './Pages/SignIn/SignIn';
 import Register from './Pages/Register/Register';
 import AdminLogin from './Pages/AdminLogin/AdminLogin';
-import ProfileDetails from './Pages/ProfileDetails/ProfileDetails';
+import ProfileDetails, {earlyprofileLoader} from './Pages/ProfileDetails/ProfileDetails';
 import RegisterBegin from './Pages/Register/RegisterBegin';
 import SignupBegains from './Pages/SignIn/SigninBegains';
 import GuestPolicy from './Pages/GuestPolicy/GuestPolicy';
@@ -57,7 +57,8 @@ const router = createBrowserRouter([
     },
     {
     path : "/user/accont_details",
-    element: <ProfileDetails/>
+    element: <ProfileDetails/>,
+    loader: earlyprofileLoader,
     },
     {
     path : "/guest-policy/",

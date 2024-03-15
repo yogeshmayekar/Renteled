@@ -1,4 +1,4 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import './profileDetails.css';
 import Navbar from '../../components/navbar/Navbar';
 import Footer from '../../components/footer/Footer';
@@ -12,6 +12,8 @@ import { AuthContext } from '../../context/authContext';
 import OtpInput from '../../components/otpInput/OtpInput';
 import ResendOtp from '../../components/resendOtp/ResendOtp';
 import Cookies from 'js-cookie';
+import axios from 'axios';
+import { useLoaderData } from 'react-router-dom';
 
 const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
@@ -19,16 +21,24 @@ const ProfileDetails= ()=>{
     const[phoneNumber, setPhoneNumber]= useState("");
     const[numberErrorMessage, setNumberErrorMessage]=useState("")
     const[getOtp, setGetOtp]= useState(false);
+    const[userName, setUserName]=useState("");
+    const[userEmail, setUserEmail]=useState("");
     const[isForgotPassword, setIsForgotPassword]= useState(false);
     const navigate = useNavigate();
     const { dispatch } = useContext(AuthContext);
+    const loaderUserData = useLoaderData()
 
-
+    console.log(loaderUserData)
 
     const handleEditButton =(e)=>{
         setEditProfile(!editProfile);
         e.preventDefault();
     }
+
+    useEffect(()=>{
+        setUserName(loaderUserData.username);
+        setUserEmail(loaderUserData.email);
+    },[loaderUserData])
 
     const handlePhoneNumberChange=(e)=>{
         setPhoneNumber(e.target.value);
@@ -75,6 +85,11 @@ const ProfileDetails= ()=>{
         console.log(otp);
     }
 
+    const handleNameChange=(e)=>{
+        setUserName(e.target.value)
+        e.preventDefault();
+    }
+
 
     
 
@@ -94,7 +109,7 @@ const ProfileDetails= ()=>{
             <div style={{display:'flex', justifyContent:'space-between',alignItems:'center' }}>
             <div style={{display:'flex', marginTop:"20px"} }>
             <KeyboardBackspaceIcon className="back__icon" style={{fontSize:"40px", paddingTop:"10px"}} onClick={() => navigate(-1)} />
-            <h2 className="user__name" >Hi, Yogesh</h2>
+            <h2 className="user__name" >Hi, {loaderUserData.username}</h2>
             </div>
             <button className="logout__button" onClick={handleLogOut} >Log out</button>
             </div>
@@ -105,11 +120,12 @@ const ProfileDetails= ()=>{
                     <div className="chield__container">
                     <div className="chield__Edit">
                         <label>Full Name</label>
-                        {editProfile ? <p><TextField hiddenLabel id="filled-hidden-label-small" defaultValue="Yogesh Mayekar"  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> : <p>Yogesh Mayekar</p>}
+                        {editProfile ? <p><TextField hiddenLabel id="filled-hidden-label-small" value={userName} onChange={handleNameChange}  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> :
+                        <p>{userName}</p>}
                     </div>
                     <div className="chield__Edit">
                         <label>Email Address</label>
-                        <p>yogesh.mayekar09@gmail.com</p>
+                        <p>{userEmail}</p>
                     </div>
                     <div className="chield__Edit" >
                         <label>Phone Number</label>
@@ -154,7 +170,7 @@ const ProfileDetails= ()=>{
                             <button className="updatePassword__button" >Update</button> 
                             </div>
                             <ResendOtp time={59} />
-                            <div className='otp_message' >We have sent a one time password (OTP) to <strong>yogesh.mayekar09@gmail.com</strong>. You can enter the OTP above to set your new password.</div>
+                            <div className='otp_message' >We have sent a one time password (OTP) to <strong>{userEmail}</strong>. You can enter the OTP above to set your new password.</div>
                         </>  :
                         <>
                         {editPassword ? <>
@@ -187,3 +203,17 @@ const ProfileDetails= ()=>{
 }
 
 export default ProfileDetails;
+
+export const earlyprofileLoader=async({})=>{
+    const localUser = localStorage.getItem('user');
+    if(localUser){
+        var userD = JSON.parse(localUser)
+    }
+    
+    const res=await axios.get(`/users/${userD._id}`);
+    // console.log(res.data);
+    if(res.status === !200){
+        throw new Response('Not Found', {status: 404})
+    }
+    return res.data
+}

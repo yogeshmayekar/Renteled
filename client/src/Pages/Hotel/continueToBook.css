@@ -28,7 +28,6 @@
     width: 90%;
    max-width:1208px;
    display: flex;
-   align-items: center;
    justify-content: space-between;
    padding: 0 30px;
 }
