@@ -40,7 +40,12 @@ function ContinueToBook() {
   const [bookingEmail, setBookingEmail]=useState("");
   const [bookingNumber, setBookingNumber]=useState("");
   const [isPhoneVerified, setIsPhoneVerified]= useState(false);
+  const [isEmailVerified, setIsEmailVerified]= useState(true);
   const [isAllBookingData, setIsAllBookingData]=useState(false);
+  const [phoneErrorMessage, setPhoneErrorMessage]= useState("");
+  const [nameErrorMessage, setNameErrorMessage]= useState("");
+  const [emailErrorMessage, setEmailErrorMessage]=useState("")
+  
   useEffect(()=>{
     if(data){
       setBookingName(data.username);
@@ -62,11 +67,13 @@ function ContinueToBook() {
 
   const handleEmailChange=(e)=>{
     setBookingEmail(e.target.value);
+    setEmailErrorMessage("")
     e.preventDefault()
   }
 
   const handlePhoneChange=(e)=>{
     setBookingNumber(e.target.value);
+    setPhoneErrorMessage("")
     e.preventDefault();
   }
 
@@ -78,8 +85,33 @@ function ContinueToBook() {
     }
   },[bookingNumber])
 
+  useEffect(()=>{
+    if(bookingEmail===data.email){
+      setIsEmailVerified(true)
+    }else{
+      setIsEmailVerified(false)
+    }
+  },[bookingEmail])
+
   const handleFinalContinue=(e)=>{
-    setIsAllBookingData(true)
+    const regex = /[^0-9]/g;
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+    if(bookingNumber){
+      if(bookingNumber.length<10){
+        setPhoneErrorMessage("Phone number canot be less than 10 digits");
+      }else if(regex.test(bookingNumber)){
+        setPhoneErrorMessage("Invalid Phone number");
+      }else if(bookingNumber.length>10){
+        setPhoneErrorMessage("Phone number canot be More than 10 digits");
+      }else if(!bookingName){
+        setNameErrorMessage("Name Cannot be empty")
+      }else if(!emailRegex.test(bookingEmail)){
+        setEmailErrorMessage("Invalid Email")
+      }else{
+        setIsAllBookingData(true);
+      }
+    }
+    
     e.preventDefault();
   }
 
@@ -113,16 +145,19 @@ function ContinueToBook() {
               <div className="chield__Edit" >
                 <label>Full Name</label>
                 <p><TextField hiddenLabel id="filled-hidden-label-small" value={bookingName} onChange={handleNameChange} size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p>
+                <div className='password__cri'>{nameErrorMessage}</div>
               </div>
               <div className="chield__Edit2" >
                 <label>Email Address</label>
                 <p><TextField hiddenLabel id="filled-hidden-label-small" value={bookingEmail} onChange={handleEmailChange}  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p>
-                <span className='verifies_clas'><CheckCircleOutlineOutlinedIcon sx={{fontSize:'16px'}} /><p>Verified</p></span>
+                <div className='password__cri'>{emailErrorMessage}</div>
+                {isEmailVerified && <span className='verifies_clas'><CheckCircleOutlineOutlinedIcon sx={{fontSize:'16px'}} /><p>Verified</p></span>}
               </div>
             </div>
             <div className="chield__Edit" >
                 <label>Mobile Number</label>
                 <p><TextField hiddenLabel id="filled-hidden-label" type='text' value={bookingNumber} onChange={handlePhoneChange} size="small" sx={{height:'20px', width:'280px', mb:2}} /></p>
+                <div className='password__cri'>{phoneErrorMessage}</div>
                 {isPhoneVerified &&<span className='verifies_clas'><CheckCircleOutlineOutlinedIcon sx={{fontSize:'16px'}} /><p>Verified</p></span>}
               </div>
               <button className='final_continue' onClick={handleFinalContinue}>Continue</button>
