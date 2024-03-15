@@ -12,7 +12,7 @@ router.delete("/:id", verifyUser, deleteUser);
 //get Users api
 router.get("/:id", verifyUser, getUser);
 
-//get all Users api
+//get all Users apsi
 router.get("/", verifyAdmin, getUsers);
 
 export default router;

@@ -58,8 +58,8 @@ const SignIn = ()=>{
           Cookies.set("access_token", res.data.access_token)
           // localStorage.setItem('access_token', res.data.token);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
-          navigate(-2);
           setTopLoader(false);
+          navigate(-2);
         } catch (err) {
           // console.log("err223",err.response.data)
           dispatch({ type: "LOGIN_FAILURE", payload: err.response.data });

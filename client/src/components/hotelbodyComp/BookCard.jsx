@@ -55,6 +55,10 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
       detDesableHandle()
     },[disableContinue, loginContext])
 
+    // useEffect(()=>{
+    //   dispatch44({type:"NEW_UPDATE_SEARCH", payload:{destination2, dates2, options2}})
+    // },[checkIn, checkOut])
+
     // const returnDates = (dates2)=>{
     //     return `${format(
     //         dates2[0].startDate,
@@ -157,6 +161,8 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
 
     useEffect(()=>{
         dispatch44({ type: "NEW_UPDATE_SEARCH", payload: { destination2, dates2, options2 }});
+        localStorage.setItem('userDates', JSON.stringify(dates2));
+        localStorage.setItem('userOptions', JSON.stringify(options2));
     },[dates2, options2])
 
 

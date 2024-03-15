@@ -82,7 +82,7 @@ const ProfileDetails= ()=>{
         dispatch({type: "LOGOUT"});
         Cookies.remove("access_token");
         localStorage.removeItem("user");
-        navigate("/");
+        navigate(-1);
         e.preventDefault();
     }
 

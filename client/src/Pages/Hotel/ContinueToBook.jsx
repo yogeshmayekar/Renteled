@@ -1,13 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import Navbar2 from '../../components/navbar/Navbar2';
 import './continueToBook.css';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate, useParams } from 'react-router-dom';
-// import useFetch from '../../hooks/useFetch';
+import useFetch from '../../hooks/useFetch';
 import LooksOneIcon from '@mui/icons-material/LooksOne';
 import { PriceContext } from '../../context/priceContext';
 import TextField from '@mui/material/TextField';
 import axios from 'axios';
+import { AuthContext } from '../../context/authContext';
 import { useLoaderData } from 'react-router-dom';
 import FinalBookingCard from '../../components/finalBookingCard/FinalBookingCard';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
@@ -21,17 +22,72 @@ function ContinueToBook() {
   const handlePayNow=()=>{
     setIsPayNow(true)
   }
-
+  const {user} = useContext(AuthContext)
   const handlePatAtHotel =()=>{
     setIsPayNow(false)
 
   }
 
-  // const {data , error, loading, reFetch}= useFetch(
-  //   `/918357/:/:checkout`
-  // )
+  const { data, loading, error }= useFetch(
+    `/users/${user._id}`
+  )
+  console.log("userData is", data)
+  // console.log("userData is", error)
   
   const navigate = useNavigate();
+
+  const [bookingName, setBookingName]=useState("");
+  const [bookingEmail, setBookingEmail]=useState("");
+  const [bookingNumber, setBookingNumber]=useState("");
+  const [isPhoneVerified, setIsPhoneVerified]= useState(false);
+  const [isAllBookingData, setIsAllBookingData]=useState(false);
+  useEffect(()=>{
+    if(data){
+      setBookingName(data.username);
+    setBookingEmail(data.email);
+    if(data.phoneNumber){
+      setBookingNumber(data.phoneNumber);
+    }
+    
+    if(data.isPhoneVerified){
+      setIsPhoneVerified(true);
+    }
+    }
+  },[data])
+
+  const handleNameChange=(e)=>{
+    setBookingName(e.target.value)
+    e.preventDefault();
+  }
+
+  const handleEmailChange=(e)=>{
+    setBookingEmail(e.target.value);
+    e.preventDefault()
+  }
+
+  const handlePhoneChange=(e)=>{
+    setBookingNumber(e.target.value);
+    e.preventDefault();
+  }
+
+  useEffect(()=>{
+    if(bookingNumber===data.phoneNumber){
+      setIsPhoneVerified(true);
+    }else{
+      setIsPhoneVerified(false);
+    }
+  },[bookingNumber])
+
+  const handleFinalContinue=(e)=>{
+    setIsAllBookingData(true)
+    e.preventDefault();
+  }
+
+  const handleModify=(e)=>{
+    setIsAllBookingData(false)
+    e.preventDefault()
+  }
+
   return (
     <>
     <Navbar2/>
@@ -47,7 +103,7 @@ function ContinueToBook() {
           <div className='congroMessage'>
             <p>🎉 Yay! you just saved ₹{yourSavingz} on this booking!</p>
           </div>
-          <div className='enterDetails'>
+          {!isAllBookingData &&<div className='enterDetails'>
             <div className='enrty__details'>
               <LooksOneIcon  sx={{fontSize:'28px'}}/>
               <h2>Enter your details</h2>
@@ -56,20 +112,38 @@ function ContinueToBook() {
             <div className='oneWrapper'>
               <div className="chield__Edit" >
                 <label>Full Name</label>
-                <p><TextField hiddenLabel id="filled-hidden-label-small" defaultValue="Yogesh Mayekar"  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p>
+                <p><TextField hiddenLabel id="filled-hidden-label-small" value={bookingName} onChange={handleNameChange} size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p>
               </div>
               <div className="chield__Edit2" >
                 <label>Email Address</label>
-                <p><TextField hiddenLabel id="filled-hidden-label-small" defaultValue=""  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p>
+                <p><TextField hiddenLabel id="filled-hidden-label-small" value={bookingEmail} onChange={handleEmailChange}  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p>
                 <span className='verifies_clas'><CheckCircleOutlineOutlinedIcon sx={{fontSize:'16px'}} /><p>Verified</p></span>
               </div>
             </div>
             <div className="chield__Edit" >
                 <label>Mobile Number</label>
-                <p><TextField hiddenLabel id="filled-hidden-label" type='text' value="" defaultValue="7411805513"  size="small" sx={{height:'20px', width:'280px', mb:2}} /></p>
-                <span className='verifies_clas'><CheckCircleOutlineOutlinedIcon sx={{fontSize:'16px'}} /><p>Verified</p></span>
+                <p><TextField hiddenLabel id="filled-hidden-label" type='text' value={bookingNumber} onChange={handlePhoneChange} size="small" sx={{height:'20px', width:'280px', mb:2}} /></p>
+                {isPhoneVerified &&<span className='verifies_clas'><CheckCircleOutlineOutlinedIcon sx={{fontSize:'16px'}} /><p>Verified</p></span>}
               </div>
-              <button className='final_continue'>Continue</button>
+              <button className='final_continue' onClick={handleFinalContinue}>Continue</button>
+          </div>}
+
+          {isAllBookingData && <>
+            <div className='enterDetails'>
+            <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+              <div className='enrty__details'>
+                <LooksOneIcon  sx={{fontSize:'28px'}}/>
+                <h2>Your details</h2>
+              </div>
+              <button className='modify__Button' onClick={handleModify} >Modify</button>
+            </div>
+            <div className='final_bDetails'>
+              <span>{bookingName}</span>
+              <span>|</span>
+              <span>{bookingEmail}</span>
+              <span>|</span>
+              <span>{bookingNumber}</span>
+            </div>
           </div>
 
           <div className='enterPayment__method'>
@@ -95,6 +169,7 @@ function ContinueToBook() {
             </div>
 
           </div>
+          </>}
 
         </div>
         {/* <div className="leftToBook"> */}

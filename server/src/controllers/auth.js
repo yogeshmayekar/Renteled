@@ -97,11 +97,12 @@ export const login = async(req, res, next)=>{
         // console.log("remember me is",rememberMe);
         const token = jwt.sign({id:user._id, isAdmin:user.isAdmin}, JWT_SECRET, {expiresIn: rememberMe ? "30d":"1d"})
 
-        const { isAdmin, username, email, phoneNo} = user._doc
+        const {_id, isAdmin, username, email, phoneNo} = user._doc
         const otherDetails ={
             username,
             email,
             phoneNo,
+            _id
         }
        
         res.cookie("access_token", token, {

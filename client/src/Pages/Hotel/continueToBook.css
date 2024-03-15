@@ -200,3 +200,24 @@
     text-align: justify;
     margin:0 2%;
 }
+
+.modify__Button{
+    height: 30px;
+    color: #084a79;
+    font-weight: 600;
+    background-color: transparent;
+    border: 1px solid rgb(195, 206, 228);
+    outline: none;
+    padding: 0 10px;
+    margin-top: 5px;
+    scale: 1.1;
+    cursor: pointer;
+}
+
+.final_bDetails{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+    font-size: 16px;
+    font-weight: 500;
+}

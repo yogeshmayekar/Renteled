@@ -29,10 +29,6 @@ const SearchReducer = (state, action) => {
           dates: action.payload.dates2,
           options: action.payload.options2 
         }
-      case "NEW_UPDATE_SEARCH_DATES":
-        return {
-          dates: action.payload.dates2,
-        }
       case "NEW_UPDATE_SEARCH_OPTIONS":
         return {
           options: action.payload.options2,

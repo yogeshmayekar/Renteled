@@ -1,6 +1,11 @@
 import { createContext, useReducer } from "react";
 
-const {discountPercentage,finalSellingPrice,nightStay,roomPrice,taxesAndFees,totalPrice,yourSaving} = JSON.parse(localStorage.getItem('hotelInfo'));
+const hotelInfoJSON = localStorage.getItem('hotelInfo');
+
+if(hotelInfoJSON){
+  const hotelInfo = JSON.parse(hotelInfoJSON);
+  var {discountPercentage,finalSellingPrice,nightStay,roomPrice,taxesAndFees,totalPrice,yourSaving} = hotelInfo
+}
 
 const INITIAL_STATE = {
     roomPrice:roomPrice || null,

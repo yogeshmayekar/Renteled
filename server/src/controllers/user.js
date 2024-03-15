@@ -17,6 +17,7 @@ export const getUser = async(req, res, next)=>{
 export const getUsers = async(req, res, next)=>{
     try{
       const users = await User.find().select('-updatedAt -createdAt -__v');
+      
       res.status(200).json(users);
     }catch(err){
       next(CustomErrorHandler.notFound("Users not found"));
