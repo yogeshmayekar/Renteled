@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
 import { JWT_SECRET, DEBUG_MODE } from "../config/index.js";
 import CustomErrorHandler from "../utils/error.js";
+import {mainMailer} from '../utils/nodeMailer.js';
+import { now } from "mongoose";
 
 
 //1. register controller 
@@ -96,6 +98,9 @@ export const login = async(req, res, next)=>{
         const rememberMe = req.body.rememberMe;
         // console.log("remember me is",rememberMe);
         const token = jwt.sign({id:user._id, isAdmin:user.isAdmin}, JWT_SECRET, {expiresIn: rememberMe ? "30d":"1d"})
+        const decodedToken = jwt.verify(token, JWT_SECRET);
+        const expirationTimestamp = decodedToken.exp * 1000;
+        const expirationDate = new Date(expirationTimestamp);
 
         const {_id, isAdmin, username, email, phoneNo} = user._doc
         const otherDetails ={
@@ -109,7 +114,7 @@ export const login = async(req, res, next)=>{
             httpOnly: true,
             // secure: true, // Ensure your website is served over HTTPS
             // sameSite: 'None', // avoid cross site request
-        }).status(200).json({details: otherDetails, isAdmin, access_token:token });
+        }).status(200).json({details: otherDetails, isAdmin, access_token:token, expiration: expirationDate});
 
     }catch(err){
         if(DEBUG_MODE===true){
@@ -123,5 +128,31 @@ export const login = async(req, res, next)=>{
 //logout 
 export const logout = (req, res, next)=>{
     res.clearCookie('jwtToken', {path:'/'});
-    return res.status(200).json({ message: 'Logout successful' });
+    return res.status(200).json({ message: 'Logout successful'});
+}
+
+//get otp logic
+export const getOtpLogic=async(req, res, next)=>{
+    try{
+        const otp = Math.floor(Math.random() * (99999 - 10000 + 1)) + 10000;
+        //send otp through email
+        const loginSchema = Joi.object({
+            email: Joi.string().email().required(),
+            userName: Joi.string().required(),
+        });
+
+        const {error} = loginSchema.validate(req.body);
+
+        if (error){
+            return res.status(400).json({ message: error.details[0].message });
+        } 
+        
+        const userName = req.body.userName;
+        const toEmail = req.body.email;
+        
+        mainMailer(toEmail, otp, userName);
+
+    }catch(error){
+        res.status(500).json({ error: 'Failed to send OTP. Please try again later.'});
+    }
 }

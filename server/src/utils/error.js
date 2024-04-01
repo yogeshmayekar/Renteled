@@ -83,6 +83,9 @@ class CustomErrorHandler extends Error {    //extended the javaScript inbild err
     static alreadySubscrubed(message="Email Id already subscribed with us"){
         return new CustomErrorHandler(400, message);
     }
+    static unableToSendOtp(messaage="OTP sending Failed."){
+        return new CustomErrorHandler(500, messaage);
+    }
 }   
 
 export default CustomErrorHandler;

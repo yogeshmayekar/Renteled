@@ -1,4 +1,5 @@
 // import { BrowserRouter, Routes, Route} from 'react-router-dom'
+import { useContext, useEffect } from 'react';
 import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom';
 import './App.css';
 import List from './Pages/List/List';
@@ -14,6 +15,7 @@ import GuestPolicy from './Pages/GuestPolicy/GuestPolicy';
 import ContinueToBook, {handleContinueToBookLoader} from './Pages/Hotel/ContinueToBook';
 // import PageNotFound from './components/pageNotFound/PageNotFound';
 import HotelNotFound from './components/pageNotFound/HotelNotFound';
+import Cookies from 'js-cookie';
 
 const router = createBrowserRouter([
     {
@@ -72,6 +74,12 @@ const router = createBrowserRouter([
 
 
 function App() {
+    const localToken = Cookies.get('access_token');
+    useEffect(()=>{
+        if(!localToken){
+            localStorage.removeItem("user");
+        }
+    },[localToken])
     return (
     <>
     <RouterProvider router={router} />

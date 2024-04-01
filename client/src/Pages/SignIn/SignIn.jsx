@@ -27,6 +27,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { zoomies } from 'ldrs';
 import { AuthContext } from '../../context/authContext';
+import { TokenContext } from '../../context/tokenContext';
 import ActionButton from "../../components/actionButton/ActionButton";
 import Cookies from 'js-cookie';
 
@@ -42,6 +43,7 @@ const SignIn = ()=>{
   });
   zoomies.register();
   const { loading, error, dispatch } = useContext(AuthContext);
+  const{dispatch66} = useContext(TokenContext);
   const [topLoader, setTopLoader]= useState(false);
   // console.log("context error is ", error)
 
@@ -54,10 +56,12 @@ const SignIn = ()=>{
           const res = await axios.post("http://localhost:9090/api/auth/login", credentials, {
             credentials: "include",
           });
-          // console.log("response is", res.data.access_token);
+          // console.log("response is", res.data.expiration);
           Cookies.set("access_token", res.data.access_token)
           // localStorage.setItem('access_token', res.data.token);
           dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
+          dispatch66({type:"LOGIN_SUCCESS", payload: res.data.expiration})
+          localStorage.setItem('expiryDate', res.data.expiration)
           setTopLoader(false);
           navigate(-2);
         } catch (err) {

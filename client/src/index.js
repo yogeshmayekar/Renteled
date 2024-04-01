@@ -8,6 +8,7 @@ import { AuthContextProvider } from './context/authContext.jsx';
 import { ErrorContextProvider } from './context/errorContext.jsx';
 import { RegisterContextProvider } from './context/registerContext.jsx';
 import { PriceContextProvider } from './context/priceContext.jsx';
+import { TokenContextProvider } from './context/tokenContext.jsx';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -17,7 +18,9 @@ root.render(
         <ErrorContextProvider>
           <RegisterContextProvider>
             <PriceContextProvider>
-              <App />
+              <TokenContextProvider>
+                <App />
+              </TokenContextProvider>
             </PriceContextProvider>
           </RegisterContextProvider>
         </ErrorContextProvider>

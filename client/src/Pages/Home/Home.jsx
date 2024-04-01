@@ -18,6 +18,7 @@ function Home(){
     const contextError = useContext(ErrorContext);
     // console.log(contextError);
 
+
     useEffect(()=>{
         if (contextError.hasError){
             document.body.style.overflow = 'hidden';

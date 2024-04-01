@@ -6,5 +6,7 @@ export const {
     PORT,
     JWT_SECRET,
     DEBUG_MODE,
-    NODE_ENV
+    NODE_ENV,
+    NODE_MAILER_PASSWORD,
+    EMAIL
 } = process.env;

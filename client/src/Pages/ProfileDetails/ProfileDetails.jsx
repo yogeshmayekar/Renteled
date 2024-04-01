@@ -9,6 +9,7 @@ import { TiPencil } from "react-icons/ti";
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/authContext';
+import { TokenContext } from '../../context/tokenContext';
 import OtpInput from '../../components/otpInput/OtpInput';
 import ResendOtp from '../../components/resendOtp/ResendOtp';
 import Cookies from 'js-cookie';
@@ -18,6 +19,8 @@ import { useLoaderData } from 'react-router-dom';
 const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
     const[editPassword, setEditPassword]= useState(false);
+    const[updateOneDisable, setUpdateOneDisable]=useState(true);
+    const[getOtpDisable, setGetOtpDisable]=useState(true);
     const[phoneNumber, setPhoneNumber]= useState("");
     const[numberErrorMessage, setNumberErrorMessage]=useState("")
     const[getOtp, setGetOtp]= useState(false);
@@ -26,9 +29,10 @@ const ProfileDetails= ()=>{
     const[isForgotPassword, setIsForgotPassword]= useState(false);
     const navigate = useNavigate();
     const { dispatch } = useContext(AuthContext);
+    const{ dispatch66 } = useContext(TokenContext);
     const loaderUserData = useLoaderData()
 
-    console.log(loaderUserData)
+    // console.log(loaderUserData)
 
     const handleEditButton =(e)=>{
         setEditProfile(!editProfile);
@@ -38,16 +42,26 @@ const ProfileDetails= ()=>{
     useEffect(()=>{
         setUserName(loaderUserData.username);
         setUserEmail(loaderUserData.email);
+        setPhoneNumber(loaderUserData.phoneNumber);
     },[loaderUserData])
+
+    useEffect(()=>{
+        if(phoneNumber){
+            if(phoneNumber.length<10 || phoneNumber.length >10){
+                setGetOtp(false);
+            }
+        }
+    },[phoneNumber]);
 
     const handlePhoneNumberChange=(e)=>{
         setPhoneNumber(e.target.value);
     }
 
-    const handleGetOtp =(e)=>{
+    const handleGetOtp =async(e)=>{
         //phoneNumber Validation
         const regex = /[^0-9]/g;
         if(!getOtp){
+            if(phoneNumber){
             if(phoneNumber.length<10 ){
                 setNumberErrorMessage('Phone number must contains 10 digits.');
                 return;
@@ -59,9 +73,15 @@ const ProfileDetails= ()=>{
                 return;
             }
         }
+        }
         
 
-        //call Api 
+        //call Api
+        const res=await axios.post('http://localhost:9090/api/auth/get_otp',{
+            email: loaderUserData.email,
+            userName: loaderUserData.username
+        } );
+        console.log(res);
 
         setGetOtp(true);
         e.preventDefault();
@@ -86,20 +106,50 @@ const ProfileDetails= ()=>{
     }
 
     const handleNameChange=(e)=>{
-        setUserName(e.target.value)
+        setUserName(e.target.value);
         e.preventDefault();
     }
 
+    const handleUpdateone=(e)=>{
+        console.log("updated");
+        e.preventDefault();
+    }
 
     
 
-    const handleLogOut=(e)=>{
-        dispatch({type: "LOGOUT"});
-        Cookies.remove("access_token");
-        localStorage.removeItem("user");
-        navigate(-1);
-        e.preventDefault();
+    const handleLogOut=async(e)=>{
+        try{
+            const res = await axios.post("/auth/logout");
+            console.log(res.data.message);
+            dispatch({type: "LOGOUT"});
+            dispatch66({type:"LOGOUT"});
+            Cookies.remove("access_token");
+            localStorage.removeItem("user");
+            navigate(-1);
+            e.preventDefault();
+        }catch(err){
+            console.log(err);
+        }
+        
+       
     }
+
+    useEffect(()=>{
+        if(phoneNumber ===loaderUserData.phoneNumber){
+            setGetOtpDisable(true);
+        }else{
+            setGetOtpDisable(false); 
+        }
+
+        if(userName===loaderUserData.username){
+            setUpdateOneDisable(true);
+        }else{
+            setUpdateOneDisable(false);
+        }
+    },[phoneNumber, userName])
+
+    
+    
 
 
     return(
@@ -129,10 +179,11 @@ const ProfileDetails= ()=>{
                     </div>
                     <div className="chield__Edit" >
                         <label>Phone Number</label>
+                        {!editProfile &&<p>{phoneNumber}</p>}
                         {editProfile && <>
                         <div style={{display:'flex', alignItems:'center', gap:'15px', paddingLeft:'5px' }} >
                         <p><TextField hiddenLabel id="filled-hidden-label" type='text' value={phoneNumber} onChange={handlePhoneNumberChange} defaultValue=""  size="small" sx={{height:'20px', width:'280px', mb:2}} /></p>
-                        <button className='getotp_btn'onClick={handleGetOtp} >Get OTP</button>
+                        <button className='getotp_btn' onClick={handleGetOtp} disabled={getOtpDisable} >Get OTP</button>
                         </div>
                         {numberErrorMessage && <div className='password__cri'>{numberErrorMessage}</div>}
                         {getOtp && <>
@@ -148,7 +199,7 @@ const ProfileDetails= ()=>{
                         
                     </div>
                     </div> 
-                    {editProfile && <button className="update__button" >Update</button> }
+                    {editProfile && <button className="update__button" disabled={updateOneDisable} onClick={handleUpdateone} >Update</button> }
                     </div>
                     
                 </Grid>
@@ -207,13 +258,13 @@ export default ProfileDetails;
 export const earlyprofileLoader=async({})=>{
     const localUser = localStorage.getItem('user');
     if(localUser){
-        var userD = JSON.parse(localUser)
+        var userD = JSON.parse(localUser);
     }
     
     const res=await axios.get(`/users/${userD._id}`);
     // console.log(res.data);
     if(res.status === !200){
-        throw new Response('Not Found', {status: 404})
+        throw new Response('Not Found', {status: 404});
     }
     return res.data
 }
