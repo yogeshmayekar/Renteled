@@ -150,7 +150,13 @@ export const getOtpLogic=async(req, res, next)=>{
         const userName = req.body.userName;
         const toEmail = req.body.email;
         
-        mainMailer(toEmail, otp, userName);
+        try{
+            // mainMailer(toEmail, otp, userName);
+            res.status(200).json({message:'OTP sent sucessfully.', otp })
+        }catch(err){
+            res.json(CustomErrorHandler.unableToSendOtp);
+        }
+
 
     }catch(error){
         res.status(500).json({ error: 'Failed to send OTP. Please try again later.'});

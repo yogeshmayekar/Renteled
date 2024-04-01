@@ -10,7 +10,7 @@ export const verifyToken = (req, res, next) => {
     }
   
     jwt.verify(token, JWT_SECRET, (err, user) => {
-      if (err) return next(createError(403, "Token is not valid!"));
+      if (err) return res.status(403).status({message:"Token is not valid!"})
       req.user = user;
       next();
     });
@@ -22,7 +22,7 @@ export const verifyUser = (req, res, next) => {
       if (req.user.id === req.params.id || req.user.isAdmin) {
         next();
       } else {
-        return next(createError(403, "You are not authorized!"));
+        return res.status(403).status({message:"You are not authorized!"});
       }
     });
 };
@@ -33,7 +33,7 @@ export const verifyAdmin = (req, res, next) => {
       if (req.user.isAdmin) {
         next();
       } else {
-        return next(createError(403, "You are not authorized!"));
+        return res.status(403).status({message:"You are not authorized!"});
       }
     });
 };

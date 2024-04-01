@@ -75,13 +75,15 @@ const ProfileDetails= ()=>{
         }
         }
         
-
+        
         //call Api
         const res=await axios.post('http://localhost:9090/api/auth/get_otp',{
             email: loaderUserData.email,
             userName: loaderUserData.username
-        } );
-        console.log(res);
+        } , {credentials: "include" });
+        // console.log(res.data);
+        alert(res.data.message);
+        setGetOtpDisable(true);
 
         setGetOtp(true);
         e.preventDefault();
@@ -110,8 +112,15 @@ const ProfileDetails= ()=>{
         e.preventDefault();
     }
 
-    const handleUpdateone=(e)=>{
-        console.log("updated");
+    const handleUpdateone=async(e)=>{
+        // console.log("updated");
+        const res = await axios.put(`/users/${loaderUserData._id}`, {
+            username:userName
+        }, {credentials: "include" })
+        console.log(res);
+        if(res.status === 200){
+            window.location.reload();
+        }
         e.preventDefault();
     }
 
@@ -141,14 +150,19 @@ const ProfileDetails= ()=>{
             setGetOtpDisable(false); 
         }
 
+    },[phoneNumber])
+
+    useEffect(()=>{
         if(userName===loaderUserData.username){
             setUpdateOneDisable(true);
         }else{
             setUpdateOneDisable(false);
         }
-    },[phoneNumber, userName])
+    },[userName])
 
-    
+    const handleVerifyOtp=()=>{
+        
+    }
     
 
 
@@ -189,10 +203,10 @@ const ProfileDetails= ()=>{
                         {getOtp && <>
                         <div style={{display:'flex', alignItems:'center', gap:'15px'}} >
                         <OtpInput length={5} onOtpSubmit={onOtpSubmit} />
-                        <button className='verifyOtp_btn' >Verify OTP</button>
+                        <button className='verifyOtp_btn' onClick={handleVerifyOtp} >Verify OTP</button>
                         </div>
                         <ResendOtp time={30} />
-                        <div className='otp_message' >We have sent a OTP to your phone. You can enter the OTP above to get verify</div>
+                        <div className='otp_message' >We have sent a OTP to your email. You can enter the OTP above to get verify</div>
                         </>}
                         </> 
                         }
