@@ -187,3 +187,48 @@ export const verifyOtpLogic=async(req,res,next)=>{
         res.status(500).json({ error: 'Failed to Verify OTP. Please try again later.'});
     }
 }
+
+//update password
+export const updatePasswordLogic=async(req,res,next)=>{
+    try{
+        const updatePasswordSchema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(6).required(),
+            newPassword:Joi.string().min(6).pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+{}|:"<>?`~\\-=[\\];\',./]{3,30}$')).required(),
+        });
+
+        const {error} = updatePasswordSchema.validate(req.body);
+
+        if (error){
+            // console.log(error.details[0].message )
+            return res.status(400).json({ message: error.details[0].message });
+        } 
+
+
+        const user = await User.findOne({email:req.body.email})
+        // console.log("cc is",CustomErrorHandler.incorerctUser())
+        if(!user) return res.status(400).json(CustomErrorHandler.incorerctUser())
+
+        const{_id, password}=user._doc
+
+        //compare the existing password
+        const match = await bcrypt.compare(req.body.password, password)
+        if(!match){
+            return res.status(400).json(CustomErrorHandler.incorerctPassword())
+        }
+
+        // Hashing new password
+        const salt = bcrypt.genSaltSync(10);
+        const hashedNewPassword = await bcrypt.hash(req.body.newPassword, salt);
+
+        const updatedPasswordUser = await User.findByIdAndUpdate(
+            _id,
+            { $set: { password: hashedNewPassword } },
+            { new: true }
+          );
+          res.status(200).json({message:"password updated successfully."});
+
+    }catch(error){
+        res.status(500).json({ error: 'Failed to Update password'});
+    }
+}

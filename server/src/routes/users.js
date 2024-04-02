@@ -15,4 +15,5 @@ router.get("/:id", verifyUser, getUser);
 //get all Users apsi
 router.get("/", verifyAdmin, getUsers);
 
+
 export default router;

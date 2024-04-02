@@ -20,7 +20,7 @@ const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
     const[editPassword, setEditPassword]= useState(false);
     const[updateOneDisable, setUpdateOneDisable]=useState(true);
-    const[getOtpDisable, setGetOtpDisable]=useState(true);
+    const[getOtpDisable, setGetOtpDisable]=useState(false);
     const[phoneNumber, setPhoneNumber]= useState("");
     const[numberErrorMessage, setNumberErrorMessage]=useState("")
     const[getOtp, setGetOtp]= useState(false);
@@ -29,6 +29,9 @@ const ProfileDetails= ()=>{
     const[isForgotPassword, setIsForgotPassword]= useState(false);
     const[otpVerifyMessage, setOtpVerifyMessage]= useState("");
     const[isOtpVerfied, setIsOtpVerified]= useState(false);
+    const[currentPass, setCurrentPass]=useState();
+    const[updatePassErrorMsg, setUpdatePassErrorMsg]=useState("")
+    const[newPass, setNewPass]=useState();
     const navigate = useNavigate();
     const { dispatch } = useContext(AuthContext);
     const{ dispatch66 } = useContext(TokenContext);
@@ -57,6 +60,7 @@ const ProfileDetails= ()=>{
 
     const handlePhoneNumberChange=(e)=>{
         setPhoneNumber(e.target.value);
+        setNumberErrorMessage("")
     }
 
     const handleGetOtp =async()=>{
@@ -77,13 +81,13 @@ const ProfileDetails= ()=>{
         }
         }
         
-        
         //call Api
         const res=await axios.post('http://localhost:9090/api/auth/get_otp',{
             email: loaderUserData.email,
             userName: loaderUserData.username,
             phoneNumber:phoneNumber,
         } , {credentials: "include"});
+        // console.log(res)
         console.log("otp from server", res.data.otp);
         alert(res.data.message);
         setGetOtpDisable(true);
@@ -189,6 +193,26 @@ const ProfileDetails= ()=>{
         }
     },[userName])
 
+    const handleCurrentPassword =(e)=>{
+        setCurrentPass(e.target.value);
+    }
+
+    const handleNewPassword =(e)=>{
+        setNewPass(e.target.value);
+    }
+
+
+    const handleUpdatePassword =async()=>{
+        const res =await axios.post("/auth/update_password",{
+                email:loaderUserData.email,
+                password:currentPass,
+                newPassword:newPass
+        },{credentials: "include"})
+        console.log(res)
+        if(res){
+            setUpdatePassErrorMsg(res.data.message)
+        }
+    }
 
     
 
@@ -227,7 +251,7 @@ const ProfileDetails= ()=>{
                         <button className='getotp_btn' onClick={handleGetOtp} disabled={getOtpDisable} >Get OTP</button>
                         </div>
                         {numberErrorMessage && <div className='password__cri'>{numberErrorMessage}</div>}
-                        {isOtpVerfied && <p>{otpVerifyMessage}</p>}
+                        {isOtpVerfied && <p style={{margin:'0'}} >{otpVerifyMessage}</p>}
                         {getOtp && <>
                         <div style={{display:'flex', alignItems:'center', gap:'15px'}} >
                         <OtpInput length={5} onOtpSubmit={onOtpSubmit} />
@@ -260,6 +284,7 @@ const ProfileDetails= ()=>{
                             <label>New Password</label>
                             <p><TextField hiddenLabel id="new__password" defaultValue="" type='password'  size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
                             <div className='password__cri'>Password should have atleast 6 characters.</div>
+                            <div className='password__cri'>{updatePassErrorMsg}</div>
                             <button className="updatePassword__button" >Update</button> 
                             </div>
                             <ResendOtp time={59} />
@@ -268,12 +293,12 @@ const ProfileDetails= ()=>{
                         <>
                         {editPassword ? <>
                             <label>Current Password</label>
-                            <p><TextField hiddenLabel id="current__password" type='password' defaultValue=""  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> 
+                            <p><TextField hiddenLabel id="current__password" type='password' value={currentPass} onChange={handleCurrentPassword}  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> 
                             <div className="chield__Edit">
                             <label>New Password</label>
-                            <p><TextField hiddenLabel id="new__password" type='password' defaultValue=""  size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
+                            <p><TextField hiddenLabel id="new__password" type='password' vallue={newPass} onChange={handleNewPassword} size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
                             <div className='password__cri'>Password should have atleast 6 characters.</div>
-                            <button className="updatePassword__button" >Update</button> 
+                            <button className="updatePassword__button" onClick={handleUpdatePassword} >Update</button> 
                             </div>
                             <div className='forgot__password' onClick={handleForgotPassword} >Forgot password?</div>
                             </> : <>
