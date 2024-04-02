@@ -7,7 +7,7 @@ import CustomErrorHandler from "../utils/error.js";
 import {mainMailer} from '../utils/nodeMailer.js';
 import { now } from "mongoose";
 
-
+let otpMap = new Map(); 
 //1. register controller 
 export const register = async(req, res, next)=>{
     try{
@@ -139,6 +139,7 @@ export const getOtpLogic=async(req, res, next)=>{
         const loginSchema = Joi.object({
             email: Joi.string().email().required(),
             userName: Joi.string().required(),
+            phoneNumber:Joi.string().required(),
         });
 
         const {error} = loginSchema.validate(req.body);
@@ -149,9 +150,11 @@ export const getOtpLogic=async(req, res, next)=>{
         
         const userName = req.body.userName;
         const toEmail = req.body.email;
+        const phoneNumber = req.body.phoneNumber;
         
         try{
             // mainMailer(toEmail, otp, userName);
+            otpMap.set(phoneNumber, otp);
             res.status(200).json({message:'OTP sent sucessfully.', otp })
         }catch(err){
             res.json(CustomErrorHandler.unableToSendOtp);
@@ -160,5 +163,27 @@ export const getOtpLogic=async(req, res, next)=>{
 
     }catch(error){
         res.status(500).json({ error: 'Failed to send OTP. Please try again later.'});
+    }
+}
+
+export const verifyOtpLogic=async(req,res,next)=>{
+    try{
+        const { phoneNumber, otp } = req.body;
+        if (!otpMap.has(phoneNumber)) {
+         res.status(400).json({ success: false, message: 'OTP not generated for this number' });
+         return
+        }
+        // console.log("otp veri", otpMap.get(phoneNumber) )
+        if (otpMap.get(phoneNumber) == otp) {
+            res.status(200).json({ success: true, message: 'OTP verified successfully' });
+            otpMap.delete(phoneNumber);
+            return
+        }else{
+          res.status(400).json({ success: false, message: 'Incorrect OTP' });
+          return
+        }
+
+    }catch(error){
+        res.status(500).json({ error: 'Failed to Verify OTP. Please try again later.'});
     }
 }

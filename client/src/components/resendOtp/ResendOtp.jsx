@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import './resendOtp.css';
 
-const ResendOtp=({time=59})=>{
+const ResendOtp=({time=59, handleGetOtp})=>{
     const [counter, setCounter] = useState(time);
     useEffect(()=>{
         const timer = counter>0 && setInterval(()=>{
@@ -12,6 +12,7 @@ const ResendOtp=({time=59})=>{
 
     const handleResendClick = () => {
         setCounter(time);
+        handleGetOtp()
     };
 
     return(

@@ -27,10 +27,12 @@ const ProfileDetails= ()=>{
     const[userName, setUserName]=useState("");
     const[userEmail, setUserEmail]=useState("");
     const[isForgotPassword, setIsForgotPassword]= useState(false);
+    const[otpVerifyMessage, setOtpVerifyMessage]= useState("");
+    const[isOtpVerfied, setIsOtpVerified]= useState(false);
     const navigate = useNavigate();
     const { dispatch } = useContext(AuthContext);
     const{ dispatch66 } = useContext(TokenContext);
-    const loaderUserData = useLoaderData()
+    const loaderUserData = useLoaderData();
 
     // console.log(loaderUserData)
 
@@ -57,7 +59,7 @@ const ProfileDetails= ()=>{
         setPhoneNumber(e.target.value);
     }
 
-    const handleGetOtp =async(e)=>{
+    const handleGetOtp =async()=>{
         //phoneNumber Validation
         const regex = /[^0-9]/g;
         if(!getOtp){
@@ -79,14 +81,14 @@ const ProfileDetails= ()=>{
         //call Api
         const res=await axios.post('http://localhost:9090/api/auth/get_otp',{
             email: loaderUserData.email,
-            userName: loaderUserData.username
-        } , {credentials: "include" });
-        // console.log(res.data);
+            userName: loaderUserData.username,
+            phoneNumber:phoneNumber,
+        } , {credentials: "include"});
+        console.log("otp from server", res.data.otp);
         alert(res.data.message);
         setGetOtpDisable(true);
 
         setGetOtp(true);
-        e.preventDefault();
     }
 
     const handleEditPassword=(e)=>{
@@ -99,8 +101,19 @@ const ProfileDetails= ()=>{
         e.preventDefault();
     }
 
-    const onOtpSubmit = (otp)=>{
-        console.log(otp);
+    const onOtpSubmit =async (otp)=>{
+        console.log("otp by client", otp);
+        const res = await axios.post("http://localhost:9090/api/auth/verify-otp",{
+            phoneNumber:phoneNumber,
+            otp:otp,
+        },{credentials: "include"})
+        if(res.data.success){
+            setIsOtpVerified(true);
+            setGetOtp(false);
+            setOtpVerifyMessage(res.data.message)
+        }
+        console.log(res.data);
+        
     }
 
     const onforgotOtpSubmit=(otp)=>{
@@ -114,12 +127,26 @@ const ProfileDetails= ()=>{
 
     const handleUpdateone=async(e)=>{
         // console.log("updated");
-        const res = await axios.put(`/users/${loaderUserData._id}`, {
-            username:userName
-        }, {credentials: "include" })
-        console.log(res);
-        if(res.status === 200){
-            window.location.reload();
+        if(isOtpVerfied){
+            console.log(phoneNumber);
+            const updateData = {
+                username:userName,
+                phoneNumber:phoneNumber
+            }
+            const res = await axios.put(`/users/${loaderUserData._id}`, updateData , {credentials: "include" })
+            console.log(res);
+            if(res.status === 200){
+                window.location.reload();
+            }
+        }else{
+            // console.log("up2")
+            const res = await axios.put(`/users/${loaderUserData._id}`, {
+                username:userName,
+            }, {credentials: "include" })
+            console.log(res);
+            if(res.status === 200){
+                window.location.reload();
+            }
         }
         e.preventDefault();
     }
@@ -144,10 +171,12 @@ const ProfileDetails= ()=>{
     }
 
     useEffect(()=>{
-        if(phoneNumber ===loaderUserData.phoneNumber){
+        if(phoneNumber === loaderUserData.phoneNumber){
             setGetOtpDisable(true);
+            setUpdateOneDisable(true);
         }else{
             setGetOtpDisable(false); 
+            setUpdateOneDisable(false);
         }
 
     },[phoneNumber])
@@ -160,9 +189,7 @@ const ProfileDetails= ()=>{
         }
     },[userName])
 
-    const handleVerifyOtp=()=>{
-        
-    }
+
     
 
 
@@ -200,12 +227,13 @@ const ProfileDetails= ()=>{
                         <button className='getotp_btn' onClick={handleGetOtp} disabled={getOtpDisable} >Get OTP</button>
                         </div>
                         {numberErrorMessage && <div className='password__cri'>{numberErrorMessage}</div>}
+                        {isOtpVerfied && <p>{otpVerifyMessage}</p>}
                         {getOtp && <>
                         <div style={{display:'flex', alignItems:'center', gap:'15px'}} >
                         <OtpInput length={5} onOtpSubmit={onOtpSubmit} />
-                        <button className='verifyOtp_btn' onClick={handleVerifyOtp} >Verify OTP</button>
+                        <button className='verifyOtp_btn' onClick={onOtpSubmit} >Verify OTP</button>
                         </div>
-                        <ResendOtp time={30} />
+                        <ResendOtp time={30} handleGetOtp={handleGetOtp} />
                         <div className='otp_message' >We have sent a OTP to your email. You can enter the OTP above to get verify</div>
                         </>}
                         </> 

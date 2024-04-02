@@ -24,7 +24,8 @@ const OtpInput =({length=5, onOtpSubmit=()=>{}})=>{
         const combinedOtp = newOtp.join("");
         // console.log(combinedOtp.length)
         if(combinedOtp.length===length){
-            console.log(combinedOtp)
+            // console.log(combinedOtp)
+            onOtpSubmit(combinedOtp)
         
         }
 
