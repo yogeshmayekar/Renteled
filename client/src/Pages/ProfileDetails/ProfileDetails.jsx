@@ -15,6 +15,7 @@ import ResendOtp from '../../components/resendOtp/ResendOtp';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import { useLoaderData } from 'react-router-dom';
+import BookingHistory from '../../components/bookingHistory/BookingHistory';
 
 const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
@@ -28,7 +29,9 @@ const ProfileDetails= ()=>{
     const[userEmail, setUserEmail]=useState("");
     const[isForgotPassword, setIsForgotPassword]= useState(false);
     const[otpVerifyMessage, setOtpVerifyMessage]= useState("");
+    const[secondOtpVerifyMessage, setSecondOtpVerifyMessage]= useState("");
     const[isOtpVerfied, setIsOtpVerified]= useState(false);
+    const[isSecondOtpVerified, setIsSecondOtpVerified]= useState(false);
     const[currentPass, setCurrentPass]=useState();
     const[updatePassErrorMsg, setUpdatePassErrorMsg]=useState("")
     const[newPass, setNewPass]=useState();
@@ -100,8 +103,16 @@ const ProfileDetails= ()=>{
         e.preventDefault();
     }
 
-    const handleForgotPassword=(e)=>{
+    const handleForgotPassword=async(e)=>{
         setIsForgotPassword(true);
+        const res=await axios.post('http://localhost:9090/api/auth/get_otp',{
+            email: loaderUserData.email,
+            userName: loaderUserData.username,
+            phoneNumber:loaderUserData.phoneNumber,
+        } , {credentials: "include"});
+        // console.log(res)
+        console.log("otp from server", res.data.otp);
+        alert(res.data.message);
         e.preventDefault();
     }
 
@@ -120,8 +131,17 @@ const ProfileDetails= ()=>{
         
     }
 
-    const onforgotOtpSubmit=(otp)=>{
-        console.log(otp);
+    const onforgotOtpSubmit=async(otp)=>{
+        console.log("otp by c2", otp);
+        const res = await axios.post("http://localhost:9090/api/auth/verify-otp",{
+            phoneNumber:phoneNumber,
+            otp:otp,
+        },{credentials: "include"})
+        if(res.data.success){
+            setIsSecondOtpVerified(true);
+            setSecondOtpVerifyMessage(res.data.message)
+        }
+        console.log(res.data);
     }
 
     const handleNameChange=(e)=>{
@@ -208,10 +228,22 @@ const ProfileDetails= ()=>{
                 password:currentPass,
                 newPassword:newPass
         },{credentials: "include"})
-        console.log(res)
+        alert(res.data.message)
         if(res){
             setUpdatePassErrorMsg(res.data.message)
         }
+    }
+
+    const handleUnotherUpdatePassword = async()=>{
+        const res =await axios.post("/auth/update_password_directly",{
+            email:loaderUserData.email,
+            newPassword:newPass
+        },{credentials: "include"})
+        alert(res.data.message)
+        if(res){
+        setUpdatePassErrorMsg(res.data.message)
+        window.location.reload();
+    }
     }
 
     
@@ -276,19 +308,26 @@ const ProfileDetails= ()=>{
                      <div className="chield__Edit">
                         {isForgotPassword ? <>
                             <div className="chield__Edit">
-                            <label>Enter OTP</label>
+                            {!isSecondOtpVerified &&<>
+                                <label>Enter OTP</label>
                             <div style={{display:'flex', alignItems:'center', gap:'15px'}} >
                                 <OtpInput length={5} onOtpSubmit={onforgotOtpSubmit} />
                                 <button className='verifyOtp_btn' >Verify OTP</button>
                             </div>
+                            </>}
+                            {isSecondOtpVerified && <p style={{margin:'0 6px'}} >{secondOtpVerifyMessage}</p>}
                             <label>New Password</label>
-                            <p><TextField hiddenLabel id="new__password" defaultValue="" type='password'  size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
+                            <p><TextField hiddenLabel id="new__password"  type='password' value={newPass} onChange={handleNewPassword}  size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
                             <div className='password__cri'>Password should have atleast 6 characters.</div>
                             <div className='password__cri'>{updatePassErrorMsg}</div>
-                            <button className="updatePassword__button" >Update</button> 
+                            <button className="updatePassword__button" onClick={handleUnotherUpdatePassword} >Update</button> 
                             </div>
+                            {!isSecondOtpVerified &&
+                            <>
                             <ResendOtp time={59} />
-                            <div className='otp_message' >We have sent a one time password (OTP) to <strong>{userEmail}</strong>. You can enter the OTP above to set your new password.</div>
+                            <div className='otp_message' >We have sent a one time password (OTP) to <strong>{loaderUserData.email}</strong>. You can enter the OTP above to set your new password.</div>
+                            </>
+                            }
                         </>  :
                         <>
                         {editPassword ? <>
@@ -296,7 +335,7 @@ const ProfileDetails= ()=>{
                             <p><TextField hiddenLabel id="current__password" type='password' value={currentPass} onChange={handleCurrentPassword}  size="small" sx={{height:'20px', width:'280px', mb:2, outline:'none' }} /></p> 
                             <div className="chield__Edit">
                             <label>New Password</label>
-                            <p><TextField hiddenLabel id="new__password" type='password' vallue={newPass} onChange={handleNewPassword} size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
+                            <p><TextField hiddenLabel id="new__password" type='password' value={newPass} onChange={handleNewPassword} size="small" sx={{height:'20px', width:'280px', mb:1, outline:'none' }} /></p>
                             <div className='password__cri'>Password should have atleast 6 characters.</div>
                             <button className="updatePassword__button" onClick={handleUpdatePassword} >Update</button> 
                             </div>
@@ -313,6 +352,7 @@ const ProfileDetails= ()=>{
                 
                 </Grid>
             </Grid>
+            <BookingHistory/>
             </div>
             <MailList/>
             <Footer/>
