@@ -1,0 +1,49 @@
+.confirm__booking_container{
+    margin:0 10%;
+    margin-top: 20vh;
+}
+
+.first_item>h3{
+    color: rgb(4, 28, 72);
+}
+
+.first_item>p{
+    margin: 0;
+    padding: 0;
+}
+
+.first_item{
+    padding: 10px;
+}
+
+.first_content{
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 25px;
+    border-bottom: 1px solid #d8caca;
+
+}
+
+.bookingId_details{
+    box-shadow: rgba(16, 15, 15, 0.1) 0px 0px 0px 1px;
+    padding-bottom: 20px;
+}
+
+.f5zf{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hotel_list_booking2{
+    display: flex;
+    justify-content: space-between;
+    margin: 0 25px;
+    padding: 20px 0;
+    border-bottom: 1px solid #d8caca;
+}
+
+
+/* .herfa{
+    display: flex;
+} */

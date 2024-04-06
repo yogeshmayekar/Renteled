@@ -12,6 +12,7 @@ import ProfileDetails, {earlyprofileLoader} from './Pages/ProfileDetails/Profile
 import RegisterBegin from './Pages/Register/RegisterBegin';
 import SignupBegains from './Pages/SignIn/SigninBegains';
 import GuestPolicy from './Pages/GuestPolicy/GuestPolicy';
+import Booking from './Pages/Booking/Booking';
 import ContinueToBook, {handleContinueToBookLoader} from './Pages/Hotel/ContinueToBook';
 // import PageNotFound from './components/pageNotFound/PageNotFound';
 import HotelNotFound from './components/pageNotFound/HotelNotFound';
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
     {
     path : "/guest-policy/",
     element: <GuestPolicy/>
+    },
+    {
+    path: "/booking/:booking_id",
+    element: <Booking/>
     },
     // {
     // path : "/*",

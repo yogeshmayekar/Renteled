@@ -2,7 +2,7 @@ import { createContext, useState } from 'react';
 
 export const ErrorContext = createContext();
 const INITIAL_STATE = {
-    errorMessage : "Something went wrondg Please try after some time.",
+    errorMessage : "Something went wrong Please try after some time.",
 };
 
 export const ErrorContextProvider = ({ children }) => {

@@ -14,7 +14,7 @@ import NetworkWifi3BarIcon from '@mui/icons-material/NetworkWifi3Bar';
 import ReviewComponent from '../reviewComponent/ReviewComponent';
 
 const Details =({earlyLoaderData, setOpenAllReviews})=>{
-    console.log(earlyLoaderData)
+    // console.log(earlyLoaderData)
     const[showMore, setShowMore]=useState(false);
     return(
         <>

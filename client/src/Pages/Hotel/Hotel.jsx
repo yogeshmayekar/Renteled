@@ -19,7 +19,8 @@ function Hotel(){
     const [openAllReviews, setOpenAllReviews]= useState(false);
     const earlyLoaderData = useLoaderData();
     const params = useParams();
-    const { location, checkin, checkout } = params;
+    const { location, checkin, checkout, id } = params;
+    const hotelID = id.slice(22, 46);
 
     // console.log(earlyLoaderData.amenities)
     // const hotelID = id.slice(22, 46)
@@ -38,7 +39,7 @@ function Hotel(){
         <Slider2 perPages={2} width={"100%"}/>
         <div style={{display:'flex'}}>
         <Details earlyLoaderData={earlyLoaderData} setOpenAllReviews={setOpenAllReviews} />
-        <BookCard setSefetyMeasure={setSefetyMeasure} earlyLoaderData={earlyLoaderData} checkIn={checkin} checkOut={checkout} destination={location} />
+        <BookCard setSefetyMeasure={setSefetyMeasure} earlyLoaderData={earlyLoaderData} checkIn={checkin} checkOut={checkout} destination={location} hotelID={hotelID} />
         </div>
         <MailList/>
         <Footer/>

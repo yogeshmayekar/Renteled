@@ -12,12 +12,13 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CancelationPolicy from '../cancelationPolicy/CancelationPolicy';
 // import PriceWrapper from '../priceWrapper/PriceWrapper';
 
-const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destination})=>{
-    // console.log(earlyLoaderData._id);
+const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destination, hotelID})=>{
+   
+    // console.log(earlyLoaderData._id, "hear");
     const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
     const randomNumberTwo = Math.floor(Math.random() * 9000) + 1000;
     const { options, dates,  dispatch44} = useContext(SearchBarContext);
-    const { dispatch55 }= useContext(PriceContext);
+    const { dispatch55}= useContext(PriceContext);
     const [openOptions, setOpenOptions] = useState(false);
     const destination2 = destination;
     const [dates2, setDates2] = useState([{
@@ -229,6 +230,7 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
     const taxIs = taxFeesIncludingDays <1 ? taxFeesExcludingDays : taxFeesIncludingDays
 
     const handleContinueToBook =()=>{
+      console.log(hotelID,"inside func")
       const hotelInfo = {
         roomPrice:finalMarkup,
         yourSaving: totalSaving,
@@ -237,6 +239,7 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
         nightStay:stayNightCount,
         finalSellingPrice:finalDiscountedPrice,
         discountPercentage: discountPercentage,
+        hotelID:hotelID,
       }
       if(!loginContext.user){
         navigate("/user/Sign_in");

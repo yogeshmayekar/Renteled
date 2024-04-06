@@ -18,7 +18,17 @@ function ContinueToBook() {
   const [isPayNow, setIsPayNow] = useState(false);
   const {checkin, checkout, roomCount, guestCount }= useParams()
   const conLoaderData = useLoaderData()
-  const {roomPricez, yourSavingz, taxesAndFeesz, totalPricez, nightStayz, finalSellingPricez, discountPercentagez}= useContext(PriceContext);
+  const {
+    roomPricez,
+    yourSavingz, 
+    taxesAndFeesz, 
+    totalPricez, 
+    nightStayz, 
+    finalSellingPricez, 
+    discountPercentagez,
+    hotelID
+  }= useContext(PriceContext);
+  console.log(useContext(PriceContext), "lodu")
   const handlePayNow=()=>{
     setIsPayNow(true)
   }
@@ -120,6 +130,38 @@ function ContinueToBook() {
     e.preventDefault()
   }
 
+  const hancleBookNow=async()=>{
+    const generateBookingId=()=>{
+      const alphabets = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      let randomChars = ''; 
+      for (let i = 0; i < 4; i++) {
+          randomChars += alphabets.charAt(Math.floor(Math.random() * alphabets.length));
+      }
+
+      const randomNumber = Math.floor(1000 + Math.random() * 9000);
+
+      const bookingId = randomChars + randomNumber;
+      return bookingId;
+  }
+  const bookingId = generateBookingId();
+    const dataToBookHotel = {
+      bookingId:bookingId,
+      hotelId: hotelID,
+      userId: `${user._id}`,
+      checkinDate:roomCount,
+      checkoutDate:checkout,
+      numberOfRooms: guestCount,
+      numberOfGuests: guestCount,
+      amount:`${totalPricez}`,
+      paymentStatus:"pending" ,
+      bookingStatus:"confirmed"
+    }
+    await axios.post("/booking/", dataToBookHotel, {
+      credentials: "include",
+    });
+    navigate(`/booking/${bookingId}`)
+  }
+
   return (
     <>
     <Navbar2/>
@@ -196,7 +238,7 @@ function ContinueToBook() {
                 <div className='sub_right_pay_chield '>
                 <h4>No payment needed today</h4>
                 <p>We will confirm your stay without any charge. Pay directly at the hotel during your stay.</p>
-                <button>Book Now</button>
+                <button onClick={hancleBookNow}>Book Now</button>
                 </div>
                 
               </div>
