@@ -4,7 +4,7 @@ const hotelInfoJSON = localStorage.getItem('hotelInfo');
 
 if(hotelInfoJSON){
   const hotelInfo = JSON.parse(hotelInfoJSON);
-  var {discountPercentage,finalSellingPrice,nightStay,roomPrice,taxesAndFees,totalPrice,yourSaving, hotelID} = hotelInfo
+  var {discountPercentage,finalSellingPrice,nightStay,roomPrice,taxesAndFees,totalPrice,yourSaving, hotelID, hotelName} = hotelInfo
 }
 
 const INITIAL_STATE = {
@@ -15,7 +15,8 @@ const INITIAL_STATE = {
     nightStay:nightStay || null,
     finalSellingPrice:finalSellingPrice || null,
     discountPercentage:discountPercentage || null,
-    hotelID:hotelID || ""
+    hotelID:hotelID || "",
+    hotelName:hotelName || "",
 };
 
 export const PriceContext = createContext(INITIAL_STATE);
@@ -32,6 +33,7 @@ const AuthReducer = (state, action) => {
             finalSellingPrice: action.payload.finalSellingPrice,
             discountPercentage: action.payload.discountPercentage,
             hotelID:action.payload.hotelID,
+            hotelName:action.payload.hotelName,
         };
       default:
         return state;
@@ -54,6 +56,7 @@ export const PriceContextProvider = ({ children }) => {
             finalSellingPricez:state.finalSellingPrice,
             discountPercentagez:state.discountPercentage,
             hotelID:state.hotelID,
+            hotelName:state.hotelName,
             dispatch55,
           }}
         >

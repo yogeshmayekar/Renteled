@@ -1,47 +1,57 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/navbar/Navbar2';
 import './booking.css';
 import hotel from '../../Assets/appartments.jpg';
-import useFetch from '../../hooks/useFetch';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
 
-function Booking() {
+const Booking=()=>{
+    const [bookingData, setBookingData] = useState({});
     const params = useParams();
     const {booking_id} = params;
-    const { data, loading, error } =  useFetch(`/booking/find/${booking_id}`);
-    console.log(error)
-    console.log(data.bookingById)
+
+    useEffect(()=>{
+        const getData= async()=>{
+            const res = await axios.get(`/booking/find/${booking_id}`)
+            // console.log()
+            setBookingData(res.data.bookingById)
+        }
+        getData()
+    },[booking_id])
+
   return (
     <>
     <Navbar/>
     <div className='confirm__booking_container'>
         <div className='first_item'>
             <h3>Great! Your stay is confirmed.</h3>
-            <p>You will soon recive an email confirmation on yogesh.mayekar09@gmail.com</p>
+            <p>You will soon recive an email confirmation on {bookingData?.bookingEmailId}</p>
         </div>  
         <div className='bookingId_details'>
             <div className='first_content'>
                 <div className='herfa'>
                     <h3>Booking Id</h3>
-                    <p>FDTU1923</p>
+                    <p>{bookingData.bookingId}</p>
                 </div>
-                <p>Booked by yogesh on 15 May 2024</p>
+                {bookingData.createdAt &&<p>Booked by {bookingData?.bookedByName} on {bookingData.createdAt.slice(0, 10)}</p>}
             </div>
             <div className='booking_hotels'>
             <div className='hotel_list_booking2'>
-            <div className='w4rsd_'>
+            <div className='w4rsd_2'>
             <img src={hotel} alt="hotel view" />
             <div className='details_of_hotel'>
-                <h2>Capital O Sweven Stays</h2>
-                <p>Apr 30, 2019 - May 1, 2019</p>
-                <p>3 Guests, 1 Room</p>
+                <h2>{bookingData?.hotelName}</h2>
+                {bookingData.checkinDate && bookingData.checkoutDate && 
+                <p>{bookingData.checkinDate.slice(0, 10)} - {bookingData.checkoutDate.slice(0, 10)}</p>}
+                <p>{bookingData.numberOfGuests} Guests, {bookingData.numberOfRooms} Room</p>
             </div>
             </div>
             <div className='final_stat f5zf'>
-                 <h4>Checked Out</h4>
-                 <div className='pay__now def'>
-                  <button>Pay Now</button>
+                <h4 style={{margin:'0'}}>Booking Status</h4>
+                 <h4>{bookingData?.bookingStatus}</h4>
+                 <div className='pay__now def' >
+                  <button style={{marginTop:'25px'}}>Pay Now</button>
                 </div>
             </div>
             </div>

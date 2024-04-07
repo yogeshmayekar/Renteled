@@ -13,6 +13,9 @@ export const bookingHotel =async(req, res, next)=>{
             numberOfRooms: Joi.string().required(),
             numberOfGuests: Joi.string().required(),
             amount: Joi.number().required(),
+            bookedByName:Joi.string().required(),
+            hotelName:Joi.string().required(),
+            bookingEmailId:Joi.string().email().required(),
             paymentStatus: Joi.string(),
             bookingStatus: Joi.string()
           });
@@ -47,6 +50,9 @@ export const bookingHotel =async(req, res, next)=>{
                 bookingId:existingBookingId ? bookingId : req.body.bookingId,
                 hotelId: req.body.hotelId,
                 userId: req.body.userId,
+                bookedByName: req.body.bookedByName,
+                hotelName:req.body.hotelName,
+                bookingEmailId:req.body.bookingEmailId,
                 checkinDate: new Date(req.body.checkinDate),
                 checkoutDate:new Date(req.body.checkoutDate),
                 numberOfRooms: req.body.numberOfRooms,

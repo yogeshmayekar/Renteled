@@ -43,6 +43,15 @@
     border-bottom: 1px solid #d8caca;
 }
 
+.w4rsd_2{
+    display: flex;
+}
+
+.w4rsd_2>img{
+    width: 150px;
+    height: 120px;
+}
+
 
 /* .herfa{
     display: flex;

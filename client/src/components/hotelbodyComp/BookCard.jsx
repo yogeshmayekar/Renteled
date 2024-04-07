@@ -12,7 +12,15 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import CancelationPolicy from '../cancelationPolicy/CancelationPolicy';
 // import PriceWrapper from '../priceWrapper/PriceWrapper';
 
-const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destination, hotelID})=>{
+const BookCard = ({
+  setSefetyMeasure, 
+  earlyLoaderData, 
+  checkIn, 
+  checkOut, 
+  destination, 
+  hotelID,
+  hotelName
+})=>{
    
     // console.log(earlyLoaderData._id, "hear");
     const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
@@ -240,6 +248,7 @@ const BookCard = ({setSefetyMeasure, earlyLoaderData, checkIn, checkOut, destina
         finalSellingPrice:finalDiscountedPrice,
         discountPercentage: discountPercentage,
         hotelID:hotelID,
+        hotelName:hotelName,
       }
       if(!loginContext.user){
         navigate("/user/Sign_in");

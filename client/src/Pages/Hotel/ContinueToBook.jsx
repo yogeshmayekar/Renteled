@@ -26,7 +26,8 @@ function ContinueToBook() {
     nightStayz, 
     finalSellingPricez, 
     discountPercentagez,
-    hotelID
+    hotelID,
+    hotelName
   }= useContext(PriceContext);
   console.log(useContext(PriceContext), "lodu")
   const handlePayNow=()=>{
@@ -147,6 +148,9 @@ function ContinueToBook() {
     const dataToBookHotel = {
       bookingId:bookingId,
       hotelId: hotelID,
+      bookingEmailId:bookingEmail,
+      bookedByName:bookingName,
+      hotelName:hotelName,
       userId: `${user._id}`,
       checkinDate:roomCount,
       checkoutDate:checkout,

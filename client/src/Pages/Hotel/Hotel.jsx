@@ -30,7 +30,6 @@ function Hotel(){
     // const { data, loading, reFetch } = useFetch(
     //     `/hotels/find/${hotelID}`
     // );
-    // console.log("Single hotel data is", data)
     return(
         <div className='overlay-container'>
         <div className={openSafeyMeasure || openAllReviews ?"overlay32": ""}></div>
@@ -39,7 +38,14 @@ function Hotel(){
         <Slider2 perPages={2} width={"100%"}/>
         <div style={{display:'flex'}}>
         <Details earlyLoaderData={earlyLoaderData} setOpenAllReviews={setOpenAllReviews} />
-        <BookCard setSefetyMeasure={setSefetyMeasure} earlyLoaderData={earlyLoaderData} checkIn={checkin} checkOut={checkout} destination={location} hotelID={hotelID} />
+        <BookCard 
+        setSefetyMeasure={setSefetyMeasure} 
+        earlyLoaderData={earlyLoaderData} 
+        checkIn={checkin} checkOut={checkout} 
+        destination={location} 
+        hotelID={hotelID} 
+        hotelName={earlyLoaderData?.name}
+        />
         </div>
         <MailList/>
         <Footer/>
