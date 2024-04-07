@@ -10,6 +10,7 @@ import cookieParser from "cookie-parser";
 import roomsRoute from './src/routes/rooms.js';
 import emailRoute from './src/routes/email.js';
 import bookings from './src/routes/bookings.js';
+import review from './src/routes/review.js';
 const app = express();
 
 
@@ -41,6 +42,7 @@ app.use("/api/hotels", hotelsRoute); //hotels api middleware
 app.use("/api/rooms", roomsRoute); //rooms api middleware 
 app.use("/api/email", emailRoute); //email api
 app.use("/api/booking", bookings); //booking api
+app.use("/api/review", review); //review api
 
 
 app.listen(PORT, ()=>{

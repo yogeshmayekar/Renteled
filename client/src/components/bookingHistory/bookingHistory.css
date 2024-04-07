@@ -58,3 +58,66 @@
     align-items: end;
 }
 
+.addReview{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 45vh;
+    width: 500px;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.review_headding{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.close_btnd{
+    display: flex;
+    float:right;
+    cursor: pointer;
+}
+
+.input_review>p{
+    margin: 0;
+}
+
+.input_review{
+    display: flex;
+    flex-direction: column;
+    margin: 0 10%;
+    margin-top: 3vh;
+}
+
+#message{
+    padding: 5px;
+    outline: none;
+    border-radius: 3px;
+}
+
+.input_review>button{
+    margin-top: 10px;
+    height: 6vh;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #0a124a;
+    color: #ffff;
+    outline: none;
+    border: none;
+    border-radius: 4px;
+}
+
+.input_review>p{
+    font-weight: bold;
+}
+
+.review_headding>h3{
+    margin: 0;
+    padding: 10px 0;
+}
+

@@ -6,8 +6,7 @@ import Joi from 'joi';
 export const createHotel = async(req, res, next)=>{
     const newHotels = new Hotel(req.body)
 
-    try{
-      
+    try{ 
       const hotelSchema = Joi.object({
         name:Joi.string().required(),
         type:Joi.string().required(),

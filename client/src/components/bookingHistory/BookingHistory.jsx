@@ -5,13 +5,16 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import hotel from '../../Assets/appartments.jpg';
 import axios from 'axios';
-
+import CloseIcon from '@mui/icons-material/Close';
+import Rating from '@mui/material/Rating';
+import TextField from '@mui/material/TextField';
 
 function BookingHistory({userId}) {
     const [age, setAge] = React.useState('confirmed');
+    const [opesAddReview, setAddReview]=useState(false);
     const [bookingHotels, setBookingHotels]=useState([]);
-    console.log(bookingHotels.length>0);
-    console.log(age)
+    const [reviewValue, setReviewValue]=useState(1);
+    const [reviewMessage, setReviewMessage]=useState("");
 
     useEffect(()=>{
         const getBookingDataByUser =async()=>{
@@ -20,15 +23,21 @@ function BookingHistory({userId}) {
                 setBookingHotels(res.data.existingBookingByUser)
             }
         }
-
         getBookingDataByUser();
-
     },[userId])
 
-    const isAnyBooking = bookingHotels.length>0
+    const isAnyBooking = bookingHotels.length>0;
 
   const handleChange = (event) => {
     setAge(event.target.value);
+  }
+
+  const handleAddReview=()=>{
+    setAddReview(true);
+  }
+
+  const handleMessage=(e)=>{
+    setReviewMessage(e.target.value);
   }
 
   return (
@@ -62,6 +71,7 @@ function BookingHistory({userId}) {
             </div>
             <div className='booking__id'>
                 <h4>{data.bookingId}</h4>
+                {data.bookingStatus==='checkout' &&<button onClick={handleAddReview}>Add review</button>}
             </div>
             <div className='final_stat2'>
                  <h4>{data.bookingStatus}</h4>
@@ -71,6 +81,27 @@ function BookingHistory({userId}) {
             </div>
             </div>
         ))}
+        {opesAddReview &&<div className='addReview'>
+            <div className='close_btnd' onClick={()=>setAddReview(false)}>
+                <CloseIcon sx={{fontSize:'1.7em'}}/>
+            </div>
+            <div className='review_headding'>
+                <h3>Add ratings</h3>
+                <Rating
+                    name="simple-controlled"
+                    value={reviewValue}
+                    onChange={(event, newValue) => {
+                    setReviewValue(newValue);
+                    }}
+                    sx={{fontSize:'40px'}}
+                />
+            </div>
+            <div className='input_review'>
+                <p>Add Message*</p>
+                <textarea id="message" name="message" value={reviewMessage} onChange={handleMessage} rows="4" cols="50"></textarea>
+                <button>Submit</button>
+            </div>
+        </div>}
         </div>
   )
 }

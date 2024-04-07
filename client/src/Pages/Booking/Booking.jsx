@@ -50,9 +50,9 @@ const Booking=()=>{
             <div className='final_stat f5zf'>
                 <h4 style={{margin:'0'}}>Booking Status</h4>
                  <h4>{bookingData?.bookingStatus}</h4>
-                 <div className='pay__now def' >
+                 {bookingData?.paymentStatus==='pending' &&<div className='pay__now def' >
                   <button style={{marginTop:'25px'}}>Pay Now</button>
-                </div>
+                </div>}
             </div>
             </div>
         </div>
