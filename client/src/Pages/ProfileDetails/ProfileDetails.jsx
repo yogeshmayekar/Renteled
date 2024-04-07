@@ -352,7 +352,7 @@ const ProfileDetails= ()=>{
                 
                 </Grid>
             </Grid>
-            <BookingHistory/>
+            <BookingHistory userId={loaderUserData._id}/>
             </div>
             <MailList/>
             <Footer/>

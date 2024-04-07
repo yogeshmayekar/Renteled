@@ -43,7 +43,7 @@ const Booking=()=>{
             <div className='details_of_hotel'>
                 <h2>{bookingData?.hotelName}</h2>
                 {bookingData.checkinDate && bookingData.checkoutDate && 
-                <p>{bookingData.checkinDate.slice(0, 10)} - {bookingData.checkoutDate.slice(0, 10)}</p>}
+                <p>{bookingData.checkinDate.slice(0, 15)} - {bookingData.checkoutDate.slice(0, 15)}</p>}
                 <p>{bookingData.numberOfGuests} Guests, {bookingData.numberOfRooms} Room</p>
             </div>
             </div>

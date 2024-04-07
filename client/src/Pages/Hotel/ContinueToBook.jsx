@@ -17,6 +17,8 @@ import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutli
 function ContinueToBook() {
   const [isPayNow, setIsPayNow] = useState(false);
   const {checkin, checkout, roomCount, guestCount }= useParams()
+  const checkinStr = checkin.slice(4, 15);
+  const checkoutStr = checkout.slice(4, 15);
   const conLoaderData = useLoaderData()
   const {
     roomPricez,
@@ -28,8 +30,7 @@ function ContinueToBook() {
     discountPercentagez,
     hotelID,
     hotelName
-  }= useContext(PriceContext);
-  console.log(useContext(PriceContext), "lodu")
+  } = useContext(PriceContext);
   const handlePayNow=()=>{
     setIsPayNow(true)
   }
@@ -152,9 +153,9 @@ function ContinueToBook() {
       bookedByName:bookingName,
       hotelName:hotelName,
       userId: `${user._id}`,
-      checkinDate:roomCount,
-      checkoutDate:checkout,
-      numberOfRooms: guestCount,
+      checkinDate:checkinStr,
+      checkoutDate:checkoutStr,
+      numberOfRooms: roomCount,
       numberOfGuests: guestCount,
       amount:`${totalPricez}`,
       paymentStatus:"pending" ,
