@@ -8,7 +8,7 @@ import axios from 'axios';
 import CloseIcon from '@mui/icons-material/Close';
 import Rating from '@mui/material/Rating';
 
-function BookingHistory({userId}) {
+function BookingHistory({userId, setIsOverlay}) {
     const [age, setAge] = React.useState('confirmed');
     const [opesAddReview, setAddReview]=useState(false);
     const [bookingHotels, setBookingHotels]=useState([]);
@@ -45,6 +45,7 @@ function BookingHistory({userId}) {
     setAddReview(true);
     setReviewHotelId(hotelId);
     setReviewerName(userName);
+    setIsOverlay(true);
   }
 
   const handleMessage=(e)=>{
@@ -99,7 +100,7 @@ function BookingHistory({userId}) {
             </div>
             <div className='booking__id'>
                 <h4>{data.bookingId}</h4>
-                {data.bookingStatus==='checkout' &&<button onClick={()=>handleAddReview(data.hotelId, data.bookedByName)}>Add review</button>}
+                {data.bookingStatus==='checkout' &&<button className='add_review_act' onClick={()=>handleAddReview(data.hotelId, data.bookedByName)}>Add review</button>}
             </div>
             <div className='final_stat2'>
                  <h4>{data.bookingStatus}</h4>
@@ -109,8 +110,10 @@ function BookingHistory({userId}) {
             </div>
             </div>
         ))}
-        {opesAddReview &&<div className='addReview'>
-            <div className='close_btnd' onClick={()=>setAddReview(false)}>
+        {opesAddReview &&
+        <div className='container_review'>
+            <div className='addReview'>
+            <div className='close_btnd' onClick={()=>setAddReview(false)&&setIsOverlay(false)}>
                 <CloseIcon sx={{fontSize:'1.7em'}}/>
             </div>
             <div className='review_headding'>
@@ -128,6 +131,7 @@ function BookingHistory({userId}) {
                 <p>Message*</p>
                 <textarea id="message" name="message" value={reviewMessage} onChange={handleMessage} rows="4" cols="50"></textarea>
                 <button onClick={handleSubmitReview} disabled={disableSubmit} >Submit</button>
+            </div>
             </div>
         </div>}
         </div>

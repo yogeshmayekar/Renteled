@@ -21,7 +21,7 @@ const reviewSchema = new mongoose.Schema({
     min: 1,
     max: 5
   }
-});
+}, {timestamps:true});
 
 // Create the review model
 export default mongoose.model('Review', reviewSchema);

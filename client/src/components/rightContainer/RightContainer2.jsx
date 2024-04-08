@@ -5,7 +5,9 @@ import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
 
-function RightContainer2({setSefetyMeasure}) {
+function RightContainer2({setSefetyMeasure, reviewData}) {
+    const totalRatingSum =reviewData && reviewData.reduce((total, item)=>total + item.rating,0)
+    const avgRating =reviewData && totalRatingSum/reviewData.length ;
   return (
     <div className='right__parent__container'>
     <div className='left__chields'>
@@ -18,56 +20,29 @@ function RightContainer2({setSefetyMeasure}) {
             <div className='first_revire'>
             <div>
                 <Stack spacing={1}>
-                 <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+                 {reviewData &&<Rating name="half-rating-read" defaultValue={avgRating.toFixed(1)} precision={0.5} readOnly />}
                 </Stack>
             </div>
             <div>
-                <span className='rating0f_five'>2.5 out of 5 Stars</span>
+                {reviewData &&<span className='rating0f_five'>{avgRating.toFixed(1)} out of 5 Stars</span>}
             </div>
             </div>
-            <p className='ratingCount'>1,745 Ratings</p>   
+            {reviewData && <p className='ratingCount'>{reviewData.length} Ratings</p>}  
         </div>
 
-        <div className='review__message__container' style={{marginBottom:'20px'}}>
+        {reviewData.map((data)=>(
+            <div className='review__message__container' style={{marginBottom:'20px'}} key={data._id}>
             <div className='reviewCon'>
             <Avatar alt="y" src="" sx={{width:'25px', height:'25px', marginRight:'10px'}} />
-            <p className='name__of__review'>Rishabh Makkar</p>
-            <p className='date__of__review'>Mar 06 2024</p>
+            <p className='name__of__review'>{data.username}</p>
+            {data.createdAt && <p className='date__of__review'>{data?.createdAt.slice(0, 10)}</p>}
             </div>
             <div className='reviewMessage'>
-            <p>Nice property we had a comfortable and safe stay there. It’s clear and they keep care of hygiene also</p>
+            <p>{data.reviewMessage}</p>
             </div>
         </div>
-        <div className='review__message__container' style={{marginBottom:'20px'}}>
-            <div className='reviewCon'>
-            <Avatar alt="y" src="" sx={{width:'25px', height:'25px', marginRight:'10px'}} />
-            <p className='name__of__review'>Rishabh Makkar</p>
-            <p className='date__of__review'>Mar 06 2024</p>
-            </div>
-            <div className='reviewMessage'>
-            <p>Nice property we had a comfortable and safe stay there. It’s clear and they keep care of hygiene also</p>
-            </div>
-        </div>
-        <div className='review__message__container' style={{marginBottom:'20px'}}>
-            <div className='reviewCon'>
-            <Avatar alt="y" src="" sx={{width:'25px', height:'25px', marginRight:'10px'}} />
-            <p className='name__of__review'>Rishabh Makkar</p>
-            <p className='date__of__review'>Mar 06 2024</p>
-            </div>
-            <div className='reviewMessage'>
-            <p>Nice property we had a comfortable and safe stay there. It’s clear and they keep care of hygiene also</p>
-            </div>
-        </div>
-        <div className='review__message__container' style={{marginBottom:'20px'}}>
-            <div className='reviewCon'>
-            <Avatar alt="y" src="" sx={{width:'25px', height:'25px', marginRight:'10px'}} />
-            <p className='name__of__review'>Rishabh Makkar</p>
-            <p className='date__of__review'>Mar 06 2024</p>
-            </div>
-            <div className='reviewMessage'>
-            <p>Nice property we had a comfortable and safe stay there. It’s clear and they keep care of hygiene also</p>
-            </div>
-        </div>
+        ))}
+
     </div>
     </div>
     </div>

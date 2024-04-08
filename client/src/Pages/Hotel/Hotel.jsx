@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 // import useFetch from '../../hooks/useFetch';
 import './hotel.css';
@@ -17,6 +17,7 @@ import { useLoaderData } from 'react-router-dom';
 function Hotel(){
     const [openSafeyMeasure, setSefetyMeasure]= useState(false);
     const [openAllReviews, setOpenAllReviews]= useState(false);
+    const [reviewData, setReviewData]= useState();
     const earlyLoaderData = useLoaderData();
     const params = useParams();
     const { location, checkin, checkout, id } = params;
@@ -25,11 +26,18 @@ function Hotel(){
     // console.log(earlyLoaderData.amenities)
     // const hotelID = id.slice(22, 46)
     // console.log("hotel id is",hotelID)
+    useEffect(()=>{
+        const getReview=async()=>{
+            const res =await axios.get(`/review/find/${hotelID}`)
+            if(res.status){
+                console.log(res.data[0])
+                setReviewData(res.data);
+            }
+        }
+        getReview();
+    },[hotelID])
     
-
-    // const { data, loading, reFetch } = useFetch(
-    //     `/hotels/find/${hotelID}`
-    // );
+    
     return(
         <div className='overlay-container'>
         <div className={openSafeyMeasure || openAllReviews ?"overlay32": ""}></div>
@@ -37,7 +45,7 @@ function Hotel(){
         <Navbar/>
         <Slider2 perPages={2} width={"100%"}/>
         <div style={{display:'flex'}}>
-        <Details earlyLoaderData={earlyLoaderData} setOpenAllReviews={setOpenAllReviews} />
+        <Details earlyLoaderData={earlyLoaderData} setOpenAllReviews={setOpenAllReviews} reviewData={reviewData} />
         <BookCard 
         setSefetyMeasure={setSefetyMeasure} 
         earlyLoaderData={earlyLoaderData} 
@@ -50,7 +58,7 @@ function Hotel(){
         <MailList/>
         <Footer/>
         {openSafeyMeasure && <RightContainer setSefetyMeasure={setSefetyMeasure} />}
-        {openAllReviews && <RightContainer2  setSefetyMeasure={setOpenAllReviews}/>}
+        {openAllReviews && <RightContainer2  setSefetyMeasure={setOpenAllReviews} reviewData={reviewData} />}
         </div>
         </div>
     )

@@ -121,3 +121,26 @@
     padding: 10px 0;
 }
 
+.add_review_act{
+    height: 30px;
+    font-weight: 600;
+    padding: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+    background-color: #201958;
+    border-radius: 4px;
+    color: white;
+    border: none;
+    outline: none;
+}
+
+.container_review{
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background-color: #443c3caf;
+}
+
+

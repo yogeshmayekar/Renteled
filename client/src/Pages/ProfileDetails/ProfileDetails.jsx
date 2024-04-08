@@ -19,6 +19,7 @@ import BookingHistory from '../../components/bookingHistory/BookingHistory';
 
 const ProfileDetails= ()=>{
     const[editProfile, setEditProfile]= useState(false);
+    const[isOverlay, setIsOverlay]= useState(false);
     const[editPassword, setEditPassword]= useState(false);
     const[updateOneDisable, setUpdateOneDisable]=useState(true);
     const[getOtpDisable, setGetOtpDisable]=useState(false);
@@ -250,7 +251,7 @@ const ProfileDetails= ()=>{
 
 
     return(
-        <>
+        <div className={isOverlay?'overlay31':''}>
             <Navbar/>
             <div className="name__container">
             <div style={{display:'flex', justifyContent:'space-between',alignItems:'center' }}>
@@ -352,11 +353,11 @@ const ProfileDetails= ()=>{
                 
                 </Grid>
             </Grid>
-            <BookingHistory userId={loaderUserData._id}/>
+            <BookingHistory userId={loaderUserData._id} setIsOverlay={setIsOverlay} />
             </div>
             <MailList/>
             <Footer/>
-        </>
+        </div>
     )
 }
 

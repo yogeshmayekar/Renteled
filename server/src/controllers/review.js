@@ -23,10 +23,41 @@ export const newReview=async(req,res,next)=>{
     })
 
     const resx=await newReview.save();
-    console.log(resx)
     res.status(200).json({message:"Review added."})
     
  }catch(error){
     res.status(500).json({message:"Try after sometime."});
  }
+}
+
+export const getAllReview=async(req, res, next)=>{
+    try{
+        const resd = await Review.find();
+        res.status(200).json(resd)
+    }catch(error){
+        res.status(500).json({message:"Try after sometime."});
+    }
+}
+
+export const getReviewForHotels=async(req, res, next)=>{
+    try{
+        const resData = await Review.find({hotelId:req.params.hoteId})
+        res.status(200).json(resData);
+    }catch(error){
+        res.status(500).json({message:"Try after sometime."});
+    }
+}
+
+export const deleteReview=async(req, res, next)=>{
+    try{
+        const deleted = await Review.findByIdAndDelete({_id:req.params.id});
+        console.log(deleted)
+        if(deleted){
+            res.status(200).json({message:"Review deleted Successfully."});
+        }else{
+            res.status(500).json({message:"Id required."})
+        }
+    }catch(error){
+        res.status(500).json({message:"canot delete now"})
+    }
 }
