@@ -143,4 +143,10 @@
     background-color: #443c3caf;
 }
 
+.booking__id{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 

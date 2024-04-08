@@ -110,3 +110,16 @@ export const toGetAllUser = async(req, res, next)=>{
         res.status(400).json({message:"Error While fetching Bookings."});
     } 
 }
+
+export const cancelHotel =async(req,res,next)=>{
+    try{
+        const data = await Booking.findByIdAndUpdate(
+            req.params.id,
+            { $set: {bookingStatus:req.body.bookingStatus} },
+            { new: true }
+          );
+          res.status(200).json({message:"Booking cancelled."});
+    }catch(error){
+        res.status(400).json({message:"Try after sometime."})
+    }
+}

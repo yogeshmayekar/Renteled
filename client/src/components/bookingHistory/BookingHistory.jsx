@@ -53,7 +53,6 @@ function BookingHistory({userId, setIsOverlay}) {
   }
 
   const handleSubmitReview=async()=>{
-    console.log("hello")
     const reviewData={
         username:reviewerName,
         reviewMessage:reviewMessage,
@@ -66,6 +65,16 @@ function BookingHistory({userId, setIsOverlay}) {
         setAddReview(false);
         setReviewMessage("");
         setDisableSunmit(true)
+    }
+  }
+
+  const handleBookingCancel=async(id)=>{
+    const can = await axios.put(`/booking/cancel/${id}`, {
+        bookingStatus:'cancelled'
+    },{withCredentials:true});
+    if(can.status===200){
+        alert(can.data.message);
+        window.location.reload();
     }
   }
 
@@ -101,6 +110,7 @@ function BookingHistory({userId, setIsOverlay}) {
             <div className='booking__id'>
                 <h4>{data.bookingId}</h4>
                 {data.bookingStatus==='checkout' &&<button className='add_review_act' onClick={()=>handleAddReview(data.hotelId, data.bookedByName)}>Add review</button>}
+                {data.bookingStatus==='confirmed' &&<button className='add_review_act' onClick={()=>handleBookingCancel(data._id)}>Cancel booking</button>}
             </div>
             <div className='final_stat2'>
                  <h4>{data.bookingStatus}</h4>
