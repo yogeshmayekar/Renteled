@@ -6,7 +6,8 @@ import Avatar from '@mui/material/Avatar';
 
 function ReviewComponent({setOpenAllReviews, reviewData}) {
     const totalRatingSum =reviewData && reviewData.reduce((total, item)=>total + item.rating,0)
-    const avgRating =reviewData && totalRatingSum/reviewData.length ;
+    const avgRating =reviewData && totalRatingSum/reviewData.length ; 
+
 
   return (
     <div className='reviewContainer'>
@@ -19,24 +20,24 @@ function ReviewComponent({setOpenAllReviews, reviewData}) {
                 </Stack>
             </div>
             <div>
-                {reviewData &&<span className='rating0f_five'>{avgRating.toFixed(1)} out of 5 Stars</span>}
+                {reviewData &&<span className='rating0f_five'>{avgRating>0 ? avgRating.toFixed(1): 0} out of 5 Stars</span>}
             </div>
             </div>
             {reviewData &&<p className='ratingCount'>{reviewData.length} Ratings</p>}
         </div>
 
-        {reviewData && (
-            <div className='review__message__container'>
+        {reviewData && reviewData.filter((item)=>item[1]).map((data, i)=>(
+            <div className='review__message__container' key={data._id}>
             <div className='reviewCon'>
             <Avatar alt="y" src="" sx={{width:'25px', height:'25px', marginRight:'10px'}} />
-            <p className='name__of__review'>{reviewData[0].username}</p>
+            {reviewData[0].username && <p className='name__of__review'>{reviewData[0].username}</p>}
             {reviewData[0].createdAt && <p className='date__of__review'>{reviewData[0].createdAt.slice(0, 10)}</p>}
             </div>
             <div className='reviewMessage'>
             <p>{reviewData[0].reviewMessage}</p>
             </div>
         </div>
-        )}
+        ))}
 
         <button onClick={()=>setOpenAllReviews(true)} >See all reviews</button>
         

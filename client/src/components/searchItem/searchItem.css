@@ -16,6 +16,8 @@
     width: 230px;
     height: 200px;
     object-fit: cover;
+    border-radius: 2px;
+    overflow: hidden;
   }
   
   .siDesc {

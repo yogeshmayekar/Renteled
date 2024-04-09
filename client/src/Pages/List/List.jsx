@@ -17,6 +17,8 @@ const List=()=>{
     const navigate =useNavigate();
     const { location, checkin, checkout } = useParams();
     const [openDate, setOpenDate] = useState(false);
+    const [selectPriceValue, setSelectPriceValue]=useState();
+    const [selectHotelType, setSelectHotelType]= useState("hotel");
     const [currentPage, setCurrentPage] = useState(1);
     const [min, setMin] = useState(undefined);
     const [max, setMax] = useState(undefined);
@@ -181,6 +183,14 @@ const List=()=>{
     },[destination2,dates2, options2])
 
 
+    var sortFunc;
+    if(selectPriceValue==='lowToHigh'){
+      sortFunc = (a,b)=>a.cheapestPrice - b.cheapestPrice
+    }else if(selectPriceValue==='highToLow'){
+      sortFunc = (a,b)=>b.cheapestPrice - a.cheapestPrice
+    }
+
+    console.log(selectHotelType)
     return(
         <>
           <div>
@@ -263,20 +273,28 @@ const List=()=>{
                                     <label className='sort__property'>Filters</label>
                                     <div className='sortby__price'>
                                         <label>Sort by price</label>
-                                        <select className='sort__price__item'>
+                                        <select 
+                                        className='sort__price__item'
+                                        value={selectPriceValue}
+                                        onChange={(e)=>setSelectPriceValue(e.target.value)}
+                                        >
                                             <option value="">Premium</option>
-                                            <option value="">low to high</option>
-                                            <option value="">high to low</option>
+                                            <option value="lowToHigh">low to high</option>
+                                            <option value="highToLow">high to low</option>
                                         </select>
                                     </div>
                                     <div className='sortby__accom__type'>
                                         <label>Accomodation Type</label>
-                                        <select className='sort__price__item'>
-                                            <option value="">Hotels</option>
-                                            <option value="">Apartments</option>
-                                            <option value="">Resorts</option>
-                                            <option value="">Villas</option>
-                                            <option value="">Cabins</option>
+                                        <select 
+                                        className='sort__price__item'
+                                        value={selectHotelType}
+                                        onChange={(e)=>setSelectHotelType(e.target.value)}
+                                        >
+                                            <option value="hotel">Hotels</option>
+                                            <option value="apartment">Apartments</option>
+                                            <option value="resort">Resorts</option>
+                                            <option value="villa">Villas</option>
+                                            <option value="cabin">Cabins</option>
                                         </select>
                                     </div>
                                     {/* <span className="lsOptionText">
@@ -303,7 +321,8 @@ const List=()=>{
                     <div className="listResult">
                         {loading ? "Loading Hotels" :
                         <>
-                         {data.slice(startIndex, endIndex).map((item,i)=>(
+                         {data.slice(startIndex, endIndex).sort(sortFunc).filter((data=>data.type === selectHotelType)).map((item,i)=>(
+                          
                             <SearchItem item={item} key={item._id} dateData={dates2}/>
                          ))}
                         </>}

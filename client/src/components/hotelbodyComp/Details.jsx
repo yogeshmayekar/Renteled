@@ -13,8 +13,8 @@ import BathroomIcon from '@mui/icons-material/Bathroom';
 import NetworkWifi3BarIcon from '@mui/icons-material/NetworkWifi3Bar';
 import ReviewComponent from '../reviewComponent/ReviewComponent';
 
-const Details =({earlyLoaderData, setOpenAllReviews, reviewData})=>{
-    // console.log(earlyLoaderData)
+const Details =({earlyLoaderData, setOpenAllReviews, reviewData=false})=>{
+    console.log("tu", !reviewData)
     const[showMore, setShowMore]=useState(false);
     return(
         <>
@@ -58,7 +58,7 @@ const Details =({earlyLoaderData, setOpenAllReviews, reviewData})=>{
                     <button onClick={()=>setShowMore(!showMore)}>Show More</button>}
                 </div>}
 
-                <ReviewComponent  setOpenAllReviews={setOpenAllReviews} reviewData={reviewData} />
+                {reviewData &&<ReviewComponent  setOpenAllReviews={setOpenAllReviews} reviewData={reviewData} />}
                 <div className='hotelPolicy'>
                     <h2>Hotel policies</h2>
                     <div className='hotelTiming'>

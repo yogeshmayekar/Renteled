@@ -29,8 +29,7 @@ function Hotel(){
     useEffect(()=>{
         const getReview=async()=>{
             const res =await axios.get(`/review/find/${hotelID}`)
-            if(res.status){
-                console.log(res.data[0])
+            if(res.status===200){
                 setReviewData(res.data);
             }
         }

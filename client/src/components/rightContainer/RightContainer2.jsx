@@ -24,17 +24,17 @@ function RightContainer2({setSefetyMeasure, reviewData}) {
                 </Stack>
             </div>
             <div>
-                {reviewData &&<span className='rating0f_five'>{avgRating.toFixed(1)} out of 5 Stars</span>}
+                {reviewData &&<span className='rating0f_five'>{avgRating>0 ? avgRating.toFixed(1) : 0} out of 5 Stars</span>}
             </div>
             </div>
             {reviewData && <p className='ratingCount'>{reviewData.length} Ratings</p>}  
         </div>
 
-        {reviewData.map((data)=>(
+        {reviewData && reviewData.map((data)=>(
             <div className='review__message__container' style={{marginBottom:'20px'}} key={data._id}>
             <div className='reviewCon'>
             <Avatar alt="y" src="" sx={{width:'25px', height:'25px', marginRight:'10px'}} />
-            <p className='name__of__review'>{data.username}</p>
+            {data?.username &&<p className='name__of__review'>{data?.username}</p>}
             {data.createdAt && <p className='date__of__review'>{data?.createdAt.slice(0, 10)}</p>}
             </div>
             <div className='reviewMessage'>
