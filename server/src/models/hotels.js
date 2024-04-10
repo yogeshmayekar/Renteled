@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const hotelSchema = new mongoose.Schema({
+    userId: {type: String, required: true},
     name:{type: String, require:true},
     type:{type:String, require:true},
     city:{type:String, require:true},
@@ -16,7 +17,5 @@ const hotelSchema = new mongoose.Schema({
     featured: {type: Boolean, default: false},
     amenities: {type: Map, of: Boolean, required: true},
 })
-
- 
 
 export default mongoose.model("Hotel", hotelSchema );

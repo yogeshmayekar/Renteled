@@ -10,6 +10,7 @@ export const createHotel = async(req, res, next)=>{
       const hotelSchema = Joi.object({
         name:Joi.string().required(),
         type:Joi.string().required(),
+        userId: Joi.string().required(),
         city:Joi.string().required(),
         adress:Joi.string().required(),
         title:Joi.string().required(),
@@ -94,7 +95,7 @@ export const countByCity = async (req, res, next) => {
       );
       res.status(200).json(list);
     } catch (err) {
-      next(err);
+      res.status(400).json({message:'try after some time'})
     }
 };
 
@@ -114,7 +115,7 @@ export const countByHotelType = async (req, res, next) => {
         { type: "cabins", count: cabinCount },
       ]);
     } catch (err) {
-      next(err);
+      res.status(400).json({message:'try after some time'})
     }
 };
 
@@ -131,3 +132,12 @@ export const getHotelRooms = async (req, res, next) => {
       next(err);
     }
 };
+
+export const getHotelForAdmin = async(req, res, next)=>{
+  try {
+    const hotelForAdmin = await Hotel.find({userId:req.params.userId});
+    res.status(200).json(hotelForAdmin)
+  } catch (err) {
+    res.status(400).json({message:'try after some time'})
+  }
+} 

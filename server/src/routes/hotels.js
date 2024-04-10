@@ -1,6 +1,6 @@
 import express from 'express';
 const router = express.Router();
-import { createHotel, deleteHotel, getAllHotels, getHotel, updateHotel, countByCity, countByHotelType, getHotelRooms} from '../controllers/hotel.js';
+import { createHotel, deleteHotel, getAllHotels, getHotel, updateHotel, countByCity, countByHotelType, getHotelRooms, getHotelForAdmin} from '../controllers/hotel.js';
 import { verifyAdmin } from '../utils/jwtservice.js';
 
 // 1.1 Functional Api 
@@ -15,6 +15,9 @@ router.delete("/:id",verifyAdmin, deleteHotel);
 
 //get hotel api
 router.get("/find/:id", getHotel);
+
+//get hotel by user id
+router.get("/find/admin_hotel/:userId",verifyAdmin, getHotelForAdmin);
 
 //get all hotels api
 router.get("/", getAllHotels)
