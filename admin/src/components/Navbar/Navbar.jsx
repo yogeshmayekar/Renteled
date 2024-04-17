@@ -12,8 +12,8 @@ import {
 
 function Navbar() {
   return (
-    <div className='h-12 bg-slate-400 flex items-center content-around'>
-        <h1 className='font-bold'>Renteled</h1>
+    <div className='h-12 flex bg-dark-blue items-center justify-between max-w-7xl mx-auto px-1 sm:px-5'>
+       
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
