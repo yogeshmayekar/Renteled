@@ -4,12 +4,7 @@ import Sidebar from '@/components/Navbar/Sidebar';
 
 function Home() {
   return (
-    <div className='flex'>
-    <div>
-    <h2>yogi</h2>
-    <h2>yogi3</h2>
-    </div> 
-    </div>
+    <div>Home Page</div>
   )
 }
 
