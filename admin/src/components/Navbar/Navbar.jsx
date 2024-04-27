@@ -10,11 +10,28 @@ import {
     DropdownMenuTrigger,
   } from "@/ui/dropdown-menu"
 
+import { Input } from "@/ui/input"
+import { Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+
 function Navbar() {
+  const navigate = useNavigate();
   return (
-    <div className='h-12 flex bg-dark-blue items-center justify-between max-w-7xl mx-auto px-1 sm:px-5'>
-       
-        <DropdownMenu>
+    <div className='h-16 flex w-full justify-between  bg-dark-blue items-center max-w-7xl  px-1 sm:px-5'>
+        <div className="relative  md:grow-0">
+            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <Input
+              type="search"
+              placeholder="Search..."
+              className="w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+            />
+        </div>
+        <div className='flex gap-2 items-center '>
+          <div className='text-white '>
+            <p>Welcome,</p>
+            <p>Yogesh Mayekar</p>
+          </div>
+          <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button
                 variant="outline"
@@ -33,11 +50,12 @@ function Navbar() {
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer" >Settings</DropdownMenuItem>
+              <DropdownMenuItem className="cursor-pointer" onClick={()=>navigate('/account_details')} >Settings</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="cursor-pointer">Logout</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+        </div>
     </div>
   )
 }

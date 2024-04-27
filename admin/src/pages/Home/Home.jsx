@@ -4,7 +4,10 @@ import Sidebar from '@/components/Navbar/Sidebar';
 
 function Home() {
   return (
-    <div>Home Page</div>
+    <>
+    <Sidebar/>
+    <Navbar/>
+    </>
   )
 }
 

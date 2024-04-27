@@ -4,7 +4,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import './App.css';
 import Home from "./pages/Home/Home";
 import ProfileDetails from "./pages/ProfileDetails/ProfileDetails";
-import Sidebar from "./components/Navbar/Sidebar";
 import Booking from "./pages/Bookings/Booking";
 import Property from "./pages/Properties/Property";
 import Reviews from "./pages/Reviews/Reviews";
@@ -45,8 +44,7 @@ function App() {
   ]);
 
   return (
-    <div className="flex">
-    <Sidebar/>
+    <div className="flex mx-auto">
      <RouterProvider router={router} />
     </div>
   )
