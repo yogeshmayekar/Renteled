@@ -9,11 +9,26 @@ import Property from "./pages/Properties/Property";
 import Reviews from "./pages/Reviews/Reviews";
 import Messages from "./pages/Messages/Messages";
 import Users from "./pages/Users/Users";
+import LoginPage from './pages/Login/LoginPage.jsx';
+import Landing from "./pages/Landing/Landing";
+import SignUp from "./pages/SignUp/SignupPage";
 
 function App() {
   const router = createBrowserRouter([
     {
-      path: "/",
+      path:"/",
+      element:<Landing/>
+    },
+    {
+      path:"/login",
+      element:<LoginPage/>
+    },
+    {
+      path:"/signup",
+      element:<SignUp/>
+    },
+    {
+      path: "/dashboard",
       element: <Home/>,
     },
     {

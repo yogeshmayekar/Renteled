@@ -1,19 +1,27 @@
 import { Link } from "react-router-dom"
-
-import { Button } from "@/components/ui/button"
+import React from "react";
+import LinearProgress from '@mui/material/LinearProgress';
+import { Button } from "@/ui/button";
+import Box from '@mui/material/Box';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/ui/card"
+import { Input } from "@/ui/input"
+import { Label } from "@/ui/label"
 
-export function LoginForm() {
+export default function LoginForm() {
   return (
-    <Card className="mx-auto max-w-sm">
+    <>
+    {false && <Box sx={{ width: '100%' }} className="fixed top-0" >
+      <LinearProgress />
+    </Box>}
+    
+    <div className="bg-[#151518] h-[100vh] w-full" >
+    <Card className="mx-auto absolute bg-[#010409] border border-gray-800 text-slate-50 top-1/2 left-1/2 shadow-2xl  translate-y-[-50%] translate-x-[-50%] max-w-lg">
       <CardHeader>
         <CardTitle className="text-2xl">Login</CardTitle>
         <CardDescription>
@@ -27,8 +35,9 @@ export function LoginForm() {
             <Input
               id="email"
               type="email"
-              placeholder="m@example.com"
+              placeholder="example@gmail.com"
               required
+              className="bg-inherit border border-gray-800 "
             />
           </div>
           <div className="grid gap-2">
@@ -38,12 +47,18 @@ export function LoginForm() {
                 Forgot your password?
               </Link>
             </div>
-            <Input id="password" type="password" required />
+            <Input 
+            id="password" 
+            type="password" 
+            required 
+            className="bg-inherit border border-gray-800" 
+            placeholder="••••••••••••"
+            />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" variant="outline" className="w-full bg-slate-50 text-[#151518]">
             Login
           </Button>
-          <Button variant="outline" className="w-full">
+          <Button variant="outline" className="w-full bg-slate-50 text-[#151518]">
             Login with Google
           </Button>
         </div>
@@ -55,5 +70,7 @@ export function LoginForm() {
         </div>
       </CardContent>
     </Card>
+    </div>
+    </>
   )
 }
