@@ -18,7 +18,7 @@ import flag from '../assets/flag.jpeg'
 function Navbar() {
   const navigate = useNavigate();
   return (
-    <div className='h-16 z-50 flex w-full justify-between fixed  bg-dark-blue items-center  max-w-7xl  px-1 sm:px-5'>
+    <div className='h-16 z-50 flex w-full justify-between fixed  bg-dark-blue items-center  max-w-7xl  px-1'>
         <div className='flex items-center gap-3'>
         <div className='
          text-logo-light border-b-[1px] border-indigo-300 py-1 scale-[0.9] cursor-pointer' onClick={()=>navigate('/dashboard')} >
@@ -35,8 +35,8 @@ function Navbar() {
         </div>
         </div>
         <div className='flex gap-2 items-center '>
-          <img src={flag} className='w-12 border' alt="" />
-          <div className='text-white '>
+          <img src={flag} className='w-8 border' alt="" />
+          <div className='text-white text-sm '>
             <p>Welcome,</p>
             <p>Yogesh Mayekar</p>
           </div>

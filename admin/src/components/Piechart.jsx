@@ -22,7 +22,7 @@ function Piechart() {
             data,
           },
         ]}
-        margin={{ right: 5 }}
+        margin={{ right:  3}}
         width={200}
         height={200}
         legend={{ hidden: true }}

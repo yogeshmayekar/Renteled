@@ -19,8 +19,8 @@ import {
 function Sidebar() {
   const navigate = useNavigate();
   return (
-    <div className='px-1 fixed mt-16  w-1/5 h-screen bg-dark-blue '>
-        <div className='scale-[0.9]'>
+    <div className='px-1 w-[20%]  bg-dark-blue '>
+        <div className='scale-[0.9] mt-16'>
            <p className='text-light-grey'>MENU</p>
            <ul className='text-light-white-font cursor-pointer'>
             <NavLink to="/dashboard" caseSensitive className={({isActive})=>isActive ? 'bg-light-hover-grey flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded': 'flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded'}  ><GridViewIcon/><p className='text-[20px] pb-0.5 font-800'>Dashboard</p></NavLink>
