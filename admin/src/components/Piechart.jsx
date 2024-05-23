@@ -5,10 +5,10 @@ import { PieChart } from '@mui/x-charts/PieChart';
 
 function Piechart() {
     const data = [
-        { label: 'Group A', value: 400 },
-        { label: 'Group B', value: 300 },
-        { label: 'Group C', value: 300 },
-        { label: 'Group D', value: 200 },
+        { label: 'Single', value: 400 },
+        { label: 'Double', value: 300 },
+        { label: 'Delux', value: 300 },
+        { label: 'Suite', value: 200 },
       ];
   return (
     <>
@@ -17,8 +17,8 @@ function Piechart() {
         series={[
           {
             paddingAngle: 0,
-            innerRadius: 100,
-            outerRadius: 20,
+            innerRadius: 45,
+            outerRadius: 92,
             data,
           },
         ]}

@@ -11,6 +11,7 @@ import Calanders from '@/components/Calanders';
 import Piechart from '@/components/Piechart';
 import { Progress } from "@/ui/progress";
 import Reservation from '@/components/Reservation';
+import Footer from '@/components/Footer';
 
 
 function Home() {
@@ -18,11 +19,11 @@ function Home() {
   return (
     <>
     <Navbar/>
-    <main className='flex w-full'>
     <Sidebar/>
-    <div className='mt-16 w-[80%] h-max '>
+    <main className='flex w-full '>
+    <div className='pt-20 w-[80%] absolute right-0 h-max bg-[#f5f6fa] '>
       <div className='flex justify-between mx-[25px] my-[15px]'>
-    <h1 className='text-3xl font-medium'>Dashboard Overview</h1>
+    <h1 className='text-3xl  font-medium'>Dashboard Overview</h1>
     <Button className='rounded-full bg-[#e6ecf2]' variant="outline" >Add New Room</Button>
       </div>
 
@@ -38,7 +39,7 @@ function Home() {
           <Calanders/>
         </div>
 
-      <div className='border rounded-md w-full'>
+      <div className='border rounded-md w-full bg-white'>
         <div className='flex mx-3 my-2 justify-between'>
         <h1 className='text-xl font-medium'>Room Bookings</h1>
         <select className='border rounded py-1 px-2 outline-none'>
@@ -52,14 +53,14 @@ function Home() {
           <div className='flex gap-2'>
             <div className='flex-1'>
               <div className='flex items-center gap-1'>
-                <div className="w-[10px] h-3 bg-[#02b2af]"></div>
+                <div className="w-[16px] h-4 rounded-sm bg-[#02b2af]"></div>
                 <p className='font-normal text-lg pb-[2px]'>Single (872)</p>
               </div>
 
             </div>
             <div className='flex-1'>
               <div className='flex items-center gap-1'>
-                <div className="w-[10px] h-3 bg-[#2e96ff]"></div>
+                <div className="w-[16px] h-4 rounded-sm bg-[#2e96ff]"></div>
                 <p className='font-normal text-lg pb-[2px]'>Double (85)</p>
               </div>
 
@@ -69,14 +70,14 @@ function Home() {
           <div className='flex  gap-2'>
             <div className='flex-1'>
               <div className='flex items-center gap-1'>
-                <div className="w-[10px] h-3 bg-[#b800d8]"></div>
+                <div className="w-[16px] h-4 rounded-sm bg-[#b800d8]"></div>
                 <p className='font-normal text-lg pb-[2px]'>Delux (53)</p>
               </div>
 
             </div>
             <div className='flex-1'>
               <div className='flex items-center gap-1'>
-                <div className="w-[10px] h-3 bg-[#60009b]"></div>
+                <div className="w-[16px] h-4 rounded-sm bg-[#60009b]"></div>
                 <p className='font-normal text-lg pb-[2px]'>Suite (78)</p>
               </div>
 
@@ -87,7 +88,7 @@ function Home() {
       </div>
       </div>
 
-    <div className='border m-[25px] rounded-md'>
+    <div className='border m-[25px] rounded-md bg-white'>
         <h1 className='text-xl font-medium mx-5 my-2'>Booking Room Today</h1>
         <div className='w-full my-6 px-[20px]'>
         <Progress value={33} />
@@ -124,6 +125,7 @@ function Home() {
     </div>
 
     <Reservation/>
+    <Footer/>
     </div>
     </main>
     </>

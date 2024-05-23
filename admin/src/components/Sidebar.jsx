@@ -9,6 +9,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import ReviewsIcon from '@mui/icons-material/Reviews';
 import MessageIcon from '@mui/icons-material/Message';
 import { NavLink, useNavigate } from "react-router-dom";
+import LogoNav from './LogoNav';
 import {
   Accordion,
   AccordionContent,
@@ -19,11 +20,12 @@ import {
 function Sidebar() {
   const navigate = useNavigate();
   return (
-    <div className='px-1 w-[20%]  bg-dark-blue '>
-        <div className='scale-[0.9] mt-16'>
+    <div className='px-1 w-[20%] z-40 pt-16 fixed h-screen bg-dark-blue'>
+      <LogoNav/>
+        <div className='scale-[0.9]'>
            <p className='text-light-grey'>MENU</p>
            <ul className='text-light-white-font cursor-pointer'>
-            <NavLink to="/dashboard" caseSensitive className={({isActive})=>isActive ? 'bg-light-hover-grey flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded': 'flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded'}  ><GridViewIcon/><p className='text-[20px] pb-0.5 font-800'>Dashboard</p></NavLink>
+            <NavLink to="/" caseSensitive className={({isActive})=>isActive ? 'bg-light-hover-grey flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded': 'flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded'}  ><GridViewIcon/><p className='text-[20px] pb-0.5 font-800'>Dashboard</p></NavLink>
             <Accordion type="single" collapsible>
                 <AccordionItem value="item-1">
                   <AccordionTrigger><li className='flex gap-2 my-1 items-center active:bg-light-hover-grey  px-2 py-1 rounded'><LibraryBooksIcon/><p className='text-[20px] pb-0.5 font-800'>Bookings</p></li></AccordionTrigger>

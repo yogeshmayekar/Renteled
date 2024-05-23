@@ -5,7 +5,7 @@ import { Calendar } from "@/ui/calendar"
 function Calanders() {
   const [date, setDate] = React.useState(new Date())
   return (
-    <div>
+    <div className='bg-white rounded-lg'>
         <Calendar
     mode="single"
     selected={date}

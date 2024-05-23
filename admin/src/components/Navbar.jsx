@@ -18,13 +18,8 @@ import flag from '../assets/flag.jpeg'
 function Navbar() {
   const navigate = useNavigate();
   return (
-    <div className='h-16 z-50 flex w-full justify-between fixed  bg-dark-blue items-center  max-w-7xl  px-1'>
+    <div className='h-16 z-50  flex w-[80%] right-0 top-0 justify-between fixed  bg-dark-blue items-center  max-w-7xl  px-4'>
         <div className='flex items-center gap-3'>
-        <div className='
-         text-logo-light border-b-[1px] border-indigo-300 py-1 scale-[0.9] cursor-pointer' onClick={()=>navigate('/dashboard')} >
-        <h1 className='font-bold text-3xl'>Renteled Admin</h1>
-        <p>List your Property Now.</p>
-        </div>
         <div className="relative  md:grow-0">
             <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
             <Input
