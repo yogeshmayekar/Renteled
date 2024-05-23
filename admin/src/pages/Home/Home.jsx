@@ -6,10 +6,11 @@ import { Button } from "../../ui/button";
 import { MdOutlineBookOnline } from "react-icons/md";
 import { MdEventAvailable } from "react-icons/md";
 import { BsBoxArrowInRight } from "react-icons/bs";
-import { BsBoxArrowInLeft } from "react-icons/bs";
+import { IoExitOutline } from "react-icons/io5";
 import Calanders from '@/components/Calanders';
 import Piechart from '@/components/Piechart';
-import { Progress } from "@/ui/progress"
+import { Progress } from "@/ui/progress";
+import Reservation from '@/components/Reservation';
 
 
 function Home() {
@@ -20,21 +21,22 @@ function Home() {
     <main className='flex w-full'>
     <Sidebar/>
     <div className='mt-16 w-[80%] h-max '>
-    <div className='flex justify-between mx-[25px] my-[15px]'>
+      <div className='flex justify-between mx-[25px] my-[15px]'>
     <h1 className='text-3xl font-medium'>Dashboard Overview</h1>
     <Button className='rounded-full bg-[#e6ecf2]' variant="outline" >Add New Room</Button>
-    </div>
-    <div className='flex w-[95%] mx-auto my-[30px] gap-[10px]'>
+      </div>
+
+      <div className='flex w-[95%] mx-auto my-[30px] gap-[10px]'>
       <Card bgColor='#aae7ef' cardName='New Booking' countData={872} IconComponent={MdOutlineBookOnline} />
       <Card bgColor='#8eed91' cardName='Available Room' countData={285} IconComponent={MdEventAvailable} />
       <Card bgColor='#e0984c' cardName='Check in' countData={53} IconComponent={BsBoxArrowInRight} />
-      <Card bgColor='#d3643f' cardName='Check out' countData={78} IconComponent={BsBoxArrowInLeft} />
-    </div>
-    
-    <div className='flex mx-[25px] gap-[20px]'>
-      <div className='flex-2 '>
-        <Calanders/>
+      <Card bgColor='#d3643f' cardName='Check out' countData={78} IconComponent={IoExitOutline} />
       </div>
+    
+      <div className='flex mx-[25px] gap-[20px]'>
+        <div className='flex-2 '>
+          <Calanders/>
+        </div>
 
       <div className='border rounded-md w-full'>
         <div className='flex mx-3 my-2 justify-between'>
@@ -83,7 +85,7 @@ function Home() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
 
     <div className='border m-[25px] rounded-md'>
         <h1 className='text-xl font-medium mx-5 my-2'>Booking Room Today</h1>
@@ -119,7 +121,9 @@ function Home() {
           </ul>
         </div>
 
-      </div>
+    </div>
+
+    <Reservation/>
     </div>
     </main>
     </>
