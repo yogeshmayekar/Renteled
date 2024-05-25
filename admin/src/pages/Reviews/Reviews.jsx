@@ -1,14 +1,17 @@
 import React from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
+import PreparingNew from '@/components/PreparingNew';
 
 function Reviews() {
   return (
     <>
+    <Navbar/>
     <Sidebar/>
     <div className='w-full'>
-    <Navbar/>
-    <div>Reviews Page</div>
+      <div className='absolute mt-16 right-0 w-[80%] h-screen'>
+        <PreparingNew/>
+      </div>
     </div>
     </>
     

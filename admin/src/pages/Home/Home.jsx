@@ -49,7 +49,7 @@ function Home() {
         </select>
         </div>
         <Piechart/>
-        <div className='mx-auto my-6 w-[40%]'>
+        <div className='mx-auto my-6 w-[55%]'>
           <div className='flex gap-2'>
             <div className='flex-1'>
               <div className='flex items-center gap-1'>
@@ -78,7 +78,7 @@ function Home() {
             <div className='flex-1'>
               <div className='flex items-center gap-1'>
                 <div className="w-[16px] h-4 rounded-sm bg-[#60009b]"></div>
-                <p className='font-normal text-lg pb-[2px]'>Suite (78)</p>
+                <p className='font-normal text-lg pb-[2px]'>Super Delux (78)</p>
               </div>
 
             </div>
@@ -91,9 +91,9 @@ function Home() {
     <div className='border m-[25px] rounded-md bg-white'>
         <h1 className='text-xl font-medium mx-5 my-2'>Booking Room Today</h1>
         <div className='w-full my-6 px-[20px]'>
-        <Progress value={33} />
-        <Progress value={60} />
-        <Progress value={25} />
+        <Progress value={33} color='#70e599' />
+        <Progress value={60} color='#70e599' />
+        <Progress value={25} color='#70e599' />
         </div>
 
         <div className='w-[50%] mx-5 my-6 '>
