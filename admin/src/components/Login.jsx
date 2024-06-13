@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom"
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "@/context/authContext";
 import LinearProgress from '@mui/material/LinearProgress';
 import { Button } from "@/ui/button";
 import Box from '@mui/material/Box';
@@ -14,6 +15,7 @@ import {
 } from "@/ui/card"
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
+// import { type } from "os";
 
 
 export default function LoginForm() {
@@ -22,6 +24,8 @@ export default function LoginForm() {
   const [isChecked, setIsChecked]=useState(false);
   // console.log("isChecked is ", isChecked)
 
+  const {dispatch}=useContext(AuthContext);
+
   const credentials = {
     email:userEmail,
     password:useerPassword,
@@ -29,11 +33,18 @@ export default function LoginForm() {
   }
 
   const handleLoginFunc = async (e)=>{
-    const res = await axios.post("/api/auth/login", credentials, {
-      credentials: "include",
-    })
-    console.log(res.data);
+    dispatch({type:"LOGIN_START"})
+    try{
+      const res = await axios.post("/api/auth/login", credentials, {
+        credentials: "include",
+      })
+      dispatch({type:"LOGIN_SUCCESS", payload:res.data.details})
+      console.log(res.data);
+    }catch(err){
+      dispatch({type:"LOGIN_FAILED", payload:err.response.data})
+    }
     
+
     // Cookies.set('accessCookies', res.data.access_token)
   }
 
