@@ -22,7 +22,7 @@ export const register = async(req, res, next)=>{
             isAdmin:Joi.boolean()
         })
 
-        // console.log(req.body);
+        console.log(req.body);
   
         const {error} = registerSchema.validate(req.body);
         // console.log(error.message);
@@ -52,7 +52,8 @@ export const register = async(req, res, next)=>{
         const newUser = new User({
             username:fullName,
             email:req.body.email,
-            password:hashedPassword
+            password:hashedPassword,
+            isAdmin:req.body.isAdmin,
         })
         
         await newUser.save()

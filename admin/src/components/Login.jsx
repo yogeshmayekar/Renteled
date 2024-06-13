@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom"
-import React from "react";
+import React, { useState } from "react";
 import LinearProgress from '@mui/material/LinearProgress';
 import { Button } from "@/ui/button";
 import Box from '@mui/material/Box';
+import axios from "axios";
+import { Checkbox } from "@/ui/checkbox";
 import {
   Card,
   CardContent,
@@ -13,7 +15,31 @@ import {
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
 
+
 export default function LoginForm() {
+  const [userEmail, setUserEmail]= useState("");
+  const [useerPassword, setUserPassword]=useState("");
+  const [isChecked, setIsChecked]=useState(false);
+  // console.log("isChecked is ", isChecked)
+
+  const credentials = {
+    email:userEmail,
+    password:useerPassword,
+    rememberMe:isChecked
+  }
+
+  const handleLoginFunc = async (e)=>{
+    const res = await axios.post("/api/auth/login", credentials, {
+      credentials: "include",
+    })
+    console.log(res.data);
+    
+    // Cookies.set('accessCookies', res.data.access_token)
+  }
+
+  const handleCheckboxChange =(e)=>{
+    setIsChecked(!isChecked);
+  }
   return (
     <>
     {false && <Box sx={{ width: '100%' }} className="fixed top-0" >
@@ -37,6 +63,7 @@ export default function LoginForm() {
               type="email"
               placeholder="example@gmail.com"
               required
+              onChange={(e)=>setUserEmail(e.target.value)}
               className="bg-inherit border border-gray-800 "
             />
           </div>
@@ -50,12 +77,30 @@ export default function LoginForm() {
             <Input 
             id="password" 
             type="password" 
+            onChange={(e)=>setUserPassword(e.target.value)}
             required 
             className="bg-inherit border border-gray-800" 
             placeholder="••••••••••••"
             />
+            <div className="flex items-center space-x-2 my-1">
+              <Checkbox id="terms" 
+              checked={isChecked}
+              onCheckedChange={handleCheckboxChange} 
+              />
+            <label
+            htmlFor="terms"
+            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+            Remember me
+          </label>
+        </div>
           </div>
-          <Button type="submit" variant="outline" className="w-full bg-slate-50 text-[#151518]">
+          <Button 
+          type="submit" 
+          variant="outline"
+          onClick={handleLoginFunc} 
+          className="w-full bg-slate-50 text-[#151518]"
+          >
             Login
           </Button>
           <Button variant="outline" className="w-full bg-slate-50 text-[#151518]">

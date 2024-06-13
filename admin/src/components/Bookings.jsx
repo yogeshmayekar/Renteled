@@ -174,15 +174,6 @@ function Bookings() {
 
   return (
     <>
-    <div className='flex justify-between m-4 py-2 px-1'>
-        <h2 className='text-3xl  font-medium'>All Bookings</h2>
-        <select className='w-[110px] pl-1 border rounded outline-none'>
-            <option value="">Upcoming</option>
-            <option value="">Check in</option>
-            <option value="">Check out</option>
-            <option value="">Cancelled</option>
-        </select>
-    </div>
 
     {/* booking data table starts  */}
     <div className='border m-4'>
