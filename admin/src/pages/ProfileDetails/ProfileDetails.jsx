@@ -8,7 +8,9 @@ function ProfileDetails() {
     <Sidebar/>
     <div className='w-full'>
     <Navbar/>
-    <div>ProfileDetails Page</div>
+    <div>
+      
+    </div>
     </div>
     </>
     

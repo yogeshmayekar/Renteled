@@ -22,7 +22,7 @@ export const register = async(req, res, next)=>{
             isAdmin:Joi.boolean()
         })
 
-        console.log(req.body);
+        // console.log(req.body);
   
         const {error} = registerSchema.validate(req.body);
         // console.log(error.message);
