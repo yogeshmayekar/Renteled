@@ -1,4 +1,5 @@
 import User from "../models/user.js";
+import Admin from "../models/admins.js";
 import Joi from 'joi';
 import bcrypt from 'bcrypt';
 import jwt from "jsonwebtoken";
@@ -67,6 +68,60 @@ export const register = async(req, res, next)=>{
     }
 }
 
+// 11 Admin Register controller
+export const adminRegister = async(req, res, next)=>{
+    try{
+        //1.1 validation
+        const registerAdminSchema = Joi.object({
+            firstName:Joi.string().min(3).max(10).required(),
+            lastName:Joi.string().min(3).max(10).required(),
+            email:Joi.string().email().required(),
+            password:Joi.string().min(6).pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+{}|:"<>?`~\\-=[\\];\',./]{3,30}$')).required(),
+            repeat_password:Joi.string().valid(Joi.ref('password')).required(),
+        })
+
+        // console.log(req.body);
+  
+        const {error} = registerAdminSchema.validate(req.body);
+        // console.log(error.message);
+        if (error){
+            return res.status(400).json({ message: error.details[0].message });
+        }
+
+        //1.2 check user is in the database already
+        try{
+            const Exist = await Admin.exists({email:req.body.email});//it will return true or false
+            // console.log("is exists?",Exist);
+            if(Exist) {
+                return res.status(400).json(CustomErrorHandler.alreadyExist("Email Id is already Exist"));
+        }
+        }catch(err){
+            next()
+        }
+
+        //1.3 Hashing password
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = await bcrypt.hash(req.body.password, salt);
+
+        const fullName = req.body.firstName + " " + req.body.lastName;
+        // console.log(fullName);
+        //1.4 prepare the model
+        const newAdmin = new Admin({
+            username:fullName,
+            email:req.body.email,
+            password:hashedPassword,
+        })
+        
+        await newAdmin.save()
+        res.status(200).send("Admin has been created.");
+    }catch(err){
+        if(DEBUG_MODE){
+            console.log(err);
+        }
+        return res.status(400).json(CustomErrorHandler.unableToCreateUser("try after some time."))
+    }
+}
+
 
 //2. login controller 
 export const login = async(req, res, next)=>{
@@ -124,6 +179,64 @@ export const login = async(req, res, next)=>{
         res.status(400).json(CustomErrorHandler.unAuthorized());
     }
 
+}
+
+//22 login for admin
+export const adminLogin = async(req, res, next)=>{
+    try{
+        const loginAdminSchema = Joi.object({
+            email: Joi.string().email().required(),
+            password: Joi.string().min(3).required(),
+            rememberMe:Joi.boolean(),
+        });
+
+        const {error} = loginAdminSchema.validate(req.body);
+
+        if (error){
+            // console.log(error.details[0].message )
+            return res.status(400).json({ message: error.details[0].message });
+        } 
+
+
+        const admin = await Admin.findOne({email:req.body.email})
+        // console.log("cc is",CustomErrorHandler.incorerctUser())
+        if(!admin) return res.status(400).json(CustomErrorHandler.incorerctUser())
+
+        //compare the password
+        const match = await bcrypt.compare(req.body.password, admin.password)
+        if(!match){
+            return res.status(400).json(CustomErrorHandler.incorerctPassword())
+        }
+
+        //token
+        const rememberMe = req.body.rememberMe;
+        // console.log("remember me is",rememberMe);
+        const token = jwt.sign({id:admin._id, isAdmin:admin.isAdmin}, JWT_SECRET, {expiresIn: rememberMe ? "30d":"1d"})
+        const decodedToken = jwt.verify(token, JWT_SECRET);
+        const expirationTimestamp = decodedToken.exp * 1000;
+        const expirationDate = new Date(expirationTimestamp);
+
+        const {_id, isAdmin, username, email, phoneNo} = admin._doc
+        const otherDetails ={
+            username,
+            email,
+            phoneNo,
+            _id
+        }
+       
+        res.cookie("access_token", token, {
+            httpOnly: true,
+            // secure: true, // Ensure your website is served over HTTPS
+            // sameSite: 'None', // avoid cross site request
+        }).status(200).json({details: otherDetails, isAdmin, access_token:token, expiration: expirationDate});
+
+
+    }catch(err){
+        if(DEBUG_MODE===true){
+            console.log(err);
+        }
+        res.status(400).json(CustomErrorHandler.unAuthorized());
+    }
 }
 
 //logout 
