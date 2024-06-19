@@ -38,8 +38,16 @@ export default function LoginForm() {
       const res = await axios.post("/api/auth/login", credentials, {
         credentials: "include",
       })
-      dispatch({type:"LOGIN_SUCCESS", payload:res.data.details})
-      console.log(res.data);
+      if(res.data.isAdmin){
+        dispatch({type:"LOGIN_SUCCESS", payload:res.data.details})
+        console.log(res.data);
+        localStorage.setItem("user", JSON.stringify(res.data.details))
+        
+      }else{
+        await axios.post("/api/auth/logout");
+        alert("user must be Admin")
+      }
+      
     }catch(err){
       dispatch({type:"LOGIN_FAILED", payload:err.response.data})
     }
@@ -53,7 +61,7 @@ export default function LoginForm() {
   }
   return (
     <>
-    {false && <Box sx={{ width: '100%' }} className="fixed top-0" >
+    {true && <Box sx={{ width: '100%' }} className="fixed top-0" >
       <LinearProgress />
     </Box>}
     
@@ -91,7 +99,7 @@ export default function LoginForm() {
             onChange={(e)=>setUserPassword(e.target.value)}
             required 
             className="bg-inherit border border-gray-800" 
-            placeholder="••••••••••••"
+            // placeholder="••••••••••••"
             />
             <div className="flex items-center space-x-2 my-1">
               <Checkbox id="terms" 
@@ -112,6 +120,7 @@ export default function LoginForm() {
           onClick={handleLoginFunc} 
           className="w-full bg-slate-50 text-[#151518]"
           >
+            
             Login
           </Button>
           <Button variant="outline" className="w-full bg-slate-50 text-[#151518]">

@@ -1,7 +1,7 @@
 import React from 'react'
 import { DataGrid } from '@mui/x-data-grid';
 // import { type } from 'os';
-import axios from 'axios';
+import useFetch from '../hooks/useFetch';
 
 
 const columns = [
@@ -25,6 +25,11 @@ const columns = [
     //   valueGetter: (value, row) => `${row.firstName || ''} ${row.lastName || ''}`,
     // },
   ];
+
+  // const { data, loading, error } = useFetch('booking/get-all-bookings');
+  // console.log("All bookings are", data);
+
+  
 
   const rows = [
     { id: 1, lastName: 'Snow', firstName: 'Jon', age: 35 },

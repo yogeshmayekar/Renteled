@@ -42,7 +42,7 @@ const SearchReducer = (state, action) => {
 
 export const SearchContextProvider = ({ children }) => {
     const [state, dispatch44] = useReducer(SearchReducer, INITIAL_STATE);
-    console.log(state)
+    // console.log(state)
   
     return (
       <SearchBarContext.Provider
