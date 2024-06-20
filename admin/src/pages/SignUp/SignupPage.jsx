@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom"
 import { Button } from "@/ui/button"
+import { useNavigate } from 'react-router-dom';
 import {
   Card,
   CardContent,
@@ -10,10 +11,12 @@ import {
 } from "@/ui/card"
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
-import LinearProgress from '@mui/material/LinearProgress';
+// import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 function SignupPage() {
+  const navigate = useNavigate();
   return (
     <>
     {false && <Box sx={{ width: '100%', zIndex:'99999999' }} className="fixed top-0" >
@@ -77,15 +80,24 @@ function SignupPage() {
             />
           </div>
           <Button type="submit">
-            Create an account
+            {false? 
+            <Box sx={{ display: 'flex'}}>
+            <CircularProgress color="inherit" sx={{width:'10px', padding:"8px"}} />
+          </Box> :
+          "Create an account"
+          }
           </Button>
           <Button variant="outline" className="w-full bg-slate-50 text-[#151518]">
-            Sign up with Google
+            {false ?
+            <Box sx={{ display: 'flex'}}>
+            <CircularProgress color="inherit" sx={{width:'10px', padding:"8px"}} />
+          </Box> : "Sign up with Google"
+          }
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
           Already have an account?{" "}
-          <Link href="" className="underline">
+          <Link href="" onClick={()=>navigate("/login")} className="underline">
             Sign in
           </Link>
         </div>

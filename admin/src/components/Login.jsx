@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import React, { useContext, useState } from "react";
 import { AuthContext } from "@/context/authContext";
-import LinearProgress from '@mui/material/LinearProgress';
+import { useNavigate } from "react-router-dom";
+// import LinearProgress from '@mui/material/LinearProgress';
 import { Button } from "@/ui/button";
 import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import { Checkbox } from "@/ui/checkbox";
 import {
@@ -22,9 +24,10 @@ export default function LoginForm() {
   const [userEmail, setUserEmail]= useState("");
   const [useerPassword, setUserPassword]=useState("");
   const [isChecked, setIsChecked]=useState(false);
+  const navigate = useNavigate();
   // console.log("isChecked is ", isChecked)
 
-  const {dispatch}=useContext(AuthContext);
+  const { dispatch, loading }=useContext(AuthContext);
 
   const credentials = {
     email:userEmail,
@@ -61,9 +64,9 @@ export default function LoginForm() {
   }
   return (
     <>
-    {true && <Box sx={{ width: '100%' }} className="fixed top-0" >
+    {/* {true && <Box sx={{ width: '100%' }} className="fixed top-0" >
       <LinearProgress />
-    </Box>}
+    </Box>} */}
     
     <div className="bg-[#151518] h-[100vh] w-full" >
     <Card className="mx-auto absolute bg-[#010409] border border-gray-800 text-slate-50 top-1/2 left-1/2 shadow-2xl  translate-y-[-50%] translate-x-[-50%] max-w-lg">
@@ -118,18 +121,25 @@ export default function LoginForm() {
           type="submit" 
           variant="outline"
           onClick={handleLoginFunc} 
-          className="w-full bg-slate-50 text-[#151518]"
-          >
-            
-            Login
+          className="w-full outline-none border-none hover:bg-[#0d1323] hover:text-white bg-[#0E1527]"
+          >{loading ?
+            <Box sx={{ display: 'flex'}}>
+                <CircularProgress color="inherit" sx={{width:'10px', padding:"8px"}} />
+              </Box>
+              : "Login"
+          }
           </Button>
           <Button variant="outline" className="w-full bg-slate-50 text-[#151518]">
-            Login with Google
+            {false ? 
+              <Box sx={{ display: 'flex'}}>
+                <CircularProgress color="inherit" sx={{width:'10px', padding:"8px"}} />
+              </Box>
+            : "Login with Google"}
           </Button>
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="#" className="underline">
+          <Link href="" onClick={()=>navigate("/signup")} className="underline">
             Sign up
           </Link>
         </div>
