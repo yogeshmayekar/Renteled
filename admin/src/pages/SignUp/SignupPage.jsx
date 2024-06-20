@@ -54,13 +54,13 @@ function SignupPage() {
     <>
     {/* {false && <Box sx={{ width: '100%', zIndex:'99999999' }} className="fixed top-0" >
       <LinearProgress />
-    </Box>} */}
+    </Box>} */} 
     
     <div className="bg-[#151518]  w-full" >
-  <Card className="mx-auto bg-[#010409] border border-gray-800 text-slate-50  shadow-2xl my-5 max-w-md">
+  <Card className="mx-auto bg-[#010409] border border-gray-800 text-slate-50  shadow-2xl sm:my-5 max-w-md ">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
-        <CardDescription>
+        <CardDescription>a
           Enter your information to create an account
         </CardDescription>
       </CardHeader>

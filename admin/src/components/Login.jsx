@@ -18,6 +18,7 @@ import {
 import { Input } from "@/ui/input"
 import { Label } from "@/ui/label"
 // import { type } from "os";
+// bg-inherit border-[#bf1010]
 
 
 export default function LoginForm() {
@@ -29,13 +30,25 @@ export default function LoginForm() {
 
   const { dispatch, loading }=useContext(AuthContext);
 
+  const [emailError, setEmailError]=useState(false);
+  const [passwordError, setPasswordError]=useState("");
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
   const credentials = {
     email:userEmail,
     password:useerPassword,
     rememberMe:isChecked
   }
 
+  const handleValidation = ()=>{
+    !userEmail && setEmailError(true);
+    !useerPassword && setPasswordError(true);
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(userEmail))
+  }
+
   const handleLoginFunc = async (e)=>{
+    handleValidation();
     dispatch({type:"LOGIN_START"})
     try{
       const res = await axios.post("/api/auth/login", credentials, {
@@ -85,25 +98,27 @@ export default function LoginForm() {
               type="email"
               placeholder="example@gmail.com"
               required
-              onChange={(e)=>setUserEmail(e.target.value)}
-              className="bg-inherit border border-gray-800 "
+              onChange={(e)=>{setUserEmail(e.target.value); setEmailError(false)}}
+              className={emailError ? "bg-inherit border-[#bf1010]" :"bg-inherit border border-gray-800 "}
             />
+            { ( !isValidEmail || emailError ) && <p  className='px-1 text-red text-xs italic max-w-sm '>Please enter a valid email address.</p>}
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
-              <Link href="#" className="ml-auto inline-block text-sm underline">
+              <Link href="#" className= "ml-auto inline-block text-sm underline">
                 Forgot your password?
               </Link>
             </div>
             <Input 
             id="password" 
             type="password" 
-            onChange={(e)=>setUserPassword(e.target.value)}
+            onChange={(e)=>{setUserPassword(e.target.value); setPasswordError(false);}}
             required 
-            className="bg-inherit border border-gray-800" 
+            className={passwordError ? "bg-inherit border-[#bf1010]" : "bg-inherit border border-gray-800"}
             // placeholder="••••••••••••"
             />
+            {passwordError && <p  className='px-1 text-red text-xs italic max-w-sm '>Password required.</p>}
             <div className="flex items-center space-x-2 my-1">
               <Checkbox id="terms" 
               checked={isChecked}
