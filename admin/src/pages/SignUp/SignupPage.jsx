@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom"
 import { Button } from "@/ui/button"
 import { useNavigate } from 'react-router-dom';
@@ -17,14 +17,47 @@ import Box from '@mui/material/Box';
 
 function SignupPage() {
   const navigate = useNavigate();
+  const [firstName, setFirstName]=useState("");
+  const [lastName, setLastName]=useState("");
+  const [email, setEmail]=useState("");
+  const [password, setPassword]=useState("");
+  const [confirmPasword, setConfirmPassword]=useState("");
+
+  const [errorFirstName, setErrorFirstName]=useState(false);
+  const [errorLatName, setErrorLastName]=useState(false);
+  const [errorEmail, setErrorEmail]=useState(false);
+  const [errorPassword, setErrorPassword]=useState(false);
+  const [errorConfirmPassword, setErrorConfirmPassword]=useState(false);
+  const [isValidEmail, setIsValidEmail] = useState(true);
+
+  const formValidation=()=>{
+    const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    setIsValidEmail(emailRegex.test(email))
+    !firstName && setErrorFirstName(true);
+    !lastName && setErrorLastName (true);
+    !email && setErrorEmail(true);
+    !password && setErrorPassword(true);
+    !confirmPasword && setErrorConfirmPassword(true);
+    // console.log(passwordRegex.test(password))
+    !passwordRegex.test(password) && setErrorPassword(true);
+    if(password !== confirmPasword){
+      setErrorConfirmPassword(true);
+    }
+  }
+
+  const handleCreateAcount =()=>{
+    formValidation();
+  }
+
   return (
     <>
-    {false && <Box sx={{ width: '100%', zIndex:'99999999' }} className="fixed top-0" >
+    {/* {false && <Box sx={{ width: '100%', zIndex:'99999999' }} className="fixed top-0" >
       <LinearProgress />
-    </Box>}
+    </Box>} */}
     
-    <div className="bg-[#151518] h-[100vh] w-full" >
-  <Card className="mx-auto absolute bg-[#010409] border border-gray-800 text-slate-50 top-1/2 left-1/2 shadow-2xl  translate-y-[-50%] translate-x-[-50%] max-w-lg">
+    <div className="bg-[#151518]  w-full" >
+  <Card className="mx-auto bg-[#010409] border border-gray-800 text-slate-50  shadow-2xl my-5 max-w-md">
       <CardHeader>
         <CardTitle className="text-xl">Sign Up</CardTitle>
         <CardDescription>
@@ -39,19 +72,24 @@ function SignupPage() {
               <Input 
               id="first-name"
               placeholder="yogesh"
+              onChange={(e)=>{setFirstName(e.target.value); setErrorFirstName(false)}}
               required
-              className="bg-inherit border border-gray-800"
+              className={errorFirstName ? "bg-inherit border-[#bf1010] " : "bg-inherit border border-gray-800"}
               />
+              
             </div>
             <div className="grid gap-2">
               <Label htmlFor="last-name">Last name</Label>
               <Input 
               id="last-name" 
-              placeholder="mayekar" 
+              placeholder="mayekar"
+              onChange={(e)=>{setLastName(e.target.value); setErrorLastName(false)}} 
               required 
-              className="bg-inherit border border-gray-800"
+              className={errorLatName?"bg-inherit border-[#bf1010] " : "bg-inherit border border-gray-800"}
               />
             </div>
+            {errorFirstName && <p  className='px-1 text-red text-xs italic max-w-sm '>Firstname required.</p>}
+            {errorLatName && <p  className='px-1 text-red text-xs italic max-w-sm '>Lastname required.</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
@@ -59,27 +97,33 @@ function SignupPage() {
               id="email"
               type="email"
               placeholder="example@email.com"
+              onChange={(e)=>{setEmail(e.target.value); setErrorEmail(false); setIsValidEmail(true)}}
               required
-              className="bg-inherit border border-gray-800"
+              className={errorEmail ? "bg-inherit border-[#bf1010] " : "bg-inherit border border-gray-800"}
             />
+            {(!isValidEmail || errorEmail) && <p  className='px-1 text-red text-xs italic max-w-sm '>Please enter a valid email address.</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input 
             id="password" 
             type="password"
-            className="bg-inherit border border-gray-800"
+            onChange={(e)=>{setPassword(e.target.value); setErrorPassword(false); }}
+            className={errorPassword ? "bg-inherit border-[#bf1010] " : "bg-inherit border border-gray-800"}
             />
+            {errorPassword && <p  className='px-1 text-red text-xs italic max-w-sm '>Password must contain at least one digit, one lowercase letter, one uppercase letter, one special character, and be at least 6 characters long.</p>}
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Confirm Password</Label>
             <Input 
-            id="password" 
+            id="confirm-password" 
             type="password"
-            className="bg-inherit border border-gray-800"
+            onChange={(e)=>{setConfirmPassword(e.target.value); setErrorConfirmPassword(false);}}
+            className={errorConfirmPassword ? "bg-inherit border-[#bf1010] " : "bg-inherit border border-gray-800"}
             />
+            {errorConfirmPassword && <p  className='px-1 text-red text-xs italic max-w-sm '>Passwords do not match.</p>}
           </div>
-          <Button type="submit">
+          <Button type="submit" onClick={handleCreateAcount} >
             {false? 
             <Box sx={{ display: 'flex'}}>
             <CircularProgress color="inherit" sx={{width:'10px', padding:"8px"}} />
