@@ -54,15 +54,9 @@ export default function LoginForm() {
       const res = await axios.post("/api/auth/login", credentials, {
         credentials: "include",
       })
-      if(res.data.isAdmin){
-        dispatch({type:"LOGIN_SUCCESS", payload:res.data.details})
-        console.log(res.data);
-        localStorage.setItem("user", JSON.stringify(res.data.details))
-        
-      }else{
-        await axios.post("/api/auth/logout");
-        alert("user must be Admin")
-      }
+      dispatch({type:"LOGIN_SUCCESS", payload:res.data.details})
+      // console.log(res.data);
+      localStorage.setItem("user", JSON.stringify(res.data.details))
       
     }catch(err){
       dispatch({type:"LOGIN_FAILED", payload:err.response.data})

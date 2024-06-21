@@ -76,8 +76,11 @@ export const adminRegister = async(req, res, next)=>{
             firstName:Joi.string().min(3).max(10).required(),
             lastName:Joi.string().min(3).max(10).required(),
             email:Joi.string().email().required(),
+            phone:Joi.string().min(10).required(),
             password:Joi.string().min(6).pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+{}|:"<>?`~\\-=[\\];\',./]{3,30}$')).required(),
-            repeat_password:Joi.string().valid(Joi.ref('password')).required(),
+            repeat_password:Joi.string().valid(Joi.ref('password')).required().messages({
+                'any.only': 'Confirm password must match the password.',
+            }),
         })
 
         // console.log(req.body);
@@ -88,13 +91,35 @@ export const adminRegister = async(req, res, next)=>{
             return res.status(400).json({ message: error.details[0].message });
         }
 
+        //mannual validation with regex
+        const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
+
+        if (!emailRegex.test(req.body.email)) {
+            return res.status(400).json(CustomErrorHandler.unableToCreateUser("Invalid email format"));
+        }
+        
+        if (!passwordRegex.test(req.body.password)) {
+            return res.status(400).json(CustomErrorHandler.unableToCreateUser( 'Invalid password format' ));
+        }
+        
+        if (!phoneRegex.test(req.body.phone)) {
+            return res.status(400).json(CustomErrorHandler.unableToCreateUser('Invalid phone number format' ));
+        }
+
         //1.2 check user is in the database already
         try{
             const Exist = await Admin.exists({email:req.body.email});//it will return true or false
-            // console.log("is exists?",Exist);
+            const phoneExiat = await Admin.exists({phoneNumber:req.body.phone});
+            // console.log(req.body.phone)
+            // console.log("is exists?",phoneExiat);
             if(Exist) {
                 return res.status(400).json(CustomErrorHandler.alreadyExist("Email Id is already Exist"));
-        }
+            }
+            if(phoneExiat) {
+                return res.status(400).json(CustomErrorHandler.alreadyExist("Phone Number is already Exist"));
+            }
         }catch(err){
             next()
         }
@@ -110,6 +135,7 @@ export const adminRegister = async(req, res, next)=>{
             username:fullName,
             email:req.body.email,
             password:hashedPassword,
+            phoneNumber:req.body.phone,
         })
         
         await newAdmin.save()
@@ -118,6 +144,7 @@ export const adminRegister = async(req, res, next)=>{
         if(DEBUG_MODE){
             console.log(err);
         }
+        console.log(err);
         return res.status(400).json(CustomErrorHandler.unableToCreateUser("try after some time."))
     }
 }

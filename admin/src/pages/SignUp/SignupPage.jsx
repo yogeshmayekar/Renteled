@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from "react-router-dom"
 import { Button } from "@/ui/button"
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import Alerts from '@/components/Alerts';
 import {
   Card,
   CardContent,
@@ -20,23 +22,51 @@ function SignupPage() {
   const [firstName, setFirstName]=useState("");
   const [lastName, setLastName]=useState("");
   const [email, setEmail]=useState("");
+  const [phone, setPhone]=useState("");
   const [password, setPassword]=useState("");
   const [confirmPasword, setConfirmPassword]=useState("");
+  const [alertMessage, setAlertMessage]=useState();
 
   const [errorFirstName, setErrorFirstName]=useState(false);
   const [errorLatName, setErrorLastName]=useState(false);
   const [errorEmail, setErrorEmail]=useState(false);
+  const [errorPhone, setErrorPhone]=useState(false);
   const [errorPassword, setErrorPassword]=useState(false);
   const [errorConfirmPassword, setErrorConfirmPassword]=useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+  const [isValid, setIsValid] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  useEffect(()=>{
+    if(firstName && 
+      lastName && 
+      email && 
+      phone && 
+      password && confirmPasword && isValid && isValidEmail ){
+      setIsDisabled(false);
+    }else{
+      setIsDisabled(true);
+    }
+  },[firstName, lastName, email, phone, password, confirmPasword, isValid, isValidEmail])
+
+  useEffect(()=>{
+    const timer = setTimeout(() => {
+      setAlertMessage()
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  },[alertMessage])
 
   const formValidation=()=>{
     const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{6,}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/;
     setIsValidEmail(emailRegex.test(email))
+    setIsValid(phoneRegex.test(phone))
     !firstName && setErrorFirstName(true);
     !lastName && setErrorLastName (true);
     !email && setErrorEmail(true);
+    !phone && setErrorPhone(true);
     !password && setErrorPassword(true);
     !confirmPasword && setErrorConfirmPassword(true);
     // console.log(passwordRegex.test(password))
@@ -46,15 +76,32 @@ function SignupPage() {
     }
   }
 
-  const handleCreateAcount =()=>{
+  const handleCreateAcount =async()=>{
     formValidation();
+      try{
+        const res = await axios.post("/api/auth/admin_register",{
+          firstName,
+          lastName, 
+          email,
+          phone, 
+          password, 
+          repeat_password:confirmPasword,
+        },{credentials:"include"});
+        // console.log("response is",res);
+        setAlertMessage(res);
+        setFirstName(""); setLastName("");
+        setEmail(""); setPassword(""); setConfirmPassword("");
+        setPhone(""); 
+        navigate("/login")
+      }catch(err){
+        console.log("error is",err.response);
+        setAlertMessage(err.response);
+      }
   }
 
   return (
     <>
-    {/* {false && <Box sx={{ width: '100%', zIndex:'99999999' }} className="fixed top-0" >
-      <LinearProgress />
-    </Box>} */} 
+    {alertMessage && <Alerts alertMessage={alertMessage} />}
     
     <div className="bg-[#151518]  w-full" >
   <Card className="mx-auto bg-[#010409] border border-gray-800 text-slate-50  shadow-2xl sm:my-5 max-w-md ">
@@ -104,6 +151,18 @@ function SignupPage() {
             {(!isValidEmail || errorEmail) && <p  className='px-1 text-red text-xs italic max-w-sm '>Please enter a valid email address.</p>}
           </div>
           <div className="grid gap-2">
+            <Label htmlFor="phone">Phone</Label>
+            <Input
+              id="phone"
+              type="phone"
+              placeholder=""
+              onChange={(e)=>{setPhone(e.target.value); setErrorPhone(false); setIsValid(true)}}
+              required
+              className={errorPhone ? "bg-inherit border-[#bf1010] " : "bg-inherit border border-gray-800"}
+            />
+            {(!isValid || errorPhone) && <p  className='px-1 text-red text-xs italic max-w-sm '>Please enter a valid phone number.</p>}
+          </div>
+          <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
             <Input 
             id="password" 
@@ -123,7 +182,7 @@ function SignupPage() {
             />
             {errorConfirmPassword && <p  className='px-1 text-red text-xs italic max-w-sm '>Passwords do not match.</p>}
           </div>
-          <Button type="submit" onClick={handleCreateAcount} >
+          <Button type="submit" disabled={isDisabled} onClick={handleCreateAcount} >
             {false? 
             <Box sx={{ display: 'flex'}}>
             <CircularProgress color="inherit" sx={{width:'10px', padding:"8px"}} />
