@@ -35,10 +35,10 @@ const SearchItem = (props) => {
         <h1 className="siTitle">{props.item.name}</h1>
         <span>{props.item.city}</span>
         <span className="siDistance">{props.item.distance}</span>
-        <div className="siSubtitle">
+        {/* <div className="siSubtitle">
           <span><LocationOnIcon sx={{fontSize:'18px', color:'rgb(239, 65, 22)'}}/> </span>
           <span className="awayDist">5 k.m away from you</span>
-        </div>
+        </div> */}
         <span className="siFeatures">
         {props.item.desc}
         </span>
