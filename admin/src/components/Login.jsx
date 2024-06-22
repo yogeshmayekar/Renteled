@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom"
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "@/context/authContext";
 import { useNavigate } from "react-router-dom";
 // import LinearProgress from '@mui/material/LinearProgress';
@@ -8,6 +8,7 @@ import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import axios from "axios";
 import { Checkbox } from "@/ui/checkbox";
+import Alerts from "./Alerts";
 import {
   Card,
   CardContent,
@@ -25,14 +26,32 @@ export default function LoginForm() {
   const [userEmail, setUserEmail]= useState("");
   const [useerPassword, setUserPassword]=useState("");
   const [isChecked, setIsChecked]=useState(false);
+  const [isDisabled, setIsDisabled]=useState(true);
+  const [alertMessage, setAlertMessage]=useState();
   const navigate = useNavigate();
   // console.log("isChecked is ", isChecked)
 
   const { dispatch, loading }=useContext(AuthContext);
 
   const [emailError, setEmailError]=useState(false);
-  const [passwordError, setPasswordError]=useState("");
+  const [passwordError, setPasswordError]=useState(false);
   const [isValidEmail, setIsValidEmail] = useState(true);
+
+  useEffect(()=>{
+    const timer = setTimeout(() => {
+      setAlertMessage()
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  },[alertMessage])
+
+  useEffect(()=>{
+    if(userEmail && useerPassword){
+      setIsDisabled(false);
+    }else{
+      setIsDisabled(true);
+    }
+  },[useerPassword, userEmail]);
 
   const credentials = {
     email:userEmail,
@@ -50,18 +69,21 @@ export default function LoginForm() {
   const handleLoginFunc = async (e)=>{
     handleValidation();
     dispatch({type:"LOGIN_START"})
+    // console.log(credentials)
     try{
-      const res = await axios.post("/api/auth/login", credentials, {
+      const res = await axios.post("/api/auth/admin_login", credentials, {
         credentials: "include",
-      })
+      })      
       dispatch({type:"LOGIN_SUCCESS", payload:res.data.details})
-      // console.log(res.data);
+      // console.log(res);
+      setAlertMessage({status :res.status, data:"Successful Loged In."});
       localStorage.setItem("user", JSON.stringify(res.data.details))
-      
+      navigate("/")
     }catch(err){
       dispatch({type:"LOGIN_FAILED", payload:err.response.data})
+      setAlertMessage(err.response)
     }
-    
+
 
     // Cookies.set('accessCookies', res.data.access_token)
   }
@@ -74,6 +96,7 @@ export default function LoginForm() {
     {/* {true && <Box sx={{ width: '100%' }} className="fixed top-0" >
       <LinearProgress />
     </Box>} */}
+    {alertMessage &&<Alerts alertMessage={alertMessage} />}
     
     <div className="bg-[#151518] h-[100vh] w-full" >
     <Card className="mx-auto absolute bg-[#010409] border border-gray-800 text-slate-50 top-1/2 left-1/2 shadow-2xl  translate-y-[-50%] translate-x-[-50%] max-w-lg">
@@ -130,6 +153,7 @@ export default function LoginForm() {
           type="submit" 
           variant="outline"
           onClick={handleLoginFunc} 
+          disabled={isDisabled}
           className="w-full outline-none border-none hover:bg-[#0d1323] hover:text-white bg-[#0E1527]"
           >{loading ?
             <Box sx={{ display: 'flex'}}>
@@ -137,6 +161,7 @@ export default function LoginForm() {
               </Box>
               : "Login"
           }
+
           </Button>
           <Button variant="outline" className="w-full bg-slate-50 text-[#151518]">
             {false ? 
