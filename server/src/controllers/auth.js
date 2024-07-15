@@ -103,7 +103,7 @@ export const adminRegister = async(req, res, next)=>{
         if (!passwordRegex.test(req.body.password)) {
             return res.status(400).json(CustomErrorHandler.unableToCreateUser( 'Invalid password format' ));
         }
-        
+        _
         if (!phoneRegex.test(req.body.phone)) {
             return res.status(400).json(CustomErrorHandler.unableToCreateUser('Invalid phone number format' ));
         }

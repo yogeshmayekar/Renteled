@@ -1,33 +1,12 @@
 import Hotel from "../models/hotels.js";
 import CustomErrorHandler from "../utils/error.js";
-import Joi from 'joi';
+
 
 // logic of the create new hotel 
 export const createHotel = async(req, res, next)=>{
     const newHotels = new Hotel(req.body)
 
     try{ 
-      const hotelSchema = Joi.object({
-        name:Joi.string().required(),
-        type:Joi.string().required(),
-        userId: Joi.string().required(),
-        city:Joi.string().required(),
-        adress:Joi.string().required(),
-        title:Joi.string().required(),
-        distance:Joi.string().required(),
-        description:Joi.string().required(),
-        cheapestPrice:Joi.string().required(),
-        name:{type: String, require:true},
-        rating:{type:Number, min:0, max:5},
-        rooms:{typeof:[String]},
-        featured: {type: Boolean, default: false},
-    })
-
-    const {error} = hotelSchema.validate(req.body);
-
-    if (error){
-        return next(error)
-    }
         const saveHotel = await newHotels.save()
         res.status(200).json(saveHotel);
     }catch(err){
