@@ -1,12 +1,20 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import UserTable from '@/components/UserTable';
+import { AuthContext } from '@/context/authContext';
+import { Navigate } from 'react-router-dom';
+import useFetch from '@/hooks/useFetch';
 
 function Users() {
+  const {user} = useContext(AuthContext);
+
+  const {data, loading, error} = useFetch("api/users");
+  // console.log(data)
+
   return (
-    <>
+    user ? <>
     <Navbar/>
     <Sidebar/>
     <div className='w-[80%] absolute right-0 mt-16'>
@@ -18,10 +26,11 @@ function Users() {
             <option value="">In-Active</option>
         </select>
     </div>
-    <UserTable/>
+    <UserTable data={data} />
     <Footer/>
     </div>
-    </>
+    </> :
+    <Navigate to="/login" />
   )
 }
 

@@ -16,7 +16,7 @@ export const getUser = async(req, res, next)=>{
 // logic of the get all users 
 export const getUsers = async(req, res, next)=>{
     try{
-      const users = await User.find().select('-updatedAt -createdAt -__v');
+      const users = await User.find()
       
       res.status(200).json(users);
     }catch(err){

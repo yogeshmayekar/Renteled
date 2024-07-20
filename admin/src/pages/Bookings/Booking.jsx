@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import BookingTable from '@/components/BookingTable';
 // import Bookings from '@/components/Bookings';
 import Footer from '@/components/Footer';
+import { AuthContext } from '@/context/authContext';
+import { Navigate } from 'react-router-dom';
 
 function Booking() {
+  const {user}= useContext(AuthContext);
   return (
-    <>
+    user ? <>
     <Navbar/>
     <Sidebar/>
     <div className='w-[80%] absolute right-0 mt-16'>
@@ -24,7 +27,8 @@ function Booking() {
     {/* <Bookings/> */}
     <Footer/>
     </div>
-    </>
+    </>:
+    <Navigate to="/login" />
   )
 }
 

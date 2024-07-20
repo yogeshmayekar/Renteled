@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import PreparingNew from '@/components/PreparingNew';
+import { AuthContext } from '@/context/authContext';
+import { Navigate } from 'react-router-dom';
 
 function Reviews() {
+  const {user} = useContext(AuthContext)
   return (
+    user ?
     <>
     <Navbar/>
     <Sidebar/>
@@ -13,7 +17,8 @@ function Reviews() {
         <PreparingNew/>
       </div>
     </div>
-    </>
+    </> :
+    <Navigate to="/login" />
     
   )
 }

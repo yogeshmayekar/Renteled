@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import PreparingNew from '@/components/PreparingNew';
+import { AuthContext } from '@/context/authContext';
+import { Navigate } from 'react-router-dom';
 
 function Messages() {
+  const {user}= useContext(AuthContext)
   return (
-    <>
+    user ? <>
     <Navbar/>
     <Sidebar/>
     <div className='w-full'>
@@ -16,7 +19,8 @@ function Messages() {
     <div>
       jhe
     </div>
-    </>
+    </>:
+    <Navigate to="/login" />
   )
 }
 
