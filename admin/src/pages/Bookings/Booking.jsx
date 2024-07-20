@@ -3,6 +3,7 @@ import Sidebar from '@/components/Sidebar';
 import Navbar from '@/components/Navbar';
 import BookingTable from '@/components/BookingTable';
 // import Bookings from '@/components/Bookings';
+import Footer from '@/components/Footer';
 
 function Booking() {
   return (
@@ -21,6 +22,7 @@ function Booking() {
     </div>
     <BookingTable/>
     {/* <Bookings/> */}
+    <Footer/>
     </div>
     </>
   )

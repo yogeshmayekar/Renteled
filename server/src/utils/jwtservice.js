@@ -3,17 +3,17 @@ import { JWT_SECRET } from '../config/index.js';
 
 export const verifyToken = (req, res, next) => {
     const token = req.cookies.access_token;
-    // console.log(token)
+    console.log(token)
     if (!token) {
-      res.status(401).status({message:"You are not authenticated!"})
+      return res.status(401).status({message:"You are not authenticated!"})
       // return next(createError(401, "You are not authenticated!"));
     }
   
     jwt.verify(token, JWT_SECRET, (err, user) => {
       if (err) return res.status(403).status({message:"Token is not valid!"})
       req.user = user;
-      next();
     });
+    next();
 };
 
 export const verifyUser = (req, res, next) => {

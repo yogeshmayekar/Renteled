@@ -7,7 +7,7 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import IsSponsered from '../isSponsered/IsSponsered';
 import { SearchBarContext } from "../../context/searchBarContext";
 
-const SearchItem = (props) => {
+const  SearchItem = (props) => {
   // const [reviewStatus, setReviewStatus]= useState("Excellent")
   const { destination, dates } = useContext(SearchBarContext);
   const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;

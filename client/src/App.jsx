@@ -17,6 +17,7 @@ import ContinueToBook, {handleContinueToBookLoader} from './Pages/Hotel/Continue
 // import PageNotFound from './components/pageNotFound/PageNotFound';
 import HotelNotFound from './components/pageNotFound/HotelNotFound';
 import Cookies from 'js-cookie';
+import LoginPrivacy from './Pages/LoginPrivacyPolicy/LoginPrivacy';
 
 const router = createBrowserRouter([
     {
@@ -49,6 +50,10 @@ const router = createBrowserRouter([
     {
     path : "/user/Sign_Up",
     element: <Register/>
+    },
+    {
+    path : "/register_privacy",
+    element: <LoginPrivacy/>
     },
     {
     path : "/user/Sign_in",

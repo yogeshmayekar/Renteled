@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Sidebar from '@/components/Sidebar';
 import Card from '@/components/Card';
@@ -12,11 +12,15 @@ import Piechart from '@/components/Piechart';
 import { Progress } from "@/ui/progress";
 import Reservation from '@/components/Reservation';
 import Footer from '@/components/Footer';
-
+import { Navigate } from 'react-router-dom';
+import { AuthContext } from '@/context/authContext';
 
 function Home() {
-  const [progress, setProgress] = React.useState(13)
+  const [progress, setProgress] = React.useState(13);
+  const { user } = useContext(AuthContext);
+  
   return (
+    user ? 
     <>
     <Navbar/>
     <Sidebar/>
@@ -128,7 +132,8 @@ function Home() {
     <Footer/>
     </div>
     </main>
-    </>
+    </> :
+    <Navigate to="/login" />
   )
 }
 

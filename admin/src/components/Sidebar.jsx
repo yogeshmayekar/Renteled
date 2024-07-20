@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import GridViewIcon from '@mui/icons-material/GridView';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import GroupIcon from '@mui/icons-material/Group';
@@ -10,15 +10,27 @@ import ReviewsIcon from '@mui/icons-material/Reviews';
 import MessageIcon from '@mui/icons-material/Message';
 import { NavLink, useNavigate } from "react-router-dom";
 import LogoNav from './LogoNav';
+import axios from 'axios';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "../ui/accordion"
+import { AuthContext } from '@/context/authContext';
 
 function Sidebar() {
   const navigate = useNavigate();
+  const {dispatch} = useContext(AuthContext);
+
+  const handleLogout =async()=>{
+    const response = await axios.post('/api/auth/logout');
+    // console.log(response.status)
+    if(response.status===200){
+      dispatch({type:'LOG_OUT'});
+    } 
+  }
+
   return (
     <div className='px-1 w-[20%] z-40 pt-16 fixed h-screen bg-dark-blue'>
       <LogoNav/>
@@ -51,7 +63,7 @@ function Sidebar() {
           <p className='text-light-grey'>OTHERS</p>
           <ul className='text-light-white-font cursor-pointer'>
           <NavLink to='/account_details' caseSensitive className={({isActive})=>isActive ? 'bg-light-hover-grey flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded': 'flex gap-2 my-1 items-center hover:bg-light-hover-grey  px-3 py-1 rounded'}  ><SettingsIcon/><p className='text-[20px] pb-0.5 font-800'>Settings</p></NavLink>
-          <li className='flex gap-2 my-1 items-center active:bg-light-hover-grey  hover:bg-light-hover-grey px-3 py-1 rounded'><LogoutIcon/><p className='text-[20px] pb-0.5 font-800'>Logout</p></li>
+          <li onClick={handleLogout} className='flex gap-2 my-1 items-center active:bg-light-hover-grey  hover:bg-light-hover-grey px-3 py-1 rounded'><LogoutIcon/><p className='text-[20px] pb-0.5 font-800'>Logout</p></li>
           </ul>
         </div>
     </div>

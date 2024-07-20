@@ -1,0 +1,19 @@
+.register_container {
+    max-width: 800px;
+    margin: 50px auto;
+    margin-top: 70px;
+    padding: 20px;
+    background-color: #fff;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 5px;
+}
+.register_h1 {
+    text-align: center;
+}
+.register_content {
+    margin: 20px 0;
+}
+.register_content p {
+    line-height: 1.6;
+}

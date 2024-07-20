@@ -8,7 +8,9 @@ function Property() {
     <Sidebar/>
     <div className='w-full'>
     <Navbar/>
-    <div>Property Page</div>
+    <div>
+      
+    </div>
     </div>
     </>
     

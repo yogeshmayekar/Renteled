@@ -20,7 +20,7 @@ export const register = async(req, res, next)=>{
             email:Joi.string().email().required(),
             password:Joi.string().min(6).pattern(new RegExp('^[a-zA-Z0-9!@#$%^&*()_+{}|:"<>?`~\\-=[\\];\',./]{3,30}$')).required(),
             repeat_password:Joi.string().valid(Joi.ref('password')).required(),
-            isAdmin:Joi.boolean()
+            acceptPrivacy:Joi.boolean()
         })
 
         // console.log(req.body);
@@ -54,7 +54,7 @@ export const register = async(req, res, next)=>{
             username:fullName,
             email:req.body.email,
             password:hashedPassword,
-            isAdmin:req.body.isAdmin,
+            acceptPrivacy:req.body.acceptPrivacy,
         })
         
         await newUser.save()
@@ -103,7 +103,6 @@ export const adminRegister = async(req, res, next)=>{
         if (!passwordRegex.test(req.body.password)) {
             return res.status(400).json(CustomErrorHandler.unableToCreateUser( 'Invalid password format' ));
         }
-        _
         if (!phoneRegex.test(req.body.phone)) {
             return res.status(400).json(CustomErrorHandler.unableToCreateUser('Invalid phone number format' ));
         }
@@ -121,7 +120,7 @@ export const adminRegister = async(req, res, next)=>{
                 return res.status(400).json(CustomErrorHandler.alreadyExist("Phone Number is already Exist"));
             }
         }catch(err){
-            next()
+            console.log(err)
         }
 
         //1.3 Hashing password
@@ -144,7 +143,7 @@ export const adminRegister = async(req, res, next)=>{
         if(DEBUG_MODE){
             console.log(err);
         }
-        console.log(err);
+        // console.log(err);
         return res.status(400).json(CustomErrorHandler.unableToCreateUser("try after some time."))
     }
 }
@@ -268,7 +267,7 @@ export const adminLogin = async(req, res, next)=>{
 
 //logout 
 export const logout = (req, res, next)=>{
-    res.clearCookie('jwtToken', {path:'/'});
+    res.clearCookie('access_token', {path:'/'});
     return res.status(200).json({ message: 'Logout successful'});
 }
 

@@ -32,9 +32,9 @@ const Booking=()=>{
             <div className='first_content'>
                 <div className='herfa'>
                     <h3>Booking Id</h3>
-                    <p>{bookingData.bookingId}</p>
+                    <p>{bookingData?.bookingId}</p>
                 </div>
-                {bookingData.createdAt &&<p>Booked by {bookingData?.bookedByName} on {bookingData.createdAt.slice(0, 10)}</p>}
+                {bookingData.createdAt &&<p>Booked by {bookingData?.bookedByName} on {bookingData?.createdAt.slice(0, 10)}</p>}
             </div>
             <div className='booking_hotels'>
             <div className='hotel_list_booking2'>

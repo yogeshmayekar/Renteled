@@ -38,7 +38,7 @@ const Register = () =>{
       email : undefined,
       password : "",
       repeat_password:undefined,
-      isAdmin:false,
+      acceptPrivacy:false,
     });
     const navigate = useNavigate();
 
@@ -49,7 +49,7 @@ const Register = () =>{
 
     const handleCheckedChange = (e)=>{
       setUserData((prev) => ({...prev,
-        isAdmin:e.target.checked,
+        acceptPrivacy:e.target.checked,
       }));
     }
 
@@ -183,8 +183,10 @@ const Register = () =>{
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" onChange={handleCheckedChange} />}
-                  label="Sign up as Admin"
+                  label=""
+                  sx={{marginRight:'0'}}
                 />
+                <Link to="/register_privacy"  variant="body2">I Agree to Privacy Policy</Link>
               </Grid>
             </Grid>
             <Button

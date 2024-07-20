@@ -12,6 +12,7 @@ import { SearchBarContext } from "../../context/searchBarContext.jsx";
 import { IoLocationOutline } from "react-icons/io5";
 import BasicPagination from '../../components/pagination/BasicPagination.jsx';
 import indianCities from '../../cities.json';
+import notFoundImg from '../../Assets/hotel-not-found.jpg';
 
 const List=()=>{
     const navigate =useNavigate();
@@ -190,7 +191,7 @@ const List=()=>{
       sortFunc = (a,b)=>b.cheapestPrice - a.cheapestPrice
     }
 
-    console.log(selectHotelType)
+    // console.log(selectHotelType)
     return(
         <>
           <div>
@@ -318,7 +319,7 @@ const List=()=>{
                         <button onClick={handleSearch}>Search</button>
                     </div>
                     <div className='hotels_search_container'>
-                    <div className="listResult">
+                    {data.length>0 && <div className="listResult">
                         {loading ? "Loading Hotels" :
                         <>
                          {data.slice(startIndex, endIndex).sort(sortFunc).filter((data=>data.type === selectHotelType)).map((item,i)=>(
@@ -326,7 +327,11 @@ const List=()=>{
                             <SearchItem item={item} key={item._id} dateData={dates2}/>
                          ))}
                         </>}
-                    </div>
+                    </div>}
+                    {data.length<1 && <div className='property_notFound'>
+                      <img src={notFoundImg} className='image_hotelNotFound' alt="" />
+                      <p>Sorry! No property found at this location. Try searching for another property or changing the location to find more options.</p>
+                    </div>}
                     <div className='pagination__container'>
                     {data.length>itemsPerPage &&<BasicPagination data={data} itemsPerPage={itemsPerPage} currentPage={currentPage} setCurrentPage={setCurrentPage} />}
                     </div>

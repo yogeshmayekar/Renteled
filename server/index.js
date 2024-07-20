@@ -7,7 +7,7 @@ import authRoute from './src/routes/auth.js';
 import userRoute from './src/routes/users.js';
 import hotelsRoute from './src/routes/hotels.js';
 import cookieParser from "cookie-parser";
-import roomsRoute from './src/routes/rooms.js';
+// import roomsRoute from './src/routes/rooms.js';
 import emailRoute from './src/routes/email.js';
 import bookings from './src/routes/bookings.js';
 import review from './src/routes/review.js';
@@ -39,7 +39,7 @@ app.use(cors())
 app.use("/api/auth", authRoute); //authentication api middleware 
 app.use("/api/users", userRoute); //users api middleware   
 app.use("/api/hotels", hotelsRoute); //hotels api middleware 
-app.use("/api/rooms", roomsRoute); //rooms api middleware 
+// app.use("/api/rooms", roomsRoute); //rooms api middleware 
 app.use("/api/email", emailRoute); //email api
 app.use("/api/booking", bookings); //booking api
 app.use("/api/review", review); //review api

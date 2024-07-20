@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {useState, useContext, useEffect, useRef } from 'react';
-import { faBed, faCalendarDays, faCar, faPerson, faPlane, faTaxi } from '@fortawesome/free-solid-svg-icons';
+import { faBed, faCalendarDays, faPerson, faPlane, faTaxi, faTrain } from '@fortawesome/free-solid-svg-icons';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main css file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -179,8 +179,8 @@ function Header(){
                 <span>Flights</span>
                 </div>
                 <div className="headerListItem">
-                <FontAwesomeIcon icon={faCar} />
-                <span>Stays</span>
+                <FontAwesomeIcon icon={faTrain} />
+                <span>Trains</span>
                 </div>
                 <div className="headerListItem">
                 <FontAwesomeIcon icon={faBed} />
