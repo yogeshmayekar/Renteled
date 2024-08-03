@@ -47,7 +47,7 @@ const List=()=>{
     // console.log("checkout date is", checkout)
 
     const { data, loading, reFetch } = useFetch(
-        `/hotels?search=${destination}&min=${min || 0 }&max=${max || 999}`
+        `/hotels?search=${destination}&min=${min || 99999 }&max=${max || 0}`
     );
     // console.log(data)
 
@@ -172,7 +172,7 @@ const List=()=>{
         localStorage.setItem('userDates', JSON.stringify(dates2));
         localStorage.setItem('userOptions', JSON.stringify(options2));
         reFetch()
-        navigate(`/hotels/${destination2}/${dates2[0].startDate}/${dates2[0].endDate}`);
+        // navigate(`/hotels/${destination2}/${dates2[0].startDate}/${dates2[0].endDate}`);
     }
 
     useEffect(()=>{

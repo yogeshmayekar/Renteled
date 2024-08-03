@@ -49,7 +49,7 @@ export const getHotel = async(req, res, next)=>{
 // logic of the get all hotels 
 export const getAllHotels = async (req, res, next) => {
   const search = req.query.search;
-  console.log(typeof search);
+  // console.log(typeof search);
 
   try {
     const hotels = await Hotel.find();

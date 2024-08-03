@@ -21,20 +21,19 @@ function Hotel(){
     const earlyLoaderData = useLoaderData();
     const params = useParams();
     const { location, checkin, checkout, id } = params;
-    const hotelID = id.slice(22, 46);
 
     // console.log(earlyLoaderData.amenities)
     // const hotelID = id.slice(22, 46)
     // console.log("hotel id is",hotelID)
     useEffect(()=>{
         const getReview=async()=>{
-            const res =await axios.get(`/review/find/${hotelID}`)
+            const res =await axios.get(`/review/find/${id}`)
             if(res.status===200){
                 setReviewData(res.data);
             }
         }
         getReview();
-    },[hotelID])
+    },[id])
     
     
     return(
@@ -50,7 +49,7 @@ function Hotel(){
         earlyLoaderData={earlyLoaderData} 
         checkIn={checkin} checkOut={checkout} 
         destination={location} 
-        hotelID={hotelID} 
+        hotelID={id} 
         hotelName={earlyLoaderData?.name}
         />
         </div>
@@ -68,8 +67,7 @@ export default Hotel;
 export const handleEarlyHotelLoader = async({ params }) =>{
     // console.log(params.id);
     const id = params.id;
-    const hotelID = id.slice(22, 46);
-    const res = await axios.get(`/hotels/find/${hotelID}`);
+    const res = await axios.get(`/hotels/find/${id}`);
     // console.log(res.status)
     if(res.status === !200){
         throw new Response('Not Found', {status: 404})

@@ -10,8 +10,8 @@ import { SearchBarContext } from "../../context/searchBarContext";
 const  SearchItem = (props) => {
   // const [reviewStatus, setReviewStatus]= useState("Excellent")
   const { destination, dates } = useContext(SearchBarContext);
-  const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
-  const randomNumberTwo = Math.floor(Math.random() * 9000) + 1000;
+  console.log(destination)
+
 
   const reviewStatus =()=>{
     if(props.item.rating<2){
@@ -59,7 +59,7 @@ const  SearchItem = (props) => {
         <div className="siDetailTexts">
           {/* <span className="siPrice">{props.item.cheapestPrice}</span> */}
           <PriceWrapper smallvarient={true} data ={props.item} />
-          <Link to={`/hotels/6yjiqv${randomNumberOne}76yu3457sf${props.item._id}gctjl${randomNumberTwo}yh70j${props.item.name}/${destination}/${dates[0].startDate}/${dates[0].endDate}`} target="_blank" >
+          <Link to={`/hotels/${props.item._id}/${destination || "someware"}/${dates[0].startDate}/${dates[0].endDate}`} target="_blank" >
             <button className="siCheckButton">Check availibility</button>
           </Link>
         </div>
