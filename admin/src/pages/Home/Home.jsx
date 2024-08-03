@@ -28,7 +28,7 @@ function Home() {
     <div className='pt-20 w-[80%] absolute right-0 h-max bg-[#f5f6fa] '>
       <div className='flex justify-between mx-[25px] my-[15px]'>
     <h1 className='text-3xl  font-medium'>Dashboard Overview</h1>
-    <Button className='rounded-full bg-[#e6ecf2]' variant="outline" >Add New Room</Button>
+    <Button className='rounded-full bg-[#e6ecf2]' variant="outline" >Add New Property</Button>
       </div>
 
       <div className='flex w-[95%] mx-auto my-[30px] gap-[10px]'>

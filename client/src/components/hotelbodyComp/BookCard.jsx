@@ -22,7 +22,7 @@ const BookCard = ({
   hotelName
 })=>{
    
-    // console.log(earlyLoaderData._id, "hear");
+    // console.log(earlyLoaderData.rooms, "hear");
     const randomNumberOne = Math.floor(Math.random() * 900000) + 100000;
     const randomNumberTwo = Math.floor(Math.random() * 9000) + 1000;
     const { options, dates,  dispatch44} = useContext(SearchBarContext);
@@ -63,6 +63,17 @@ const BookCard = ({
       }
       detDesableHandle()
     },[disableContinue, loginContext])
+
+    const getLowestPriceDetails = (rooms) => {
+      if (rooms.length === 0) return { roomType: null, actualPrice: null }; // Handle empty array
+      
+      // Find the room with the lowest actualPrice
+      const lowestPriceRoom = rooms.reduce((minRoom, currentRoom) => {
+        return currentRoom.cheapestPrice < minRoom.cheapestPrice ? currentRoom : minRoom;
+      });
+    
+      return lowestPriceRoom
+  };
 
     // useEffect(()=>{
     //   dispatch44({type:"NEW_UPDATE_SEARCH", payload:{destination2, dates2, options2}})
@@ -175,11 +186,11 @@ const BookCard = ({
     },[dates2, options2])
 
 
-
+    // console.log(getLowestPriceDetails(earlyLoaderData.rooms))
     // calculate the total price of the room
     useEffect(()=>{
-      const markedPrice = Number(earlyLoaderData.actualPrice);
-      const discontedPrice = Number(earlyLoaderData.cheapestPrice);
+      const markedPrice = Number(getLowestPriceDetails(earlyLoaderData.rooms).actualPrice);
+      const discontedPrice = Number(getLowestPriceDetails(earlyLoaderData.rooms).cheapestPrice);
       const percentageDiff = ((markedPrice - discontedPrice) / markedPrice) * 100;
        //to calculate the GST
     const taxAmountCalculator = (discontedPrice)=>{
@@ -206,23 +217,23 @@ const BookCard = ({
       setTotalNumberOfRooms(numberOfRooms);
       setStayNights(differenceInDays);
       setDiscountPercentage(Number(percentageDiff.toFixed(0)))
-    },[stayNights,dates2, options2, earlyLoaderData.actualPrice, earlyLoaderData.cheapestPrice])
+    },[stayNights,dates2, options2, getLowestPriceDetails(earlyLoaderData.rooms).actualPrice, getLowestPriceDetails(earlyLoaderData.rooms).cheapestPrice])
 
 
     const taxFeesIncludingDays = discountedPrice * totalNumberOfRooms * stayNights;
     const taxFeesExcludingDays = discountedPrice * totalNumberOfRooms;
 
-    const markUpPriceIncludingDays = totalNumberOfRooms * earlyLoaderData.actualPrice * stayNights;
-    const markUpPriceExcludingDays = totalNumberOfRooms * earlyLoaderData.actualPrice;
+    const markUpPriceIncludingDays = totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).actualPrice * stayNights;
+    const markUpPriceExcludingDays = totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).actualPrice;
 
-    const cheapestPriceIncludingDays = totalNumberOfRooms * earlyLoaderData.cheapestPrice * stayNights;
-    const cheapestPriceExcludingDays = totalNumberOfRooms * earlyLoaderData.cheapestPrice ;
+    const cheapestPriceIncludingDays = totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).cheapestPrice * stayNights;
+    const cheapestPriceExcludingDays = totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).cheapestPrice ;
 
     const yourSavingPrice=(markUpPriceIncludingDays=3, cheapestPriceIncludingDays=2)=>{
       if(markUpPriceIncludingDays>1 && cheapestPriceIncludingDays >1){
         return markUpPriceIncludingDays - cheapestPriceIncludingDays
       }else{
-        return totalNumberOfRooms * earlyLoaderData.actualPrice - totalNumberOfRooms * earlyLoaderData.cheapestPrice;
+        return totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).actualPrice - totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).cheapestPrice;
       }
     }
 
@@ -238,7 +249,7 @@ const BookCard = ({
     const taxIs = taxFeesIncludingDays <1 ? taxFeesExcludingDays : taxFeesIncludingDays
 
     const handleContinueToBook =()=>{
-      console.log(hotelID,"inside func")
+      // console.log(hotelID,"inside func")
       const hotelInfo = {
         roomPrice:finalMarkup,
         yourSaving: totalSaving,
@@ -261,8 +272,12 @@ const BookCard = ({
       dispatch55({type:'BOOKING_STAGE_ONE', payload:hotelInfo })
       }
     }
-    
-    // console.log(dates)
+
+    const [selectedRoomType, setSelectedRoomType] = useState(getLowestPriceDetails(earlyLoaderData.rooms).roomType);
+    const handleRoomTypeChange = (event) => {
+      setSelectedRoomType(event.target.value);
+    };
+
     return(
         <>
             <div className='bookCardContainer'>
@@ -319,8 +334,20 @@ const BookCard = ({
                                 </div> 
                                 </div>}
                         </div>
-                        <div className='classic' style={{display:'flex', justifyContent:'space-between'}}>
-                          <span style={{display:'flex', alignItems:'center'}}><DoorFrontOutlinedIcon/>Classic</span>
+                        <div className='classic' style={{display:'flex',gap:'20px', justifyContent:'space-between'}}>
+                        {/* {getLowestPriceDetails(earlyLoaderData.rooms).roomType} */}
+                          <span style={{display:'flex', alignItems:'center'}} className='room_type'><DoorFrontOutlinedIcon/>
+                          <select 
+                           className='room_type'
+                           value={selectedRoomType}
+                           onChange={handleRoomTypeChange}
+                          >
+                            {/* {<option value="">single</option>} */}
+                            {earlyLoaderData.rooms.map((item,i)=>{
+                              return (<option value={`${item?.roomType}`}>{item?.roomType}</option>)
+                            })}
+                          </select>
+                          </span>
                           <span> {stayNights<1 ? 1 : stayNights} {stayNights>1 ? "Night Stays" : "Night Stay"} </span>
                         </div>
                     </div>
@@ -329,7 +356,7 @@ const BookCard = ({
 
                     <div className='hotelsFees'>
                         <span>Room Price</span>
-                        {totalNumberOfRooms * earlyLoaderData.actualPrice * stayNights<1 ? <span>₹{totalNumberOfRooms * earlyLoaderData.actualPrice}</span> : <span>₹{totalNumberOfRooms * earlyLoaderData.actualPrice * stayNights}</span>}
+                        {totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).actualPrice * stayNights<1 ? <span>₹{totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).actualPrice}</span> : <span>₹{totalNumberOfRooms * getLowestPriceDetails(earlyLoaderData.rooms).actualPrice * stayNights}</span>}
                     </div>
                                         
                     <div className='taxesAndFees'>

@@ -7,7 +7,7 @@ import { addNewRoom, removeRoom, updateRoom, getRoom, getRooms } from '../contro
 
 // 1.1 Functional Api 
 //create hotel api
-router.post("/", verifyAdmin, validateHotel, createHotel);
+router.post("/",verifyAdmin, validateHotel, createHotel);
 
 //Update hotels api
 router.put("/:id",verifyAdmin, updateHotel);

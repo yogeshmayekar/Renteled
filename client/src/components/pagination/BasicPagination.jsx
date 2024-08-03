@@ -13,7 +13,7 @@ const BasicPagination =({data, itemsPerPage, currentPage, setCurrentPage})=> {
 
   const pageNumbers = Array.from({ length: totalPages }, (_, index) => index + 1);
   
-console.log("current page",currentPage);
+// console.log("current page",currentPage);
     return (
       
       <div className='pagination__container'>

@@ -23,6 +23,13 @@
     font-size: 14px;
 }
 
+.room_type>option, .room_type{
+    color:#726b6b;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+}
+
 .classic{
     display: flex;
     justify-content: center;
@@ -161,4 +168,12 @@
     margin:5px 0;
     font-size: 14px;
     color:#7c7373 ;
+}
+
+.room_type{
+    display: flex;
+    padding: 2px 2px;
+    outline: none;
+    margin-left: 5px;
+    border:none;
 }

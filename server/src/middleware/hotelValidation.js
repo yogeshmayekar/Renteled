@@ -16,7 +16,7 @@ const amenitiesSchema = Joi.object({
 });
 
 const roomInventorySchema = Joi.object({
-    roomType: Joi.string().valid('Single', 'Double', 'Suite').required(),
+    roomType: Joi.string().valid('Single', 'Double','Delux','Super Delux', 'Suite').required(),
     actualPrice: Joi.number().min(0).required(),
     cheapestPrice: Joi.number().min(0).required(),
     totalRooms: Joi.number().min(1).required(),

@@ -186,9 +186,9 @@ const List=()=>{
 
     var sortFunc;
     if(selectPriceValue==='lowToHigh'){
-      sortFunc = (a,b)=>a.cheapestPrice - b.cheapestPrice
+      sortFunc = (a,b)=>a.cheapestPrice - b.rooms.cheapestPrice
     }else if(selectPriceValue==='highToLow'){
-      sortFunc = (a,b)=>b.cheapestPrice - a.cheapestPrice
+      sortFunc = (a,b)=>b.rooms.cheapestPrice - a.rooms.cheapestPrice
     }
 
     // console.log(selectHotelType)
@@ -322,9 +322,8 @@ const List=()=>{
                     {data.length>0 && <div className="listResult">
                         {loading ? "Loading Hotels" :
                         <>
-                         {data.slice(startIndex, endIndex).sort(sortFunc).filter((data=>data.type === selectHotelType)).map((item,i)=>(
-                          
-                            <SearchItem item={item} key={item._id} dateData={dates2}/>
+                         {data.slice(startIndex, endIndex).map((item,i)=>(
+                            <SearchItem item={item}  key={item._id} dateData={dates2}/>
                          ))}
                         </>}
                     </div>}

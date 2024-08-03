@@ -47,21 +47,45 @@ export const getHotel = async(req, res, next)=>{
 }
 
 // logic of the get all hotels 
-export const getAllHotels = async(req, res, next)=>{
-   const search = req.query.search;
-  //  console.log(search)
-    try{
-        const hotels = await Hotel.find()
-        const filteredHotels = hotels.filter(hotel => hotel.city === search);
-        const remainingHotels = hotels.filter(hotel => hotel.city !== search);
+export const getAllHotels = async (req, res, next) => {
+  const search = req.query.search;
+  console.log(typeof search);
 
-        const combinedHotels = [...filteredHotels, ...remainingHotels];
-        
-        res.status(200).json(combinedHotels);
-    }catch(err){
-        return next(CustomErrorHandler.unableToFetchHotel("Unable to fetch hotels, please try after some time."))
-    }
-}
+  try {
+    const hotels = await Hotel.find();
+
+    const searchParts = search.toLowerCase().split(',').map(part => part.trim());
+
+    const filteredHotels = hotels.filter((hotel) => {
+      const hotelNameLower = hotel.name.toLowerCase();
+      const hotelCityLower = hotel.city.toLowerCase();
+
+     
+      return searchParts.some(part => 
+        hotelNameLower.includes(part) || hotelCityLower.includes(part)
+      );
+    });
+
+    const remainingHotels = hotels.filter((hotel) => {
+      const hotelNameLower = hotel.name.toLowerCase();
+      const hotelCityLower = hotel.city.toLowerCase();
+
+    
+      return !searchParts.some(part => 
+        hotelNameLower.includes(part) || hotelCityLower.includes(part)
+      );
+    });
+
+    const combinedHotels = [...filteredHotels, ...remainingHotels];
+
+    res.status(200).json(combinedHotels);
+  } catch (err) {
+    return next(
+      CustomErrorHandler.unableToFetchHotel("Unable to fetch hotels, please try after some time.")
+    );
+  }
+};
+
 
 // count by city 
 export const countByCity = async (req, res, next) => {

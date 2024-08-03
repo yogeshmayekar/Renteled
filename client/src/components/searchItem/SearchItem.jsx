@@ -23,7 +23,7 @@ const  SearchItem = (props) => {
     }
   }
 
-// console.log("dateinsearchitem",props.dateData)
+// console.log("dateinsearchitem",props.item.rooms)
 
   return (
     <div className="searchItem" >
@@ -58,7 +58,7 @@ const  SearchItem = (props) => {
         </div>}
         <div className="siDetailTexts">
           {/* <span className="siPrice">{props.item.cheapestPrice}</span> */}
-          <PriceWrapper smallvarient={true} data ={props} />
+          <PriceWrapper smallvarient={true} data ={props.item} />
           <Link to={`/hotels/6yjiqv${randomNumberOne}76yu3457sf${props.item._id}gctjl${randomNumberTwo}yh70j${props.item.name}/${destination}/${dates[0].startDate}/${dates[0].endDate}`} target="_blank" >
             <button className="siCheckButton">Check availibility</button>
           </Link>
